@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Jasper Li, CS student at the University of Toronto. Portfolio featuring Turnpoint, a League of Legends match analyzer.">
 <title>Jasper Li</title>
@@ -9,31 +10,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: one compact card-width column; header, one project, skills, contact. */
+/* All-black, single theme. Layout: one compact card-width column; header, one project, skills, contact. */
 :root {
-  --bg: #f3f5f8;
-  --surface: #ffffff;
-  --ink: #142030;
-  --muted: #5a6778;
-  --line: #d9dfe7;
-  --gold: #9a6b12;
-  --gold-soft: #f3e6c8;
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --ink: #f2f2f2;
+  --muted: #8c8c8c;
+  --line: #1f1f1f;
+  --gold: #ffffff;
+  --gold-soft: #111111;
   --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0d141e; --surface: #141d2a; --ink: #e6ebf2; --muted: #93a0b2; --line: #263244;
-    --gold: #d9a845; --gold-soft: #2e2614; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0d141e; --surface: #141d2a; --ink: #e6ebf2; --muted: #93a0b2; --line: #263244;
-  --gold: #d9a845; --gold-soft: #2e2614; color-scheme: dark;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { color-scheme: light; }
+html { color-scheme: dark; }
 body { margin: 0; }
 img { max-width: 100%; }
 body { background: var(--bg); color: var(--ink); font: 400 .95rem/1.55 var(--body); }
@@ -54,7 +46,7 @@ header p.bio { color: var(--muted); max-width: 60ch; }
 .label { font: 600 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
 
 .project { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-decoration: none; transition: border-color .15s; }
-.project:hover { border-color: var(--gold); color: inherit; }
+.project:hover { border-color: #555; color: inherit; }
 .project img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
 .project .body { padding: 14px 16px 16px; display: grid; gap: 8px; }
 .project .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -71,8 +63,8 @@ h2 { font-size: 1.15rem; font-weight: 700; }
 
 .contact { display: flex; flex-wrap: wrap; gap: 8px; }
 .contact a, .contact span { font: 500 .85rem/1 var(--body); padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); text-decoration: none; }
-.contact a:hover { border-color: var(--gold); }
-.todo { border-style: dashed !important; border-color: var(--gold) !important; background: var(--gold-soft) !important; color: var(--muted); }
+.contact a:hover { border-color: #555; }
+.todo { border-style: dashed !important; border-color: #444 !important; background: var(--gold-soft) !important; color: var(--muted); }
 </style>
 </head>
 <body>
