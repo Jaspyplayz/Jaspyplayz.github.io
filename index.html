@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Jasper Li, CS student at the University of Toronto. Portfolio featuring Turnpoint, a League of Legends match analyzer.">
+<title>Jasper Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one compact card-width column; header, one project, skills, contact. */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --ink: #142030;
+  --muted: #5a6778;
+  --line: #d9dfe7;
+  --gold: #9a6b12;
+  --gold-soft: #f3e6c8;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d141e; --surface: #141d2a; --ink: #e6ebf2; --muted: #93a0b2; --line: #263244;
+    --gold: #d9a845; --gold-soft: #2e2614; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d141e; --surface: #141d2a; --ink: #e6ebf2; --muted: #93a0b2; --line: #263244;
+  --gold: #d9a845; --gold-soft: #2e2614; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+body { background: var(--bg); color: var(--ink); font: 400 .95rem/1.55 var(--body); }
+a { color: inherit; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+p { margin: 0; }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
+
+main { max-width: 640px; margin: 0 auto; padding-block: 40px 32px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+
+header { display: grid; gap: 8px; }
+h1 { font-size: 2.4rem; font-weight: 800; font-stretch: 75%; line-height: 1; text-transform: uppercase; letter-spacing: .01em; }
+.sub { font: 400 .8rem/1.4 var(--mono); color: var(--muted); }
+.sub a { color: var(--gold); text-decoration: none; }
+header p.bio { color: var(--muted); max-width: 60ch; }
+
+.label { font: 600 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+.project { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-decoration: none; transition: border-color .15s; }
+.project:hover { border-color: var(--gold); color: inherit; }
+.project img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
+.project .body { padding: 14px 16px 16px; display: grid; gap: 8px; }
+.project .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h2 { font-size: 1.15rem; font-weight: 700; }
+.repo { font: 400 .75rem/1 var(--mono); color: var(--gold); }
+.project p { color: var(--muted); font-size: .9rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 400 .75rem/1.4 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.stats b { color: var(--ink); font-weight: 600; }
+.more { font-size: .82rem; color: var(--muted); }
+.more a { color: var(--ink); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.chips li { font: 400 .75rem/1 var(--mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+
+.contact { display: flex; flex-wrap: wrap; gap: 8px; }
+.contact a, .contact span { font: 500 .85rem/1 var(--body); padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); text-decoration: none; }
+.contact a:hover { border-color: var(--gold); }
+.todo { border-style: dashed !important; border-color: var(--gold) !important; background: var(--gold-soft) !important; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Jasper Li</h1>
+    <div class="sub">CS @ University of Toronto · <a href="https://github.com/Jaspyplayz" target="_blank" rel="noopener">github.com/Jaspyplayz</a></div>
+    <p class="bio">I build tools that turn raw game data into something a player can act on.</p>
+  </header>
+
+  <section>
+    <div class="label">Project</div>
+    <a class="project" href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">
+      <img src="img/hero.png" width="1400" height="506" alt="Turnpoint match page showing a team's win chance at every minute">
+      <div class="body">
+        <div class="row"><h2>Turnpoint</h2><span class="repo">Jaspyplayz/League-Web-App ↗</span></div>
+        <p>A League of Legends match analyzer. It compares you to the enemy in your role minute by minute and explains the turning points that decided the game, using win-chance and game-score models I wrote from scratch in TypeScript.</p>
+        <div class="stats"><span><b>80%</b> winner picked at 20:00</span><span><b>84%</b> from player stats alone</span><span><b>4,000+</b> training games</span></div>
+      </div>
+    </a>
+    <p class="more" style="margin-top:8px">Live at <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">league-web-app.vercel.app</a></p>
+  </section>
+
+  <section>
+    <div class="label">Skills</div>
+    <ul class="chips">
+      <li>TypeScript</li><li>Python</li><li>Next.js</li><li>React</li><li>Tailwind CSS</li><li>Postgres</li><li>Supabase</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="label">Contact</div>
+    <div class="contact">
+      <a href="https://github.com/Jaspyplayz" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="todo">LinkedIn</span>
+      <span class="todo">Email</span>
+    </div>
+  </section>
+</main>
+</body>
+</html>
