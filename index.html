@@ -60,6 +60,10 @@ h2 { font-size: 1.15rem; font-weight: 700; }
 .more a { color: var(--ink); }
 
 .about { display: grid; gap: 10px; max-width: 62ch; color: var(--muted); }
+.proud { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; align-items: start; }
+.proud .label { margin: 4px 0 0; }
+.proud ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 1.1rem; color: var(--ink); }
+@media (max-width: 480px) { .proud { grid-template-columns: 1fr; gap: 0; } }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .chips li { font: 400 .75rem/1 var(--mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
 
@@ -87,8 +91,15 @@ h2 { font-size: 1.15rem; font-weight: 700; }
     <div class="about">
       <p>I'm a computer science student at the University of Toronto. I like projects where the hard part is turning messy data into an answer someone can use, and most of mine start with games I play.</p>
       <p>Lately that's meant full-stack TypeScript, Postgres, and small machine learning models written from scratch. I'm looking for internships and teams where I can ship real things and learn from people who've done it longer.</p>
-      <p>Outside of class I'm usually gaming. I've hit Grandmaster in League of Legends and Eternity in Marvel Rivals, which is also why I care so much about understanding why a game was won or lost.</p>
     </div>
+  </section>
+
+  <section class="proud">
+    <div class="label">Proud of!</div>
+    <ul>
+      <li>Grandmaster in League of Legends</li>
+      <li>Eternity in Marvel Rivals</li>
+    </ul>
   </section>
 
   <section>
