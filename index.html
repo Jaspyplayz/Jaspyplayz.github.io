@@ -63,6 +63,7 @@ h2 { font-size: 1.15rem; font-weight: 700; }
 .proud { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; align-items: start; }
 .proud .label { margin: 4px 0 0; }
 .proud ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 1.1rem; color: var(--ink); }
+.proud .pct { margin-left: 8px; font: 400 .75rem/1 var(--mono); color: var(--muted); }
 @media (max-width: 480px) { .proud { grid-template-columns: 1fr; gap: 0; } }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .chips li { font: 400 .75rem/1 var(--mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
@@ -97,8 +98,8 @@ h2 { font-size: 1.15rem; font-weight: 700; }
   <section class="proud">
     <div class="label">Proud of!</div>
     <ul>
-      <li>Grandmaster in League of Legends</li>
-      <li>Eternity in Marvel Rivals</li>
+      <li>Grandmaster in League of Legends <span class="pct">top 0.07%</span></li>
+      <li>Eternity in Marvel Rivals <span class="pct">top 0.15%</span></li>
     </ul>
   </section>
 
