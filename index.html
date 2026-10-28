@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* All-black, one narrow column. Name, personal projects, ranks, skills. */
+/* All-black, one narrow column. Name, personal projects, skills, proud of. */
 :root {
   --bg: #000000;
   --surface: #0a0a0a;
@@ -71,8 +71,8 @@ h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
 .links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
 .links a { color: var(--ink); }
 
-.ranks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.ranks li { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px; }
+.proud { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.proud li { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px; }
 .pct { font: 400 .75rem/1.45 var(--mono); color: var(--muted); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
@@ -127,18 +127,18 @@ h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
     </div>
   </section>
 
-  <section aria-labelledby="ranks-label">
-    <h2 id="ranks-label" class="label">Ranks</h2>
-    <ul class="ranks">
-      <li>Peaked Grandmaster in League of Legends <span class="pct">Top 0.07% of players</span></li>
-      <li>Peaked Eternity in Marvel Rivals <span class="pct">Top 0.15% of players</span></li>
-    </ul>
-  </section>
-
   <section aria-labelledby="skills-label">
     <h2 id="skills-label" class="label">Skills</h2>
     <ul class="chips">
       <li>TypeScript</li><li>Python</li><li>Next.js</li><li>React</li><li>Tailwind CSS</li><li>Postgres</li><li>Supabase</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li><li>Luau</li><li>Rojo</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="proud-label">
+    <h2 id="proud-label" class="label">Proud of</h2>
+    <ul class="proud">
+      <li>Peaked Grandmaster in League of Legends <span class="pct">Top 0.07% of players</span></li>
+      <li>Peaked Eternity in Marvel Rivals <span class="pct">Top 0.15% of players</span></li>
     </ul>
   </section>
 </main>
