@@ -62,13 +62,13 @@ h2 { font-size: 1.15rem; font-weight: 700; }
 .work p { color: var(--muted); font-size: .9rem; }
 .meta, .links { font: 400 .75rem/1.4 var(--mono); color: var(--muted); }
 .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.links a { color: var(--ink); text-decoration: none; }
-.links a:hover { text-decoration: underline; }
+.links a { color: var(--ink); }
 
 .proud { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; align-items: start; }
 .proud .label { margin: 4px 0 0; }
 .proud ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 1.1rem; color: var(--ink); }
-.proud li { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.proud li { display: flex; align-items: flex-start; gap: 10px; }
+.proud li span { flex: 1; min-width: 0; }
 .info { position: relative; width: 22px; height: 22px; border-radius: 50%; border: 1px solid #333; background: var(--surface); color: var(--muted); font: 400 .72rem/1 var(--mono); cursor: help; padding: 0; display: inline-grid; place-items: center; }
 .info:hover, .info:focus-visible { color: var(--ink); border-color: #666; }
 .info::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; background: #1a1a1a; color: var(--ink); border: 1px solid #333; border-radius: 6px; padding: 6px 9px; font: 400 .75rem/1 var(--mono); opacity: 0; pointer-events: none; transition: opacity .12s; }
@@ -103,8 +103,8 @@ h2 { font-size: 1.15rem; font-weight: 700; }
   <section class="proud">
     <div class="label">Proud of!</div>
     <ul>
-      <li>Peaked Grandmaster in League of Legends <button class="info" type="button" aria-label="Top 0.07% of players" data-tip="Top 0.07% of players">i</button></li>
-      <li>Peaked Eternity in Marvel Rivals <button class="info" type="button" aria-label="Top 0.15% of players" data-tip="Top 0.15% of players">i</button></li>
+      <li><span>Peaked Grandmaster in League of Legends</span> <button class="info" type="button" aria-label="Top 0.07% of players" data-tip="Top 0.07% of players">i</button></li>
+      <li><span>Peaked Eternity in Marvel Rivals</span> <button class="info" type="button" aria-label="Top 0.15% of players" data-tip="Top 0.15% of players">i</button></li>
     </ul>
   </section>
 
