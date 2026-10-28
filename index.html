@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Jasper Li, CS student at the University of Toronto. Portfolio featuring Turnpoint, a League of Legends match analyzer.">
+<meta name="description" content="Jasper Li, second-year CS Specialist at the University of Toronto. Solo AI apps: Turnpoint, Petri, and X Arena.">
 <title>Jasper Li</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://jaspyplayz.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jaspyplayz.github.io/">
 <meta property="og:title" content="Jasper Li">
-<meta property="og:description" content="CS student at the University of Toronto. Builder of Turnpoint, a League of Legends match analyzer.">
+<meta property="og:description" content="Second-year CS Specialist at U of T. Solo shipped AI apps: Turnpoint, a League match analyzer; Petri, a self-evolving web app; and X Arena.">
 <meta property="og:image" content="https://jaspyplayz.github.io/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* All-black, single theme. Layout: one compact card-width column; header, one project, skills, contact. */
+/* All-black, single theme. Layout: one compact card-width column; header, projects, skills, contact. */
 :root {
   --bg: #000000;
   --surface: #0a0a0a;
@@ -56,13 +56,16 @@ header p.bio { color: var(--muted); max-width: 60ch; }
 
 .label { font: 600 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
 
-.project { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-decoration: none; transition: border-color .15s; }
-.project:hover { border-color: #555; color: inherit; }
+.projects { display: grid; gap: 14px; }
+.project { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-decoration: none; }
+.project:hover { border-color: #333; }
 .project img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
 .project .body { padding: 14px 16px 16px; display: grid; gap: 8px; }
 .project .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 h2 { font-size: 1.15rem; font-weight: 700; }
-.repo { font: 400 .75rem/1 var(--mono); color: var(--gold); }
+.repo { font: 400 .75rem/1 var(--mono); color: var(--gold); text-decoration: none; }
+a.repo:hover { text-decoration: underline; }
+.repo.quiet { color: var(--muted); }
 .project p { color: var(--muted); font-size: .9rem; }
 .stats { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 400 .75rem/1.4 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
 .stats b { color: var(--ink); font-weight: 600; }
@@ -94,8 +97,8 @@ h2 { font-size: 1.15rem; font-weight: 700; }
 <main>
   <header>
     <h1>Jasper Li</h1>
-    <div class="sub">CS @ University of Toronto · <a href="https://github.com/Jaspyplayz" target="_blank" rel="noopener">github.com/Jaspyplayz</a></div>
-    <p class="bio">I build tools that turn raw game data into something a player can act on.</p>
+    <div class="sub">CS Specialist · University of Toronto, St. George · Expected 2029</div>
+    <p class="bio">I build shipped AI products. The projects here are solo and personal, not affiliated with the university.</p>
     <div class="contact">
       <a href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
       <a href="https://www.linkedin.com/in/jasper-li-567560349/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
@@ -106,8 +109,8 @@ h2 { font-size: 1.15rem; font-weight: 700; }
   <section>
     <div class="label">About</div>
     <div class="about">
-      <p>I'm a computer science student at the University of Toronto. I like projects where the hard part is turning messy data into an answer someone can use, and most of mine start with games I play.</p>
-      <p>Lately that's meant full-stack TypeScript, Postgres, and small machine learning models written from scratch. I'm looking for internships and teams where I can ship real things and learn from people who've done it longer.</p>
+      <p>I'm a second-year Computer Science Specialist at the University of Toronto, St. George, expecting to graduate in 2029. I like projects where the hard part is turning a messy game, or someone's idea, into something that ships.</p>
+      <p>I'm looking for software engineering and AI engineering internships in Toronto and Canada.</p>
     </div>
   </section>
 
@@ -120,22 +123,41 @@ h2 { font-size: 1.15rem; font-weight: 700; }
   </section>
 
   <section>
-    <div class="label">Project</div>
-    <a class="project" href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">
-      <img src="img/hero.png" width="1400" height="506" alt="Turnpoint match page showing a team's win chance at every minute">
-      <div class="body">
-        <div class="row"><h2>Turnpoint</h2><span class="repo">Jaspyplayz/League-Web-App ↗</span></div>
-        <p>A League of Legends match analyzer. It compares you to the enemy in your role minute by minute and explains the turning points that decided the game, using win-chance and game-score models I wrote from scratch in TypeScript.</p>
-        <div class="stats"><span><b>80%</b> winner picked at 20:00</span><span><b>84%</b> from player stats alone</span><span><b>4,000+</b> training games</span></div>
-      </div>
-    </a>
-    <p class="more" style="margin-top:8px">Live at <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">league-web-app.vercel.app</a></p>
+    <div class="label">Projects</div>
+    <div class="projects">
+      <article class="project">
+        <img src="img/hero.png" width="1400" height="506" alt="Turnpoint match page showing a team's win chance at every minute">
+        <div class="body">
+          <div class="row"><h2>Turnpoint</h2><a class="repo" href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">Jaspyplayz/League-Web-App ↗</a></div>
+          <p>A League of Legends match analyzer. The win-probability model was trained on 18,178 ranked games and checked with grouped cross-validation. It ranks a player's top 3 plays by how much they moved that probability. A Claude tool-use agent answers questions about their games, and a public MCP server exposes the same analysis.</p>
+          <div class="stats"><span><b>18,178</b> ranked games</span><span>Claude tool-use agent</span><span>public MCP server</span></div>
+          <p class="more">Live at <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">league-web-app.vercel.app</a></p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="body">
+          <div class="row"><h2>Petri</h2><a class="repo" href="https://github.com/Jaspyplayz/petri" target="_blank" rel="noopener">Jaspyplayz/petri ↗</a></div>
+          <p>A self-evolving web app. Visitor feedback becomes pull requests from a sandboxed agent, browser-checked, then merged only as far as a 5-level trust ladder in code allows (currently level 1). A Sentry monitor can roll production back on Vercel and pause the agents.</p>
+          <div class="stats"><span><b>7</b> of ~110 PRs from the feedback loop</span><span><b>~5 min</b> fault-injection rollback</span></div>
+          <p class="more">Live at <a href="https://petri-pi.vercel.app" target="_blank" rel="noopener">petri-pi.vercel.app</a></p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="body">
+          <div class="row"><h2>X Arena</h2><span class="repo quiet">Private · unpublished</span></div>
+          <p>A multiplayer Roblox hero arena shooter. Server-authoritative combat uses per-body-part hitboxes and lag compensation. It's Luau, built with Rojo and GitHub Actions, and Studio playtests run through Roblox Studio MCP. There is no public game.</p>
+          <div class="stats"><span><b>16/16</b> aimed headshots in a 150ms Studio test</span><span>was ~3/17 before lag compensation</span></div>
+        </div>
+      </article>
+    </div>
   </section>
 
   <section>
     <div class="label">Skills</div>
     <ul class="chips">
-      <li>TypeScript</li><li>Python</li><li>Next.js</li><li>React</li><li>Tailwind CSS</li><li>Postgres</li><li>Supabase</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li>
+      <li>TypeScript</li><li>JavaScript</li><li>Python</li><li>Java</li><li>Luau</li><li>SQL</li><li>Next.js</li><li>React</li><li>Tailwind</li><li>Supabase</li><li>Vercel</li><li>GitHub Actions</li><li>Sentry</li><li>Vitest</li><li>Playwright</li><li>Claude API</li><li>MCP</li><li>Git</li>
     </ul>
   </section>
 
