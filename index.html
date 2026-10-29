@@ -63,6 +63,17 @@ h2.label { margin: 0 0 16px; font: 600 .68rem/1 var(--mono); letter-spacing: .14
 
 .work { border-top: 1px solid var(--line); }
 .work article { display: grid; gap: 8px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.shot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
 h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
 .work p { color: var(--muted); font-size: .9rem; }
 .meta, .links { font: 400 .75rem/1.45 var(--mono); color: var(--muted); }
@@ -102,6 +113,7 @@ h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
     <h2 id="projects-label" class="label">Personal projects</h2>
     <div class="work">
       <article>
+        <img class="shot" src="img/turnpoint.webp" width="1280" height="720" alt="Turnpoint homepage with a gold chart marking the minute a game turned">
         <h3>Turnpoint</h3>
         <p>League of Legends match analyzer with AI recaps.</p>
         <p class="meta">Next.js, TypeScript, Supabase</p>
@@ -111,6 +123,7 @@ h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
         </p>
       </article>
       <article>
+        <img class="shot" src="img/petri.webp" width="1280" height="720" alt="Petri page showing Blobby and changes made from visitor ideas">
         <h3>Petri</h3>
         <p>Self-evolving web app built by AI agents.</p>
         <p class="meta">Next.js, TypeScript</p>
@@ -137,7 +150,7 @@ h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
   <section aria-labelledby="proud-label">
     <h2 id="proud-label" class="label">Proud of</h2>
     <ul class="proud">
-      <li>Peaked Grandmaster in League of Legends <span class="pct">Top 0.07% of players</span></li>
+      <li>Peaked Grandmaster (GM) in League of Legends <span class="pct">Top 0.05 percentile North America (NA)</span></li>
       <li>Peaked Eternity in Marvel Rivals <span class="pct">Top 0.15% of players</span></li>
     </ul>
   </section>
