@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbeec8"/><stop offset=".4" stop-color="#c89b3c"/><stop offset="1" stop-color="#5a3e14"/></linearGradient>
+    <linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b4a1c"/><stop offset=".5" stop-color="#e2c27a"/><stop offset="1" stop-color="#6b4a1c"/></linearGradient>
+    <linearGradient id="c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdfaf4"/><stop offset=".45" stop-color="#0ac8b9"/><stop offset="1" stop-color="#04475a"/></linearGradient>
+    <radialGradient id="bg"><stop offset="0" stop-color="#0d2230"/><stop offset="1" stop-color="#03101a"/></radialGradient>
+  </defs>
+  <!-- dark medallion like the client's trophy slot -->
+  <circle cx="60" cy="62" r="54" fill="url(#bg)" stroke="#463714" stroke-width="2"/>
+  <circle cx="60" cy="62" r="48" fill="none" stroke="#785a28" stroke-opacity=".5" stroke-width="1"/>
+  <!-- abstract cup: two faceted wings rising into an open bowl, a crystal at the core -->
+  <path d="M60 30L28 46l10 22 22 10 22-10 10-22z" fill="url(#g)"/>
+  <path d="M60 30L28 46l32 6 32-6z" fill="#fff" fill-opacity=".22"/>
+  <path d="M38 68l22 10 22-10-22-8z" fill="#000" fill-opacity=".25"/>
+  <path d="M60 40l-12 14 12 16 12-16z" fill="url(#c)" stroke="#f0e6d2" stroke-opacity=".7" stroke-width="1"/>
+  <path d="M60 40l-12 14h24z" fill="#fff" fill-opacity=".3"/>
+  <!-- stem and stepped base -->
+  <path d="M55 78h10l-2 12h-6z" fill="url(#gl)"/>
+  <path d="M44 90h32l4 7H40z" fill="url(#g)"/>
+  <path d="M38 97h44v5H38z" fill="url(#gl)"/>
+  <!-- side flares -->
+  <path d="M28 46l-8-6 4 14 9 6zM92 46l8-6-4 14-9 6z" fill="url(#g)" fill-opacity=".85"/>
+</svg>

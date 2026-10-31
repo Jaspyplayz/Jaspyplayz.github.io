@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Portfolio Layout Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* PROTOTYPE v5 (throwaway). League client profile screen, built with real client assets from
+   Community Dragon / Data Dragon under Riot's Legal Jibber Jabber policy (non-commercial, disclaimer below). */
+:root {
+  --bg: #010a13; --panel: #0a1428; --line: #1e2328; --rule: #463714;
+  --gold-1: #f0e6d2; --gold-2: #c8aa6e; --gold-3: #c89b3c; --gold-4: #785a28; --gold-5: #463714;
+  --ink: #cdbe91; --text: #a09b8c; --mute: #5b5a56;
+  --blue: #0ac8b9; --blue-2: #0397ab; --online: #0acf83; --away: #e9b84a;
+  --display: "Cinzel", "Beaufort for LOL", Georgia, serif;
+  --body: "Mulish", "Spiegel", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: #000; color: var(--text); font: 400 13px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
+p, h1, h2, h3 { margin: 0; }
+h1, h2, h3 { font-weight: 700; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.wrap { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+.client { max-width: 1280px; margin: 0 auto; background: var(--bg); border: 1px solid var(--gold-5); display: grid; grid-template-columns: 1fr 236px; grid-template-rows: 78px minmax(640px, 1fr); }
+.client > * { min-width: 0; }
+
+/* ---------- top bar ---------- */
+.top { grid-column: 1; display: flex; align-items: center; gap: 26px; padding: 0 20px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, rgba(1,10,19,.6), rgba(1,10,19,.92)); position: relative; z-index: 3; }
+.playwrap { position: relative; display: block; flex: none; width: 196px; height: 50px; }
+.playwrap .ll { position: absolute; left: 0; top: 1px; width: 46px; height: auto; z-index: 3; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+.playwrap .pf { position: absolute; left: 30px; top: 5px; width: 162px; height: 40px; }
+.playwrap .pb { position: absolute; left: 50px; top: 0; width: 146px; height: 50px; background: url(img/play-btn.webp) 0 0 / 100% 100% no-repeat; display: grid; place-items: center; padding: 0 6px 0 4px; font: 700 14px/1 var(--display); letter-spacing: .08em; color: var(--gold-1); }
+.playwrap:hover .pb { background-image: url(img/play-btn-hover.webp); }
+.tabs { display: flex; gap: 18px; }
+.tabs a { font: 700 14px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: color .15s; }
+.tabs a:hover, .tabs a.on { color: var(--gold-1); }
+.navic { margin-left: auto; display: flex; align-items: center; }
+.navic .nb { width: 46px; height: 40px; display: grid; place-items: center; border-left: 1px solid var(--line); opacity: .8; transition: opacity .15s; }
+.navic .nb:first-child { border-left: 0; }
+.navic img { width: 24px; height: 24px; }
+.wallet { display: grid; gap: 4px; padding-left: 18px; border-left: 1px solid var(--line); font: 700 12px/1 var(--body); color: var(--gold-1); }
+.wallet span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wallet i { font-style: normal; color: var(--gold-2); font-size: 10px; letter-spacing: .1em; }
+
+/* ---------- social ---------- */
+.social { grid-column: 2; grid-row: 1 / 3; border-left: 1px solid var(--gold-5); background: var(--bg); display: flex; flex-direction: column; position: relative; z-index: 3; }
+.me { height: 78px; display: flex; gap: 12px; align-items: center; padding: 0 14px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, #091521, var(--bg)); }
+.me .ic { width: 50px; height: 50px; border-radius: 50%; padding: 2px; flex: none; background: linear-gradient(180deg, var(--gold-2), var(--gold-4)); position: relative; }
+.me .ic svg { width: 100%; height: 100%; display: block; border-radius: 50%; }
+.me .ic i { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font: 700 9px/1 var(--body); font-style: normal; color: var(--gold-1); background: var(--bg); border: 1px solid var(--gold-4); border-radius: 7px; padding: 2px 5px; white-space: nowrap; }
+.me b { display: block; color: var(--gold-1); font-size: 14px; font-weight: 700; }
+.me small { color: var(--online); font-size: 12px; }
+.me small::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--online); margin-right: 5px; vertical-align: 1px; }
+.soc-h { padding: 14px 14px 8px; font: 700 11px/1 var(--body); letter-spacing: .14em; color: var(--ink); }
+.req { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px 10px; color: var(--gold-3); font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--line); }
+.req b { background: var(--gold-4); color: var(--gold-1); font-size: 11px; padding: 1px 6px; }
+.grp { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; padding: 12px 14px 6px; font: 700 11px/1 var(--body); letter-spacing: .08em; color: var(--text); text-transform: uppercase; display: flex; gap: 6px; align-items: center; transition: color .15s; }
+.grp:hover { color: var(--gold-1); }
+.grp:focus-visible { outline: 1px solid var(--blue); outline-offset: -1px; }
+.grp::before { content: ""; border: 4px solid transparent; border-top: 5px solid currentColor; border-bottom: 0; transform: rotate(-90deg); transition: transform .2s ease; }
+.sgrp.open .grp::before { transform: none; }
+.rows { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
+.sgrp.open .rows { grid-template-rows: 1fr; }
+.rows-in { overflow: hidden; min-height: 0; }
+.rows-in .fr { transform-origin: left center; transition: opacity .2s ease, transform .25s ease; opacity: 0; transform: scale(.94); }
+.sgrp.open .rows-in .fr { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rows, .rows-in .fr, .grp::before { transition: none; } }
+.fr { display: flex; gap: 10px; align-items: center; padding: 6px 14px; transition: background .15s; }
+a.fr:hover { background: rgba(240,230,210,.04); }
+.fr .av { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold-4); display: grid; place-items: center; background: #0a1428 center/cover; color: var(--ink); flex: none; position: relative; font: 700 11px/1 var(--body); }
+.fr .av svg { width: 16px; height: 16px; }
+.fr .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--online); border: 2px solid var(--bg); }
+.fr.away .av::after { background: var(--away); }
+.fr b { display: block; color: var(--gold-1); font-size: 13px; font-weight: 600; line-height: 1.3; }
+.fr small { display: block; color: var(--online); font-size: 11px; }
+.fr.away small { color: var(--away); }
+.soc-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 6px 8px; border-top: 1px solid var(--gold-5); font-size: 11px; color: var(--mute); }
+.chat-btn { all: unset; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px 0 8px; border: 1px solid var(--gold-5); background: #0a1018; font: 600 12px/1 var(--body); color: var(--ink); transition: border-color .15s, color .15s; }
+.chat-btn:hover, .chat-btn[aria-expanded="true"] { border-color: var(--gold-3); color: var(--gold-1); }
+.chat-btn:focus-visible { outline: 1px solid var(--blue); }
+.chat-btn svg { width: 16px; height: 16px; }
+.chat { position: absolute; left: 6px; right: 6px; bottom: 46px; height: min(380px, 70%); display: flex; flex-direction: column; background: #010a13; border: 1px solid var(--gold-4); box-shadow: 0 10px 30px rgba(0,0,0,.7); z-index: 5; }
+.chat[hidden] { display: none; }
+.chat-h { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, #0a1520, #010a13); font-size: 12px; color: var(--text); }
+.chat-h b { color: var(--gold-1); font-weight: 700; }
+.chat-x { all: unset; cursor: pointer; font-size: 18px; line-height: 1; color: var(--mute); padding: 0 4px; }
+.chat-x:hover { color: var(--gold-1); }
+.chat-log { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; scrollbar-color: var(--gold-5) transparent; }
+.msg { max-width: 88%; padding: 7px 10px; font-size: 12px; line-height: 1.45; white-space: pre-wrap; }
+.msg.bot { align-self: flex-start; background: #0f1a24; border-left: 2px solid #c06ce8; color: #e6d6f0; }
+.msg.me { align-self: flex-end; background: #13202b; border-right: 2px solid var(--gold-3); color: var(--gold-1); }
+.msg.err { color: var(--away); border-left-color: var(--away); }
+.msg.typing::after { content: "..."; animation: dots 1s steps(4) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; }
+@keyframes dots { from { width: 0; } to { width: 1.2em; } }
+.chat-sugg { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 10px 8px; }
+.chat-sugg button { all: unset; cursor: pointer; padding: 4px 8px; border: 1px solid var(--gold-5); font-size: 11px; color: var(--ink); }
+.chat-sugg button:hover { border-color: var(--gold-3); color: var(--gold-1); }
+.chat-in { display: flex; border-top: 1px solid var(--gold-5); }
+.chat-in input { flex: 1; min-width: 0; background: #0a0f14; border: 0; padding: 9px 10px; font: 400 12px/1 var(--body); color: var(--gold-1); outline: none; }
+.chat-in input::placeholder { color: var(--mute); }
+.chat-in button { all: unset; cursor: pointer; width: 36px; display: grid; place-items: center; color: var(--gold-2); }
+.chat-in button:hover { color: var(--gold-1); }
+
+/* ---------- profile body ---------- */
+.body { grid-column: 1; position: relative; overflow: hidden; display: grid; grid-template-columns: 224px 1fr; grid-template-rows: auto 1fr; }
+.body > * { min-width: 0; }
+.splash { position: absolute; inset: 0; z-index: 0; background: var(--bg) url(img/splash.webp) left 170px top 0 / auto 112% no-repeat; }
+.splash::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(1,10,19,.96) 0%, rgba(1,10,19,.72) 26%, rgba(1,10,19,0) 55%),
+              linear-gradient(90deg, rgba(1,10,19,.85) 0%, rgba(1,10,19,.35) 30%, rgba(1,10,19,0) 55%),
+              linear-gradient(180deg, rgba(1,10,19,.55) 0%, rgba(1,10,19,0) 14%); }
+
+.subtabs { grid-column: 1 / 3; position: relative; z-index: 2; display: flex; gap: 24px; padding: 16px 24px 0 26px; overflow-x: auto; scrollbar-width: none; }
+.subtabs button { all: unset; cursor: pointer; padding: 2px 0 7px; font: 700 12px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s; }
+.subtabs button:hover { color: var(--gold-1); }
+.subtabs button.on { color: var(--gold-1); border-color: var(--gold-3); }
+.subtabs button:focus-visible { outline: 1px solid var(--blue); outline-offset: 3px; }
+
+/* hanging banner: real Grandmaster banner skin, icon framed in GM wings */
+.banner { grid-column: 1; grid-row: 2; position: relative; z-index: 2; margin-left: 26px; width: 180px; aspect-ratio: 360 / 965; max-height: 560px; align-self: start;
+  background: url(img/banner-gm.webp) top center / 100% 100% no-repeat; display: flex; flex-direction: column; align-items: center; padding-top: 34px; text-align: center; }
+.lvl { font: 700 11px/1 var(--body); color: var(--gold-1); border: 1px solid var(--gold-4); border-radius: 9px; padding: 3px 9px; background: rgba(1,10,19,.85); }
+.crest { position: relative; width: 168px; aspect-ratio: 420 / 382; margin-top: 2px; }
+.crest .wings { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.crest .icon { position: absolute; z-index: 1; left: 49.8%; top: 62.7%; width: 37%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden; background: #000; }
+.crest .icon svg { width: 100%; height: 100%; display: block; }
+.banner h1 { margin-top: 6px; font: 700 15px/1.2 var(--body); color: var(--gold-1); letter-spacing: .01em; }
+.banner .tag { margin-top: 2px; font-size: 11px; color: var(--text); }
+.banner .tok { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+.banner .tok span { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #3c3c41; background: radial-gradient(circle at 50% 35%, rgba(30,35,40,.9), rgba(1,10,19,.9) 70%); box-shadow: inset 0 0 0 3px rgba(1,10,19,.85), inset 0 0 0 4px rgba(200,170,110,.16); display: grid; place-items: center; color: var(--gold-2); }
+.banner .tok svg { width: 22px; height: 22px; display: block; }
+
+/* pages */
+.page { grid-column: 2; grid-row: 2; position: relative; z-index: 2; padding: 26px 26px 26px 8px; display: none; }
+.page.on { display: flex; flex-direction: column; }
+
+.intro { max-width: 380px; }
+.intro .eyebrow { font: 700 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-2); }
+.intro p { margin-top: 10px; font: 400 15px/1.5 var(--body); color: var(--gold-1); text-shadow: 0 1px 8px rgba(1,10,19,.9); }
+.status { margin-top: 14px; display: inline-flex; gap: 8px; align-items: center; padding: 6px 12px; background: rgba(1,10,19,.78); border: 1px solid var(--gold-5); font-size: 12px; color: var(--ink); }
+.status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--online); }
+
+.feat { margin-top: 14px; display: flex; gap: 12px; align-items: center; padding: 8px 14px 8px 8px; max-width: 380px; background: rgba(1,10,19,.82); border: 1px solid var(--gold-5); transition: border-color .15s; }
+.feat .thumb { width: 64px; height: 40px; flex: none; background: #0a1428 top left / cover; border: 1px solid var(--gold-5); }
+.feat small { display: block; font: 700 10px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); }
+.feat b { display: block; margin-top: 3px; font: 700 14px/1.2 var(--body); color: var(--gold-1); }
+.feat i { display: block; font-style: normal; font-size: 11px; color: var(--text); }
+
+/* project overview pages (top tabs) */
+.body[data-view="project"] .subtabs, .body[data-view="project"] .banner { display: none; }
+.body[data-view="project"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.97) 0%, rgba(1,10,19,.9) 48%, rgba(1,10,19,.72) 100%); }
+.proj.on { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+.pj-kicker { font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); }
+.proj h2 { margin-top: 10px; font: 700 34px/1.05 var(--display); color: var(--gold-1); letter-spacing: .02em; }
+.pj-tag { margin-top: 8px; font-size: 15px; color: var(--ink); }
+.proj h3 { margin-top: 22px; padding-bottom: 6px; border-bottom: 1px solid var(--gold-5); font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-2); }
+.pj-text > p:not(.pj-tag) { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--text); }
+.proj ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.proj li { position: relative; padding-left: 16px; font-size: 13px; line-height: 1.5; color: var(--text); }
+.proj li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 5px; height: 5px; background: var(--gold-3); transform: rotate(45deg); }
+.pj-stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+.pj-stack span { padding: 5px 10px; border: 1px solid var(--gold-5); background: rgba(1,10,19,.7); font: 600 11px/1 var(--body); color: var(--gold-1); }
+.pj-cta { margin-top: 20px; display: flex; gap: 10px; }
+.btn { display: inline-grid; place-items: center; min-width: 120px; height: 34px; padding: 0 18px; border: 2px solid var(--gold-3); background: linear-gradient(180deg, #1e2328, #161a1e); font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-1); transition: border-color .15s, color .15s; }
+.btn:hover { border-color: var(--gold-1); }
+.btn.ghost { border-color: var(--gold-5); color: var(--ink); }
+.btn.off { border-color: var(--gold-5); color: var(--mute); cursor: default; }
+.pj-shot { border: 1px solid var(--gold-4); box-shadow: 0 0 0 4px rgba(1,10,19,.85), 0 0 0 5px var(--gold-5); background: #0a1428; aspect-ratio: 16 / 10; overflow: hidden; }
+.pj-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.pj-shot.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); }
+.pj-shot.empty span { font: 700 28px/1 var(--display); letter-spacing: .2em; color: var(--gold-4); }
+/* showcase */
+.showcase { margin-top: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; align-items: end; max-width: 760px; width: 100%; margin-left: auto; margin-right: auto; text-align: center; }
+.sc { display: grid; justify-items: center; align-content: end; }
+.sc .h { font: 700 12px/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.sc .s { margin-top: 2px; font: 700 10px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-1); min-height: 12px; }
+.sc .big { margin-top: 2px; font: 700 24px/1 var(--display); color: var(--gold-1); }
+.sc .art { margin-top: 12px; height: 104px; display: grid; place-items: end center; }
+.sc .art img { max-height: 100%; width: auto; }
+a.sc:hover .h { color: var(--gold-1); }
+.sc.rank .art img { width: 140px; height: auto; }
+.sc.mid .art { height: 132px; position: relative; width: 112px; }
+.sc.mid .portrait { position: absolute; left: 50%; top: 0; width: 72px; height: 72px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: url(img/main-tile.webp) center/118% no-repeat; box-shadow: 0 0 0 2px var(--bg); }
+.sc.mid .art img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 104px; height: auto; max-height: none; }
+.sc.trophy .art img { width: 80px; height: auto; }
+.sc.flag .art img { width: 76px; height: auto; }
+.sc.honor .art img { width: 96px; height: auto; max-height: none; }
+
+/* match history */
+.ptitle { font: 700 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 14px; }
+.list { display: grid; gap: 6px; max-width: 760px; }
+.match { display: grid; grid-template-columns: 4px 72px 1fr auto; gap: 16px; align-items: center; padding: 10px 16px 10px 0; background: rgba(1,10,19,.86); border: 1px solid var(--line); transition: border-color .15s; }
+a.match:hover { border-color: var(--gold-4); }
+.match .bar { align-self: stretch; background: var(--blue-2); }
+.match.ig .bar { background: var(--gold-4); }
+.match .thumb { width: 72px; height: 46px; background: #0a1428 top left / cover; border: 1px solid var(--gold-5); display: grid; place-items: center; font: 700 13px/1 var(--display); color: var(--gold-2); }
+.match b { display: block; font: 700 14px/1.3 var(--body); color: var(--gold-1); }
+.match small { display: block; font-size: 12px; color: var(--text); }
+.match .stack { margin-top: 3px; font-size: 11px; color: var(--mute); letter-spacing: .02em; }
+.match .res { text-align: right; font: 700 11px/1.4 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); white-space: nowrap; }
+.match.ig .res { color: var(--gold-3); }
+.match .res span { display: block; color: var(--mute); letter-spacing: .04em; font-weight: 600; text-transform: none; }
+
+/* ranked */
+.ranks { display: flex; gap: 12px; flex-wrap: wrap; }
+.rk { width: 260px; text-align: center; padding: 22px 20px 20px; background: rgba(1,10,19,.86); border: 1px solid var(--line); display: grid; justify-items: center; align-content: end; }
+.rk .art { height: 130px; display: grid; place-items: center; }
+.rk img { width: 180px; height: auto; }
+.rk .h { margin-top: 14px; font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.rk b { display: block; margin-top: 6px; font: 700 18px/1.2 var(--display); color: var(--gold-1); }
+.rk small { display: block; margin-top: 4px; font-size: 12px; color: var(--text); }
+
+/* mastery */
+.chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; max-width: 760px; }
+.chips li { padding: 11px 12px; background: rgba(1,10,19,.86); border: 1px solid var(--line); font: 600 13px/1.2 var(--body); color: var(--gold-1); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.chips li small { font: 700 10px/1 var(--body); letter-spacing: .1em; color: var(--gold-3); }
+
+.legal { max-width: 1280px; margin: 10px auto 0; text-align: center; font-size: 11px; line-height: 1.5; color: var(--mute); }
+
+/* ---------- desktop: fixed 1280x720 client. Every position below is measured in client pixels from
+   ref-client-profile.png (client frame at x10,y10 of that screenshot), then the whole window is scaled to fit. ---------- */
+@media (min-width: 900px) {
+  .stage { margin: 0 auto; position: relative; }
+  .client { position: absolute; top: 0; left: 0; width: 1280px; height: 720px; max-width: none; transform-origin: 0 0; grid-template-columns: 1048px 232px; grid-template-rows: 81px 639px; }
+
+  /* top bar: logo 25..68, frame 28..190 x 22..60, arrow 63..185 x 26..57, tabs from x227 */
+  .top { display: block; padding: 0; }
+  .playwrap { position: absolute; left: 25px; top: 0; width: 170px; height: 81px; }
+  .playwrap .ll { left: 0; top: 17px; width: 42px; }
+  .playwrap .pf { left: 3px; top: 22px; width: 162px; height: 38px; }
+  .playwrap .pb { left: 28px; top: 17px; width: 136px; height: 49px; padding: 0; font-size: 13px; letter-spacing: .06em; }
+  .tabs { position: absolute; left: 227px; top: 0; height: 81px; align-items: center; gap: 25px; }
+  .tabs a { font-size: 14px; letter-spacing: .03em; }
+  .navic { position: absolute; right: 190px; top: 0; height: 81px; }
+  .wallet { position: absolute; right: 26px; top: 21px; height: 40px; width: 140px; padding: 0 12px; border: 1px solid #2a3540; border-radius: 20px; background: rgba(1,10,19,.6); align-content: center; }
+
+  /* social: x1048..1280; header 81, SOCIAL row 36, requests 40, groups 32, friends 48 */
+  .social .me { height: 81px; padding: 0 14px 0 15px; gap: 12px; }
+  .soc-h { height: 36px; padding: 0 17px; line-height: 38px; }
+  .req { height: 40px; padding: 0 17px; font-size: 14px; }
+  .grp { height: 32px; padding: 0 17px; }
+  .fr { height: 48px; padding: 0 14px; gap: 13px; }
+  .fr .av { width: 36px; height: 36px; }
+  .fr b { font-size: 14px; font-weight: 600; }
+  .fr small { font-size: 12px; }
+
+  .body { display: block; }
+  .splash { background: var(--bg) url(img/splash.webp) left 170px top 0 / auto 104% no-repeat; }
+
+  /* sub tabs: OVERVIEW starts x47, centre y97 (client) */
+  .subtabs { position: absolute; top: 8px; left: 47px; right: 330px; padding: 0; gap: 26px; z-index: 4; }
+  .subtabs button { font: 700 12px/1 var(--display); letter-spacing: .05em; padding: 2px 0 6px; }
+
+  /* banner: panel x37..230, bottom tip y600; art is bottom-aligned and clipped by the top bar like the client */
+  .banner { position: absolute; left: 37px; top: 0; width: 193px; height: 519px; max-height: none; aspect-ratio: auto; margin: 0; padding: 0; background: none; z-index: 3; isolation: isolate; display: block; }
+  .banner::before { content: ""; position: absolute; z-index: -1; left: -37px; bottom: -28px; width: 270px; height: 723px; background: url(img/banner-gm.webp) 0 0 / 100% 100% no-repeat; }
+  .banner::after { content: ""; position: absolute; left: 50%; top: 553px; width: 9px; height: 9px; border-left: 2px solid #5b5a56; border-top: 2px solid #5b5a56; transform: translateX(-50%) rotate(45deg); }
+  .lvl { position: absolute; left: 50%; top: 85px; transform: translateX(-50%); }
+  .crest { position: absolute; left: -1.5px; top: 80px; width: 196px; margin: 0; }
+  .banner h1 { position: absolute; left: 0; right: 0; top: 290px; margin: 0; font-size: 15px; line-height: 18px; }
+  .banner .tag { position: absolute; left: 0; right: 0; top: 310px; margin: 0; }
+  .banner .tok { position: absolute; left: 23.5px; top: 351px; margin: 0; gap: 4px; }
+  .banner .tok span { width: 46px; height: 46px; }
+
+  .page { position: absolute; top: 0; bottom: 0; left: 230px; right: 0; padding: 56px 30px 0 34px; }
+  .page.on { display: block; }
+
+  /* showcase: column centres x373/516/659/803/946, label y497, sub y513 (client) */
+  .showcase { position: absolute; left: 71px; top: 404px; margin: 0; max-width: none; width: 720px; height: 200px; display: flex; gap: 0; }
+  .sc { position: relative; width: 143.5px; height: 200px; display: block; align-content: normal; text-align: center; }
+  .sc .h { display: block; margin-top: 6px; font: 700 11px/12px var(--display); letter-spacing: .06em; }
+  .sc .s { display: block; margin-top: 4px; font: 700 9px/11px var(--display); letter-spacing: .06em; }
+  .sc .big { display: block; margin-top: 4px; font: 700 22px/24px var(--display); }
+  .sc .art { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; height: auto; width: max-content; display: block; }
+  .sc .art img, .sc.mid .art img { position: static; transform: none; max-height: none; margin: 0; }
+  .sc.rank .art { top: 84px; } .sc.rank .art img { width: 138px; }
+  .sc.honor .art { top: 75px; } .sc.honor .art img { width: 90px; }
+  .sc.mid .art { position: absolute; top: 60px; width: 92px; height: 125px; }
+  .sc.mid .portrait { top: 0; width: 80px; height: 80px; z-index: 1; }
+  .sc.mid .art img { position: absolute; left: 0; bottom: 0; width: 92px; }
+  .sc.trophy .art { top: 86px; } .sc.trophy .art img { width: 76px; }
+  .sc.flag .art { top: 74px; } .sc.flag .art img { width: 76px; }
+  .page.proj.on { display: grid; left: 0; padding: 40px 44px 0 48px; grid-template-columns: 440px 1fr; gap: 40px; align-items: start; }
+  .proj .pj-shot { margin-top: 30px; }
+  .legal { max-width: none; }
+}
+@media (max-width: 899px) {
+  .client { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .top { flex-wrap: wrap; padding: 12px 16px; gap: 16px; }
+  .wallet { display: none; }
+  .top { grid-row: 1; } .body { grid-row: 2; }
+  .social { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid var(--gold-5); }
+  .me { display: none; }
+  .splash { background-position: 60% top; background-size: cover; }
+  .showcase { align-items: start; }
+  .body { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .subtabs { grid-column: 1; padding: 14px 16px 0; }
+  .banner { grid-row: 2; margin: 8px auto 0; }
+  .page { grid-column: 1; grid-row: 3; padding: 18px 16px 22px; }
+  .showcase { grid-template-columns: repeat(2, 1fr); margin-top: 28px; row-gap: 22px; }
+  .match { grid-template-columns: 4px 56px 1fr; }
+  .match .thumb { width: 56px; height: 40px; }
+  .match .res { grid-column: 3; text-align: left; }
+  .rk { width: 100%; }
+}
+@media (max-width: 600px) { .top { gap: 12px 18px; } .tabs { order: 3; width: 100%; } .navic { margin-left: 0; } .wallet { display: none; } .showcase { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="jl" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#000"/><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></symbol>
+</defs></svg>
+
+<div class="wrap">
+<div class="stage" id="stage"><div class="client" id="client">
+  <header class="top">
+    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb">PLAY</span><img class="ll" src="img/lol-logo.webp" alt=""></a>
+    <nav class="tabs" aria-label="Projects">
+      <a href="#turnpoint" data-go="turnpoint">Turnpoint</a>
+      <a href="#petri" data-go="petri">Petri</a>
+      <a href="#xarena" data-go="xarena">X Arena</a>
+    </nav>
+    <div class="navic" aria-hidden="true">
+      <span class="nb"><img src="img/nav-profile.svg" alt=""></span>
+      <span class="nb"><img src="img/nav-loot.svg" alt=""></span>
+      <span class="nb"><img src="img/nav-collections.svg" alt=""></span>
+    </div>
+    <div class="wallet" aria-label="Stats">
+      <span>3 <i>SHIPPED</i></span>
+      <span>14 <i>SKILLS</i></span>
+    </div>
+  </header>
+
+  <aside class="social" aria-label="Social">
+    <div class="me">
+      <div class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#jl"/></svg><i>Y2</i></div>
+      <div><b>Jasper Li</b><small>Online</small></div>
+    </div>
+    <div class="soc-h">SOCIAL</div>
+    <div class="req"><span>Internship requests</span><b>Open</b></div>
+    <section class="sgrp open">
+      <button class="grp" aria-expanded="true">Contact (3)</button>
+      <div class="rows"><div class="rows-in">
+      <a class="fr" href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></span><span><b>GitHub</b><small>Jaspyplayz</small></span></a>
+      <a class="fr" href="https://www.linkedin.com/in/jasper-li-567560349" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></span><span><b>LinkedIn</b><small>Jasper Li</small></span></a>
+      <a class="fr away" href="mailto:jaspyplayz@gmail.com"><span class="av">@</span><span><b>Email</b><small>jaspyplayz@gmail.com</small></span></a>
+      </div></div>
+    </section>
+    <section class="sgrp open">
+      <button class="grp" aria-expanded="true">Projects (3)</button>
+      <div class="rows"><div class="rows-in">
+      <div class="fr"><span class="av">TP</span><span><b>Turnpoint</b><small>Live</small></span></div>
+      <div class="fr"><span class="av">PT</span><span><b>Petri</b><small>Live</small></span></div>
+      <div class="fr away"><span class="av">XA</span><span><b>X Arena</b><small>In development</small></span></div>
+      </div></div>
+    </section>
+    <div class="chat" id="chat" hidden>
+      <div class="chat-h"><span><b>Whisper</b> · ask about Jasper</span><button class="chat-x" id="chatClose" aria-label="Close chat">&times;</button></div>
+      <div class="chat-log" id="chatLog" aria-live="polite">
+        <div class="msg bot">Hi! I'm the assistant on Jasper's profile. Ask me about his projects, skills or what he's looking for.</div>
+      </div>
+      <div class="chat-sugg" id="chatSugg">
+        <button>What did he build with ML?</button><button>Is he looking for an internship?</button><button>What's Petri?</button>
+      </div>
+      <form class="chat-in" id="chatForm"><input id="chatInput" maxlength="500" placeholder="Type a message" autocomplete="off" aria-label="Message"><button type="submit" aria-label="Send">&#10148;</button></form>
+    </div>
+    <div class="soc-foot">
+      <button class="chat-btn" id="chatOpen" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></svg><span>Ask about Jasper</span></button>
+      <span>v5</span>
+    </div>
+  </aside>
+
+  <main class="body">
+    <div class="splash" aria-hidden="true"></div>
+
+    <nav class="subtabs" aria-label="Profile">
+      <button data-tab="overview" class="on">Overview</button>
+      <button data-tab="history">Match history</button>
+      <button data-tab="ranked">Ranked</button>
+      <button data-tab="mastery">Mastery</button>
+    </nav>
+
+    <section class="banner" aria-label="Player card">
+      <span class="lvl">YEAR 2</span>
+      <div class="crest">
+        <div class="icon"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#jl"/></svg></div>
+        <img class="wings" src="img/wings-gm.webp" alt="">
+      </div>
+      <h1>Jasper Li</h1>
+      <div class="tag">CS @ UofT · Class of 2029</div>
+      <div class="tok"><span title="Machine learning" aria-label="Machine learning"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.1" fill="none"><path d="M5.5 7.5L12 5M5.5 7.5L12 12M5.5 16.5L12 12M5.5 16.5L12 19M5.5 7.5L12 19M5.5 16.5L12 5M12 5l6.5 7M12 12h6.5M12 19l6.5-7" stroke-opacity=".55"/></g><g fill="currentColor"><circle cx="5.5" cy="7.5" r="1.9"/><circle cx="5.5" cy="16.5" r="1.9"/><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/><circle cx="18.5" cy="12" r="2.2"/></g></svg></span><span title="Web" aria-label="Web"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M13.5 5l-3 14" stroke-opacity=".7"/></g></svg></span><span title="Games" aria-label="Games"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"><path d="M7 7.5h10c2.4 0 4 2 4.4 4.6l.6 4c.3 2-1.8 3.3-3.3 2l-2.6-2.4H7.9l-2.6 2.4c-1.5 1.3-3.6 0-3.3-2l.6-4C3 9.5 4.6 7.5 7 7.5z"/><path d="M7.5 10.5v3.4M5.8 12.2h3.4" stroke-linecap="round"/></g><g fill="currentColor"><circle cx="16" cy="11" r="1"/><circle cx="17.8" cy="13.2" r="1"/></g></svg></span></div>
+    </section>
+
+    <section class="page on" data-page="overview">
+      <div class="intro">
+        <div class="eyebrow">Player profile</div>
+        <p>Second-year CS student at UofT. I build web apps, games and AI experiments.</p>
+        <div class="status">In queue for a Summer 2027 SWE internship</div>
+        <div class="feat"><span class="thumb" style="background-image:url(img/turnpoint.webp)"></span><span><small>Featured project</small><b>Turnpoint</b><i>Why a League game was won or lost, from real match data</i></span></div>
+      </div>
+      <div class="showcase">
+        <div class="sc rank"><span class="h">Solo/Duo</span><span class="s">Peak Grandmaster</span><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span></div>
+        <div class="sc honor"><span class="h">Honor</span><span class="s">Level 5</span><span class="art"><img src="img/honor.webp" alt="Honor level 5 emblem"></span></div>
+        <div class="sc mid"><span class="h">Main</span><span class="big">Teemo</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span></div>
+        <div class="sc trophy"><span class="h">Trophy</span><span class="s">3 projects shipped</span><span class="art"><img src="img/trophy-jl.svg" alt="Trophy"></span></div>
+        <div class="sc flag"><span class="h">Banner</span><span class="s">University of Toronto</span><span class="art"><img src="img/banner-uoft.svg" alt="University of Toronto banner"></span></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="history">
+      <div class="ptitle">Recent games</div>
+      <div class="list">
+        <div class="match"><span class="bar"></span><span class="thumb" style="background-image:url(img/turnpoint.webp)"></span><span><b>Turnpoint</b><small>League match analyzer. Trains ML models on real match data to show why a game was won or lost.</small><span class="stack">Next.js · TypeScript · Supabase</span></span><span class="res">Victory<span>Live</span></span></div>
+        <div class="match"><span class="bar"></span><span class="thumb" style="background-image:url(img/petri.webp)"></span><span><b>Petri</b><small>Self-evolving web app built by AI agents.</small><span class="stack">AI agents · Web</span></span><span class="res">Victory<span>Live</span></span></div>
+        <div class="match ig"><span class="bar"></span><span class="thumb">XA</span><span><b>X Arena</b><small>Multiplayer arena shooter on Roblox. FPS movement, server-validated hitboxes, lag compensation.</small><span class="stack">Luau · Rojo · GitHub Actions</span></span><span class="res">In game<span>Sep 2026 to now</span></span></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="ranked">
+      <div class="ptitle">Peak rank</div>
+      <div class="ranks">
+        <div class="rk"><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span><span class="h">League of Legends · Solo/Duo</span><b>Grandmaster</b><small>Peak · top 0.05%</small></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="mastery">
+      <div class="ptitle">Champion pool</div>
+      <ul class="chips">
+        <li>TypeScript</li><li>Next.js</li><li>React</li><li>Python</li><li>Supabase</li><li>Postgres</li><li>Tailwind CSS</li><li>Luau</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li><li>Rojo</li>
+      </ul>
+    </section>
+
+    <section class="page proj" data-page="turnpoint" aria-label="Turnpoint">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · Live</div>
+        <h2>Turnpoint</h2>
+        <p class="pj-tag">Find the minute your League game turned.</p>
+        <h3>Overview</h3>
+        <p>Look up any League of Legends player by Riot ID. Turnpoint compares them to the opponent in their role, minute by minute, from top lane to support, and points to the moments that decided the game, with AI recaps.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>Pulls real match timelines from the Riot API and caches them in Supabase.</li>
+          <li>Charts your gold against your lane opponent and flags turning points, like a jungle gank at 8:10 that swung 1,400 gold.</li>
+          <li>Machine learning models trained on real match data explain why a game was won or lost.</li>
+          <li>Insights track habits across games, like hitting level 6 before your opponent and how often those games were won.</li>
+        </ul>
+        <div class="pj-stack"><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>Riot API</span></div>
+        <div class="pj-cta"><a class="btn" href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Launch</a><a class="btn ghost" href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">Source</a></div>
+      </div>
+      <div class="pj-shot"><img src="img/turnpoint.webp" alt="Turnpoint home page"></div>
+    </section>
+
+    <section class="page proj" data-page="petri" aria-label="Petri">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · Live</div>
+        <h2>Petri</h2>
+        <p class="pj-tag">A pet that evolves from visitor ideas.</p>
+        <h3>Overview</h3>
+        <p>Petri is a self-evolving web app built by AI agents. Visitors poke, feed and name Blobby, then suggest what it should learn next. Agents turn those ideas into real code changes that ship to the live site.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>Each visitor idea becomes a user story with acceptance criteria.</li>
+          <li>An agent writes the change and its tests, then the feature map is regenerated.</li>
+          <li>A public timeline shows every evolution with before and after, and the files it touched.</li>
+        </ul>
+        <div class="pj-stack"><span>Next.js</span><span>TypeScript</span><span>AI agents</span></div>
+        <div class="pj-cta"><a class="btn" href="https://petri-pi.vercel.app" target="_blank" rel="noopener">Launch</a><a class="btn ghost" href="https://github.com/Jaspyplayz/petri" target="_blank" rel="noopener">Source</a></div>
+      </div>
+      <div class="pj-shot"><img src="img/petri.webp" alt="Petri home page"></div>
+    </section>
+
+    <section class="page proj" data-page="xarena" aria-label="X Arena">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · In development · Sep 2026 to now</div>
+        <h2>X Arena</h2>
+        <p class="pj-tag">A multiplayer arena shooter on Roblox.</p>
+        <h3>Overview</h3>
+        <p>A fast first-person arena shooter built on Roblox, focused on movement that feels good and hits that feel fair online.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>First-person shooter movement.</li>
+          <li>Hitboxes are validated on the server, so clients can't fake hits.</li>
+          <li>Lag compensation rewinds positions so shots land where the player saw the target.</li>
+          <li>Code lives in files synced to Roblox with Rojo, with checks in GitHub Actions.</li>
+        </ul>
+        <div class="pj-stack"><span>Luau</span><span>Rojo</span><span>GitHub Actions</span></div>
+        <div class="pj-cta"><span class="btn off">In development</span></div>
+      </div>
+      <div class="pj-shot empty"><span>X ARENA</span></div>
+    </section>
+  </main>
+</div></div>
+<p class="legal">Jasper Li's portfolio isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+</div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page'), icons = document.querySelectorAll('.navic button');
+  function show(k) {
+    tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
+    icons.forEach(function (b) { b.classList.toggle('on', b.dataset.go === k); });
+    pages.forEach(function (p) { p.classList.toggle('on', p.dataset.page === k); });
+    var proj = ['turnpoint', 'petri', 'xarena'].indexOf(k) > -1;
+    document.querySelector('.body').dataset.view = proj ? 'project' : 'profile';
+    document.querySelectorAll('.tabs a').forEach(function (a) { a.classList.toggle('on', a.dataset.go === k); });
+    try { history.replaceState(null, '', '#' + k); } catch (e) {}
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.go); }); });
+  document.querySelectorAll('.sgrp .grp').forEach(function (g) {
+    g.addEventListener('click', function () {
+      var open = g.parentNode.classList.toggle('open');
+      g.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  // whisper chat: talks to /api/chat (Vercel function). Elsewhere (e.g. a static preview) it explains itself.
+  var chat = document.getElementById('chat'), openBtn = document.getElementById('chatOpen'), log = document.getElementById('chatLog'),
+      form = document.getElementById('chatForm'), input = document.getElementById('chatInput'), sugg = document.getElementById('chatSugg'), history_ = [], busy = false;
+  function setOpen(o) { chat.hidden = !o; openBtn.setAttribute('aria-expanded', o ? 'true' : 'false'); if (o) input.focus(); }
+  openBtn.addEventListener('click', function () { setOpen(chat.hidden); });
+  document.getElementById('chatClose').addEventListener('click', function () { setOpen(false); });
+  function add(cls, text) { var d = document.createElement('div'); d.className = 'msg ' + cls; d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function send(text) {
+    text = (text || '').trim(); if (!text || busy) return;
+    busy = true; sugg.hidden = true; add('me', text); input.value = '';
+    history_.push({ role: 'user', content: text });
+    var t = add('bot typing', '');
+    fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history_.slice(-10) }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.reply) throw new Error(res.j && res.j.error || 'error');
+        t.classList.remove('typing'); t.textContent = res.j.reply; history_.push({ role: 'assistant', content: res.j.reply });
+      })
+      .catch(function () {
+        history_.pop(); t.classList.remove('typing'); t.classList.add('err');
+        t.textContent = 'The chat runs on the deployed site. For now, reach Jasper at jaspyplayz@gmail.com.';
+      })
+      .then(function () { busy = false; log.scrollTop = log.scrollHeight; });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
+  sugg.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { send(b.textContent); }); });
+  var stage = document.getElementById('stage'), client = document.getElementById('client');
+  function fit() {
+    if (window.innerWidth < 900) { stage.style.width = stage.style.height = ''; client.style.transform = ''; return; }
+    var sc = Math.min((stage.parentNode.clientWidth - 32) / 1280, 1.4);
+    client.style.transform = 'scale(' + sc + ')';
+    stage.style.width = 1280 * sc + 'px'; stage.style.height = 720 * sc + 'px';
+  }
+  fit(); window.addEventListener('resize', fit);
+  var h = (location.hash || '').slice(1);
+  show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
+})();
+</script>
+</body>
+</html>
