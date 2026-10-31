@@ -267,7 +267,7 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 /* skin card (rcp-fe-lol-collections-skin-item) */
 .sk2 { all: unset; box-sizing: border-box; position: relative; display: block; width: 154px; margin: 8px 0; cursor: pointer; }
 .sk2 .th { position: relative; display: block; width: 134px; height: 194px; margin: 0 10px; }
-.sk2 .im { position: absolute; left: 0; top: 0; width: 131px; height: 194px; background: #0a1428 left top / cover; clip-path: polygon(12px 2px,3px 12px,3px 36px,5px 38px,5px 159px,3px 162px,4px 171px,0 173px,0 184px,11px 193px,117px 193px,130px 184px,130px 173px,126px 171px,126px 162px,125px 159px,125px 38px,128px 36px,128px 12px,118px 2px); opacity: .85; }
+.sk2 .im { position: absolute; left: 0; top: 0; width: 131px; height: 194px; background: #0a1428 center top / cover; clip-path: polygon(12px 2px,3px 12px,3px 36px,5px 38px,5px 159px,3px 162px,4px 171px,0 173px,0 184px,11px 193px,117px 193px,130px 184px,130px 173px,126px 171px,126px 162px,125px 159px,125px 38px,128px 36px,128px 12px,118px 2px); opacity: .85; }
 .sk2:hover .im { opacity: 1; }
 .sk2 .bd { position: absolute; left: 0; top: -5px; width: 134px; height: 226px; background: no-repeat 0 0 / contain; pointer-events: none; }
 .sk2 .gem { position: absolute; left: 0; right: 0; bottom: -23px; height: 26px; background: no-repeat center / contain; }
@@ -291,13 +291,14 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .lt-grp[hidden] { display: none; }
 .li { all: unset; box-sizing: border-box; position: relative; display: block; width: 69px; height: 69px; margin: 0 12px 16px 2px; cursor: pointer; }
 .li .ic { position: absolute; inset: 0; background: #010a13 center / cover no-repeat; opacity: .9; }
-.li .ic.fit { background-size: 80%; background-color: #06141d; }
-.li .ic.mono { display: grid; place-items: center; font: 700 20px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); }
-.li .fr { position: absolute; inset: 0; background: url(img/lc/permanent.png) center / 100% no-repeat; }
-.li.shard .fr { background: none; border: 1px dashed #785a28; }
+.li .ic.fit { background-size: 62%; background-color: #06141d; }
+.li .ic.mono { display: grid; place-items: center; font: 700 18px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); }
+.li .lf { position: absolute; inset: 0; border: 1px solid #463714; }
+.li:hover .lf { border-color: #785a28; }
+.li.shard .lf { background: none; border: 1px dashed #785a28; }
 .li .ov { position: absolute; inset: 0; background: #000; opacity: 0; }
 .li:hover .ov { opacity: .25; }
-.li.on .fr { box-shadow: 0 0 0 2px #c8aa6e, 0 0 12px rgba(200,170,110,.5); }
+.li.on .lf { border: 2px solid #c8aa6e; box-shadow: 0 0 10px rgba(200,170,110,.45); }
 .li .qt { position: absolute; right: 4px; bottom: 3px; font: 500 13px/16px var(--display); color: #cdbe91; text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 2px #000; }
 /* hextech crafter */
 .lt-craft { position: relative; width: 619px; height: 561px; }
@@ -308,15 +309,14 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .lt-craft .art img { max-width: 220px; max-height: 200px; }
 .lt-craft .art img.cover { width: 230px; height: 144px; max-width: none; object-fit: cover; object-position: left top; border: 1px solid #785a28; }
 .lt-craft .art img.round { width: 170px; height: 170px; border-radius: 50%; border: 2px solid #c89b3c; }
-.lt-craft .art .mono { font: 700 64px/1 var(--display); letter-spacing: .14em; color: #785a28; }
+.lt-craft .art .mono { font: 700 64px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; }
+.lt-craft .art img.logo { width: 120px; height: 120px; }
 .lt-craft .art .key { position: absolute; right: 4px; bottom: 10px; width: 84px; height: 84px; max-width: none; }
 .lt-craft .tx { position: absolute; left: 50%; top: 60px; width: 440px; margin: 0 0 0 -220px; text-align: center; font: 400 12px/18px var(--body); letter-spacing: .025em; color: #a09b8c; }
 .lt-craft .cta { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 4px; }
 .lc-btn { all: unset; box-sizing: border-box; position: relative; display: grid; place-items: center; width: 150px; height: 78px; padding-top: 12px; cursor: pointer; background: url(img/lc/craftbutton-up.png) center / contain no-repeat; font: 700 12px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: #f0e6d2; text-shadow: 0 1px 2px #000; white-space: nowrap; }
 .lc-btn:hover { background-image: url(img/lc/craftbutton-hover.png); }
 .lc-btn.off { cursor: default; color: #5b5a56; background-image: url(img/lc/craftbutton-disabled.png); }
-.lt-help { width: 40px; flex: none; padding-top: 10px; }
-.lt-help::before { content: ""; display: block; width: 18px; height: 1px; margin-left: 18px; background: #785a28; }
 /* project overview pages (top tabs) */
 .body[data-view="project"] .subtabs, .body[data-view="project"] .banner { display: none; }
 .body[data-view="project"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.97) 0%, rgba(1,10,19,.9) 48%, rgba(1,10,19,.72) 100%); }
@@ -545,12 +545,22 @@ a.sc:hover .h { color: var(--gold-1); }
   .rk { width: 100%; }
   .lt-inv { flex-wrap: wrap; }
   .lt-tabs { display: flex; width: 100%; gap: 8px; }
-  .lt-help { display: none; }
   .lt-craft { width: 100%; height: 470px; margin-top: 12px; }
   .lt-craft .ring { width: 340px; height: 334px; top: 250px; }
   .lt-craft .art { top: 230px; transform: translate(-50%, -50%) scale(.8); }
   .lt-craft .tx { width: 300px; margin-left: -150px; }
-  .lc-panel { width: 100%; margin-bottom: 12px; }
+  .lc-panel { width: auto; margin-bottom: 12px; }
+  .lc-tot { width: 194px; margin: 0 auto; }
+  .lc-note { text-align: center; }
+  .lc-nav { justify-content: center; margin-bottom: 14px; }
+  .lc-group { margin: 8px 0; }
+  .body[data-view="screen"] { background: linear-gradient(180deg, rgba(1,10,19,0) 55vh, #010a13 100vh) 0 0 / 100% 100vh no-repeat, #010a13 url(img/lc/bg-hextech.webp) 60% 0 / auto 100vh no-repeat; }
+  .subtabs { gap: 16px; }
+  .subtabs button { font-size: 11px; letter-spacing: .06em; }
+  .pho { grid-template-columns: 52px 1fr; }
+  .pho .ot { grid-column: 2; grid-row: auto; text-align: left; line-height: 16px; white-space: normal; }
+  .pho .ot > div { display: inline; }
+  .pho .ot > *:first-child::after { content: " · "; }
   .lc-items { justify-content: center; }
   .chat { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: min(70vh, 460px); grid-template-columns: 1fr; border: 1px solid var(--gold-5); border-bottom: 0; z-index: 20; }
   .cv-list { display: none; }
@@ -756,12 +766,12 @@ a.sc:hover .h { color: var(--gold-1); }
       <div class="lt-inv">
         <div class="lt-tabs" role="tablist" aria-label="Loot categories">
           <button class="lt-tab on" data-cat="all" role="tab" aria-selected="true" title="All"><img src="img/lc/cat-all.png" alt="All"></button>
-          <button class="lt-tab" data-cat="ach" role="tab" aria-selected="false" title="Achievements"><img src="img/lc/cat-eternals.png" alt="Achievements"></button>
           <button class="lt-tab" data-cat="proj" role="tab" aria-selected="false" title="Projects"><img src="img/lc/cat-skin.png" alt="Projects"></button>
-          <button class="lt-tab" data-cat="chest" role="tab" aria-selected="false" title="Chests"><img src="img/lc/cat-chest.png" alt="Chests"></button>
+          <button class="lt-tab" data-cat="eng" role="tab" aria-selected="false" title="Engineering"><img src="img/lc/cat-eternals.png" alt="Engineering"></button>
+          <button class="lt-tab" data-cat="edu" role="tab" aria-selected="false" title="Education"><img src="img/lc/cat-summonericon.png" alt="Education"></button>
+          <button class="lt-tab" data-cat="chest" role="tab" aria-selected="false" title="Internships"><img src="img/lc/cat-chest.png" alt="Internships"></button>
         </div>
         <div class="lt-sec" id="ltSec"></div>
-        <div class="lt-help" aria-hidden="true"></div>
       </div>
       <div class="lt-craft" id="ltCraft" aria-live="polite"></div>
     </section>
@@ -779,8 +789,8 @@ a.sc:hover .h { color: var(--gold-1); }
       <div class="lc-grid co-pane" data-co="skins" hidden>
         <div class="lc-group">Projects<span>2 / 3</span></div><div class="lc-sep"></div>
         <div class="lc-items">
-          <button class="sk2" data-go="turnpoint"><span class="th"><span class="im" style="background-image:url(img/turnpoint.webp)"></span><span class="bd" style="background-image:url(img/lc/border-legendary.png)"></span><span class="gem" style="background-image:url(img/lc/gem-legendary.svg)"></span></span><span class="nm">Turnpoint<small>Legendary · Live</small></span></button>
-          <button class="sk2" data-go="petri"><span class="th"><span class="im" style="background-image:url(img/petri.webp)"></span><span class="bd" style="background-image:url(img/lc/border-epic.png)"></span><span class="gem" style="background-image:url(img/lc/gem-epic.svg)"></span></span><span class="nm">Petri<small>Epic · Live</small></span></button>
+          <button class="sk2" data-go="turnpoint"><span class="th"><span class="im" style="background-image:url(img/lc/skin-turnpoint.webp)"></span><span class="bd" style="background-image:url(img/lc/border-legendary.png)"></span><span class="gem" style="background-image:url(img/lc/gem-legendary.svg)"></span></span><span class="nm">Turnpoint<small>Legendary · Live</small></span></button>
+          <button class="sk2" data-go="petri"><span class="th"><span class="im" style="background-image:url(img/lc/skin-petri.webp)"></span><span class="bd" style="background-image:url(img/lc/border-epic.png)"></span><span class="gem" style="background-image:url(img/lc/gem-epic.svg)"></span></span><span class="nm">Petri<small>Epic · Live</small></span></button>
           <button class="sk2 locked" data-go="xarena"><span class="th"><span class="im empty">XA</span><span class="lock"></span></span><span class="nm">X Arena<small>In development</small></span></button>
         </div>
       </div>
@@ -977,16 +987,16 @@ a.sc:hover .h { color: var(--gold-1); }
 
   // Loot: achievements in the client's inventory + hextech crafter. Facts only.
   var LOOT = [
-    { cat: 'ach', kind: 'Ranked reward', name: 'Peak Grandmaster', art: 'img/rank-gm.webp', fit: 1, text: 'Peaked Grandmaster in Solo/Duo, the top 0.05% of North America. Mostly on Qiyana.', cta: [{ label: 'Match history', go: 'history' }] },
-    { cat: 'ach', kind: 'Champion mastery', name: 'Qiyana · Mastery 72', art: 'img/main-icon.webp', big: 'round', text: 'My main. Mastery score 716 across all champions.', cta: [{ label: 'Mastery', go: 'mastery' }] },
-    { cat: 'ach', kind: 'Honor reward', name: 'Honor level 5', art: 'img/honor.webp', fit: 1, text: 'Honor level 5, the highest honor level in League.' },
-    { cat: 'ach', kind: 'Event token', name: 'UofT Computer Science', art: 'img/banner-uoft.svg', fit: 1, text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
-    { cat: 'proj', kind: 'Project permanent', name: 'Turnpoint', art: 'img/turnpoint.webp', big: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint' }] },
-    { cat: 'proj', kind: 'Project permanent', name: 'Petri', art: 'img/petri.webp', big: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri' }] },
-    { cat: 'proj', kind: 'Project shard', name: 'X Arena', mono: 'XA', shard: true, text: 'Still being crafted. A multiplayer arena shooter on Roblox with server-validated hitboxes and lag compensation, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena' }] },
-    { cat: 'chest', kind: 'Locked chest', name: 'Summer 2027 internship', art: 'img/loot-chest.webp', fit: 1, key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
+    { cat: 'proj', kind: 'Shipped project', name: 'Turnpoint', tile: 'img/turnpoint-logo.svg', fit: 1, art: 'img/turnpoint.webp', big: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint' }] },
+    { cat: 'proj', kind: 'Shipped project', name: 'Petri', tile: 'img/lc/tile-petri.webp', art: 'img/petri.webp', big: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri' }] },
+    { cat: 'proj', kind: 'Project in progress', name: 'X Arena', mono: 'XA', shard: true, text: 'Still being crafted. A multiplayer arena shooter on Roblox, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena' }] },
+    { cat: 'eng', kind: 'Machine learning', name: 'Match outcome models', mono: 'ML', text: 'Models trained on real match data explain why a game was won or lost. Part of Turnpoint.', cta: [{ label: 'Turnpoint', go: 'turnpoint' }] },
+    { cat: 'eng', kind: 'AI agents', name: 'Agent build pipeline', mono: 'AI', text: 'Each visitor idea becomes a user story with acceptance criteria. An agent writes the change and its tests, and a public timeline shows every evolution. Part of Petri.', cta: [{ label: 'Petri', go: 'petri' }] },
+    { cat: 'eng', kind: 'Networking', name: 'Lag compensation', mono: 'NET', shard: true, text: 'Server-validated hitboxes and lag compensation for a multiplayer shooter. In progress in X Arena.', cta: [{ label: 'X Arena', go: 'xarena' }] },
+    { cat: 'edu', kind: 'Education', name: 'UofT Computer Science', tile: 'img/banner-uoft.svg', fit: 1, art: 'img/banner-uoft.svg', text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
+    { cat: 'chest', kind: 'Locked chest', name: 'Summer 2027 internship', tile: 'img/loot-chest.webp', fit: 1, art: 'img/loot-chest.webp', key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
   ];
-  var LOOT_CATS = [['ach', 'Achievements'], ['proj', 'Projects'], ['chest', 'Chests']];
+  var LOOT_CATS = [['proj', 'Projects'], ['eng', 'Engineering'], ['edu', 'Education'], ['chest', 'Internships']];
   var ltSec = document.getElementById('ltSec'), ltCraft = document.getElementById('ltCraft');
   function pickLoot(i, quiet) {
     var it = LOOT[i];
@@ -1020,8 +1030,8 @@ a.sc:hover .h { color: var(--gold-1); }
         if (it.cat !== c[0]) return;
         var b = el('button', 'li' + (it.shard ? ' shard' : '')); b.type = 'button'; b.dataset.i = i; b.title = it.name; b.setAttribute('aria-label', it.name);
         var ic = el('span', 'ic' + (it.fit ? ' fit' : '') + (it.mono ? ' mono' : ''), it.mono || null);
-        if (it.art) ic.style.backgroundImage = 'url(' + it.art + ')';
-        b.appendChild(ic); b.appendChild(el('span', 'fr')); b.appendChild(el('span', 'ov'));
+        if (it.tile) ic.style.backgroundImage = 'url(' + it.tile + ')';
+        b.appendChild(ic); b.appendChild(el('span', 'lf')); b.appendChild(el('span', 'ov'));
         if (it.key) b.appendChild(el('span', 'qt', '1'));
         b.addEventListener('click', function () { pickLoot(i); });
         grid.appendChild(b);
