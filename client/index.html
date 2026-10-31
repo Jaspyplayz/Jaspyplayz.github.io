@@ -53,6 +53,8 @@ img { display: block; max-width: 100%; }
 .navic .nb { width: 46px; height: 40px; display: grid; place-items: center; border-left: 1px solid var(--line); opacity: .8; transition: opacity .15s; }
 .navic .nb:first-child { border-left: 0; }
 .navic img { width: 24px; height: 24px; }
+a.nb:hover, a.nb.on { opacity: 1; }
+a.nb:focus-visible, a.me:focus-visible { outline: 1px solid var(--blue); outline-offset: -2px; }
 .wallet { display: grid; gap: 4px; padding-left: 18px; border-left: 1px solid var(--line); font: 700 12px/1 var(--body); color: var(--gold-1); }
 .wallet span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .wallet i { font-style: normal; color: var(--gold-2); font-size: 10px; letter-spacing: .1em; }
@@ -110,15 +112,15 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .fr.ai:focus-visible { outline: 1px solid var(--blue); outline-offset: -1px; }
 
 /* docked whisper window, like the client's chat: conversation list + conversation, input level with the social footer */
-.chat { position: absolute; right: calc(100% + 1px); bottom: 0; width: 548px; height: 362px; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: minmax(0, 1fr); overflow: hidden; background: #010a13; border: 1px solid #1e2328; border-bottom: 0; box-shadow: 0 0 24px rgba(0,0,0,.6); z-index: 6; }
+.chat { position: absolute; right: calc(100% + 1px); bottom: 0; width: 548px; height: 362px; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: minmax(0, 1fr); overflow: hidden; background: linear-gradient(180deg, #0a1428 0%, #010a13 38%); border: 1px solid var(--gold-5); border-bottom: 0; box-shadow: 0 0 24px rgba(0,0,0,.6); z-index: 6; }
 .chat[hidden] { display: none; }
-.cv-list { border-right: 1px solid #1e2328; background: #010a13; padding-top: 1px; }
+.cv-list { border-right: 1px solid var(--gold-5); background: #010a13; padding-top: 1px; }
 .cv { display: flex; align-items: center; gap: 10px; height: 54px; padding: 0 12px 0 14px; border-left: 4px solid transparent; }
-.cv.on { background: #1e2328; border-left-color: var(--gold-3); }
+.cv.on { background: linear-gradient(90deg, #1e2328, rgba(30,35,40,.4)); border-left-color: var(--gold-3); }
 .cv .av { width: 34px; height: 34px; border-radius: 50%; flex: none; border: 2px solid var(--gold-4); background: #0a1428 url(img/main-tile.webp) center/118% no-repeat; }
 .cv b { font: 700 13px/1.2 var(--body); color: var(--gold-1); text-transform: uppercase; letter-spacing: .01em; }
 .cv-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
-.chat-h { height: 48px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 10px; border-bottom: 1px solid #1e2328; }
+.chat-h { height: 48px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 10px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, #0a1428, #010a13); }
 .chat-h .av { position: relative; width: 30px; height: 30px; border-radius: 50%; flex: none; border: 2px solid var(--gold-4); background: #0a1428 url(img/main-tile.webp) center/118% no-repeat; }
 .chat-h .av::after { content: ""; position: absolute; right: -3px; bottom: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); border: 2px solid #010a13; }
 .chat-h .who { flex: 1; min-width: 0; }
@@ -130,25 +132,25 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .chat-x { all: unset; cursor: pointer; color: #a09b8c; }
 .chat-x:hover { color: var(--gold-1); }
 .chat-x:focus-visible { outline: 1px solid var(--blue); }
-.chat-log { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: 10px 8px 10px 12px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; scrollbar-color: var(--gold-4) #0a0e13; }
-.chat-log::-webkit-scrollbar { width: 8px; }
-.chat-log::-webkit-scrollbar-track { background: #0a0e13; }
-.chat-log::-webkit-scrollbar-thumb { background: var(--gold-5); border: 1px solid var(--gold-4); }
-.sys { flex: none; font-size: 12px; line-height: 1.45; color: #6c6a64; }
-.msg { flex: none; max-width: 84%; padding: 7px 10px; font-size: 12.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid transparent; }
-.msg.bot { align-self: flex-start; background: #1e2328; border-color: #2c3137; color: #e0dccf; }
-.msg.out { align-self: flex-end; background: #102332; border-color: #1d4256; color: var(--gold-1); }
-.msg.err { background: #2a2116; border-color: #5a4320; color: var(--away); }
+.chat-log { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: 12px 8px 10px 12px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; scrollbar-color: var(--gold-4) #010a13; }
+.chat-log::-webkit-scrollbar { width: 6px; }
+.chat-log::-webkit-scrollbar-track { background: #010a13; }
+.chat-log::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold-3), var(--gold-4)); }
+.sys { flex: none; padding: 0 0 4px; border-bottom: 1px solid #1e2328; font-size: 12px; line-height: 1.45; color: var(--mute); }
+.msg { flex: none; max-width: 84%; padding: 7px 11px; font-size: 12.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid transparent; }
+.msg.bot { align-self: flex-start; background: #1e2328; border-color: #3c3c41; border-left: 2px solid var(--gold-4); color: var(--gold-1); }
+.msg.out { align-self: flex-end; background: #0a323c; border-color: #005a82; border-right: 2px solid var(--blue-2); color: var(--gold-1); }
+.msg.err { background: #1e2328; border-color: #3c3c41; border-left: 2px solid #c8aa6e; color: var(--gold-2); }
 .msg.typing::after { content: "..."; animation: dots 1s steps(4) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; color: #6c6a64; }
 @keyframes dots { from { width: 0; } to { width: 1.2em; } }
 .chat-sugg { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 12px 10px; }
 .chat-sugg[hidden] { display: none; }
-.chat-sugg button { all: unset; cursor: pointer; padding: 5px 9px; border: 1px solid #3c3c41; font-size: 11px; color: var(--ink); transition: border-color .15s, color .15s; }
-.chat-sugg button:hover { border-color: var(--gold-3); color: var(--gold-1); }
-.chat-in { height: 36px; flex: none; display: flex; border-top: 1px solid #1e2328; }
-.chat-in input { flex: 1; min-width: 0; margin: 3px 3px 3px 2px; background: #010a13; border: 1px solid #3c3c41; padding: 0 9px; font: 400 13px/1 var(--body); color: var(--gold-1); outline: none; transition: border-color .15s; }
+.chat-sugg button { all: unset; cursor: pointer; padding: 6px 10px; border: 1px solid var(--gold-4); background: linear-gradient(180deg, #1e2328, #161a1e); font: 700 10px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); transition: border-color .15s, color .15s; }
+.chat-sugg button:hover { border-color: var(--gold-2); color: var(--gold-1); }
+.chat-in { height: 36px; flex: none; display: flex; border-top: 1px solid var(--gold-5); background: #010a13; }
+.chat-in input { flex: 1; min-width: 0; margin: 3px 3px 3px 2px; background: #010a13; border: 1px solid var(--gold-5); caret-color: var(--gold-2); padding: 0 9px; font: 400 13px/1 var(--body); color: var(--gold-1); outline: none; transition: border-color .15s; }
 .chat-in input:focus { border-color: var(--gold-3); }
-.chat-in input::placeholder { color: #6c6a64; }
+.chat-in input::placeholder { color: var(--mute); }
 .chat-in button { display: none; }
 
 /* ---------- profile body ---------- */
@@ -397,10 +399,10 @@ a.match:hover { border-color: var(--gold-4); }
       <a href="#petri" data-go="petri">Petri</a>
       <a href="#xarena" data-go="xarena">X Arena</a>
     </nav>
-    <div class="navic" aria-hidden="true">
-      <span class="nb"><img src="img/nav-profile.svg" alt=""></span>
-      <span class="nb"><img src="img/nav-loot.svg" alt=""></span>
-      <span class="nb"><img src="img/nav-collections.svg" alt=""></span>
+    <div class="navic">
+      <a class="nb" href="#overview" data-go="overview" aria-label="Profile: go to profile home" title="Profile"><img src="img/nav-profile.svg" alt=""></a>
+      <span class="nb" aria-hidden="true"><img src="img/nav-loot.svg" alt=""></span>
+      <span class="nb" aria-hidden="true"><img src="img/nav-collections.svg" alt=""></span>
     </div>
     <div class="wallet" aria-label="Stats">
       <span>3 <i>SHIPPED</i></span>
@@ -409,10 +411,10 @@ a.match:hover { border-color: var(--gold-4); }
   </header>
 
   <aside class="social" aria-label="Social">
-    <div class="me">
+    <a class="me" href="#overview" data-go="overview" aria-label="Jasper Li: go to profile home">
       <div class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#jl"/></svg><i>Y2</i></div>
       <div><b>Jasper Li</b><small>Online</small></div>
-    </div>
+    </a>
     <div class="soc-h">SOCIAL</div>
     <div class="req"><span>Internship requests</span><b>Open</b></div>
     <section class="sgrp open">
@@ -596,7 +598,7 @@ a.match:hover { border-color: var(--gold-4); }
     var a = base.paused ? base : base.cloneNode(); a.volume = vol || .4; a.currentTime = 0;
     var pr = a.play(); if (pr && pr.catch) pr.catch(function () {});
   }
-  var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page'), icons = document.querySelectorAll('.navic button');
+  var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page'), icons = document.querySelectorAll('.navic [data-go]');
   function show(k) {
     tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
     icons.forEach(function (b) { b.classList.toggle('on', b.dataset.go === k); });
@@ -658,7 +660,7 @@ a.match:hover { border-color: var(--gold-4); }
   on('.playwrap', 'mouseenter', function () { sfx('play-hover', .35); });
   on('.playwrap', 'click', function () { sfx('play-click', .45); });
   on('.tabs a, .subtabs button', 'mouseenter', function () { sfx('hover', .25); });
-  on('.tabs a', 'click', function () { sfx('nav-click', .45); });
+  on('.tabs a, a.nb, a.me', 'click', function () { sfx('nav-click', .45); });
   on('.subtabs button', 'click', function () { sfx('tab-click', .45); });
   on('a.btn', 'mouseenter', function () { sfx('gold-hover', .3); });
   on('a.btn', 'click', function () { sfx('gold-click', .4); });
