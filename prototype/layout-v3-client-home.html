@@ -42,8 +42,10 @@ button { font: inherit; color: inherit; }
 .logo { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; flex: none; background: #000; }
 .logo svg { width: 100%; height: 100%; display: block; }
 .logo { position: relative; z-index: 1; }
-.play { display: inline-flex; align-items: center; padding: 11px 34px 11px 40px; margin-left: -34px; font: 800 15px/1 var(--body); letter-spacing: .14em; color: #fff; text-decoration: none; background: linear-gradient(180deg, #0f6e7e, #0a4a5e); border: 2px solid var(--teal); box-shadow: inset 0 0 12px rgba(10,200,185,.35); }
-.play:hover { background: linear-gradient(180deg, #148a9c, #0c5a70); }
+.play { position: relative; display: inline-flex; align-items: center; padding: 12px 44px 12px 40px; margin-left: -34px; font: 800 15px/1 var(--body); letter-spacing: .14em; color: var(--gold-hi); text-decoration: none; background: var(--teal); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
+.play::before { content: ""; position: absolute; inset: 2px; z-index: -1; background: linear-gradient(180deg, #0b3b4d, #062433); clip-path: polygon(0 0, calc(100% - 17px) 0, 100% 50%, calc(100% - 17px) 100%, 0 100%); }
+.play { isolation: isolate; }
+.play:hover::before { background: linear-gradient(180deg, #0f5168, #083045); }
 .tabs { display: flex; gap: 4px; overflow-x: auto; }
 .tabs button { all: unset; cursor: pointer; padding: 8px 10px; font: 800 13px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
 .tabs button.on { color: var(--gold-hi); }
