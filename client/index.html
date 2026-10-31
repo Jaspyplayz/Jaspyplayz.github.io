@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Portfolio Layout Prototype</title>
+<title>Jasper Li</title>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,12 +42,10 @@ img { display: block; max-width: 100%; }
 .playwrap .pb { position: absolute; left: 50px; top: 0; width: 146px; height: 50px; background: url(img/play-btn.webp) 0 0 / 100% 100% no-repeat; display: grid; place-items: center; padding: 0 6px 0 4px; font: 700 14px/1 var(--display); letter-spacing: .08em; color: var(--gold-1); }
 .playwrap:hover .pb { background-image: url(img/play-btn-hover.webp); }
 .pb b { position: relative; z-index: 1; font: inherit; }
-.pb-vid, .ll-vid { display: none; position: absolute; pointer-events: none; }
-.pb-vid { inset: 0; width: 100%; height: 100%; object-fit: fill; opacity: 0; transition: opacity .2s; }
+.ll-vid { display: none; position: absolute; pointer-events: none; }
 .ll-vid { left: -11px; top: -6px; width: 70px; height: 59px; z-index: 3; }
-.vids .pb-vid, .vids .ll-vid { display: block; }
+.vids .ll-vid { display: block; }
 .vids .ll { visibility: hidden; }
-.playwrap:hover .pb-vid { opacity: 1; }
 .tabs { display: flex; gap: 18px; }
 .tabs a { font: 700 14px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: color .15s; }
 .tabs a:hover, .tabs a.on { color: var(--gold-1); }
@@ -287,7 +287,9 @@ a.match:hover { border-color: var(--gold-4); }
 /* ---------- desktop: fixed 1280x720 client. Every position below is measured in client pixels from
    ref-client-profile.png (client frame at x10,y10 of that screenshot), then the whole window is scaled to fit. ---------- */
 @media (min-width: 900px) {
-  .stage { margin: 0 auto; position: relative; }
+  html, body { height: 100%; overflow: hidden; }
+  .wrap { min-height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 12px; padding-bottom: 12px; }
+  .stage { margin: 0 auto; position: relative; flex: none; }
   .client { position: absolute; top: 0; left: 0; width: 1280px; height: 720px; max-width: none; transform-origin: 0 0; grid-template-columns: 1048px 232px; grid-template-rows: 81px 639px; }
 
   /* top bar: logo 25..68, frame 28..190 x 22..60, arrow 63..185 x 26..57, tabs from x227 */
@@ -351,7 +353,7 @@ a.match:hover { border-color: var(--gold-4); }
   .sc.flag .art { top: 74px; } .sc.flag .art img { width: 76px; }
   .page.proj.on { display: grid; left: 0; padding: 40px 44px 0 48px; grid-template-columns: 440px 1fr; gap: 40px; align-items: start; }
   .proj .pj-shot { margin-top: 30px; }
-  .legal { max-width: none; }
+  .legal { max-width: none; margin-top: 8px; font-size: 10px; line-height: 1.4; }
 }
 @media (max-width: 899px) {
   .client { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
@@ -386,7 +388,7 @@ a.match:hover { border-color: var(--gold-4); }
 <div class="wrap">
 <div class="stage" id="stage"><div class="client" id="client">
   <header class="top">
-    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb"><video class="pb-vid" src="img/play-hover-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video><b>PLAY</b></span><img class="ll" src="img/lol-logo.webp" alt=""><video class="ll-vid" src="img/logo-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video></a>
+    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb"><b>PLAY</b></span><img class="ll" src="img/lol-logo.webp" alt=""><video class="ll-vid" src="img/logo-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video></a>
     <nav class="tabs" aria-label="Projects">
       <a href="#turnpoint" data-go="turnpoint">Turnpoint</a>
       <a href="#petri" data-go="petri">Petri</a>
@@ -641,7 +643,8 @@ a.match:hover { border-color: var(--gold-4); }
   var stage = document.getElementById('stage'), client = document.getElementById('client');
   function fit() {
     if (window.innerWidth < 900) { stage.style.width = stage.style.height = ''; client.style.transform = ''; return; }
-    var sc = Math.min((stage.parentNode.clientWidth - 32) / 1280, 1.4);
+    var legal = document.querySelector('.legal'), lh = legal ? legal.offsetHeight + 8 : 0;
+    var sc = Math.min((stage.parentNode.clientWidth - 32) / 1280, (window.innerHeight - 24 - lh) / 720, 1.4);
     client.style.transform = 'scale(' + sc + ')';
     stage.style.width = 1280 * sc + 'px'; stage.style.height = 720 * sc + 'px';
   }
@@ -674,15 +677,13 @@ a.match:hover { border-color: var(--gold-4); }
   // a returning visitor who left music on hears it again after their first click (browsers block audio before that)
   if (musicOn) document.addEventListener('pointerdown', function () { if (musicOn) setMusic(true); }, { once: true });
 
-  // the client's own animated League logo and PLAY hover glow (alpha video; Safari can't show alpha WebM, so it keeps the stills)
+  // the client's own animated League logo (alpha video; Safari can't show alpha WebM, so it keeps the stills)
   var pw = document.querySelector('.playwrap'), safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!safari && document.createElement('video').canPlayType('video/webm; codecs="vp9"')) {
     pw.classList.add('vids');
-    var lv = pw.querySelector('.ll-vid'), hv = pw.querySelector('.pb-vid');
+    var lv = pw.querySelector('.ll-vid');
     if (!still) { var p1 = lv.play(); if (p1 && p1.catch) p1.catch(function () {}); }
-    pw.addEventListener('mouseenter', function () { hv.currentTime = 0; var p2 = hv.play(); if (p2 && p2.catch) p2.catch(function () {}); });
-    pw.addEventListener('mouseleave', function () { hv.pause(); });
   }
   var h = (location.hash || '').slice(1);
   show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
