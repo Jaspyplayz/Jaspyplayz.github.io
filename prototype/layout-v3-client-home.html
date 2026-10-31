@@ -41,9 +41,11 @@ button { font: inherit; color: inherit; }
 .top { grid-column: 1; display: flex; align-items: center; gap: 22px; padding: 10px 18px; border-bottom: 1px solid #463714; background: linear-gradient(180deg, #0d141b, var(--bg)); }
 .logo { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; flex: none; background: #000; }
 .logo svg { width: 100%; height: 100%; display: block; }
-.logo { position: relative; z-index: 1; }
-.playbox { display: inline-flex; margin-left: -40px; padding: 3px 5px 3px 0; border: 1px solid #463714; background: linear-gradient(90deg, #050f17 70%, #0b2a3a); }
-.play { position: relative; display: inline-flex; align-items: center; padding: 11px 50px 11px 50px; font: 800 17px/1 var(--display); letter-spacing: .06em; color: var(--gold-hi); text-decoration: none; background: var(--teal); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
+.logo { position: relative; z-index: 2; }
+.playbox { display: inline-flex; margin-left: -40px; padding: 4px 6px 4px 0; border: 1px solid #463714; background: #02080d; position: relative; }
+.playbox::after { content: ""; position: absolute; top: 4px; bottom: 4px; right: 4px; width: 26px; border: 2px solid #0d3a40; border-left: 0; pointer-events: none; }
+.playbox .play { z-index: 1; }
+.play { position: relative; display: inline-flex; align-items: center; padding: 11px 50px 11px 50px; font: 800 17px/1 var(--display); letter-spacing: .06em; color: var(--gold-hi); text-decoration: none; background: linear-gradient(180deg, #0ac8b9, #0a7fa8); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
 .play::before { content: ""; position: absolute; inset: 2px; z-index: -1; background: linear-gradient(180deg, #232a30, #1a1f25); clip-path: polygon(0 0, calc(100% - 17px) 0, 100% 50%, calc(100% - 17px) 100%, 0 100%); }
 .play { isolation: isolate; }
 .play:hover::before { background: linear-gradient(180deg, #2c353c, #20272e); }
