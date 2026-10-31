@@ -251,7 +251,24 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .sc .art img { max-height: 100%; width: auto; }
 a.sc:hover .h { color: var(--gold-1); }
 .sc.rank .art img { width: 140px; height: auto; }
+.sc.mid { position: relative; outline: none; }
 .sc.mid .art { height: 132px; position: relative; width: 112px; }
+/* hover card like the client's: Highest Champion Mastery, centered on the slot (no Eternals) */
+.mpop { display: none; position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); width: 404px; padding: 18px 18px 16px; background: #010a13; border: 1px solid var(--gold-4); box-shadow: 0 10px 30px rgba(0,0,0,.75); z-index: 10; text-align: center; cursor: default; }
+.mpop::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 12px; height: 12px; background: #010a13; border-right: 1px solid var(--gold-4); border-bottom: 1px solid var(--gold-4); transform: translateX(-50%) rotate(45deg); }
+.sc.mid:hover .mpop, .sc.mid:focus-within .mpop { display: block; }
+.mpop h4 { margin: 0 0 16px; font: 700 13px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--gold-1); }
+.mrow { display: flex; justify-content: center; align-items: flex-end; gap: 14px; }
+.mc { width: 116px; display: grid; justify-items: center; }
+.mcr { position: relative; display: block; width: 64px; height: 98px; }
+.mcr .pt { position: absolute; left: 50%; top: 0; width: 56px; height: 56px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: #0a1428 center/112% no-repeat; box-shadow: 0 0 0 2px #010a13; z-index: 1; }
+.mcr img { position: absolute; left: 0; bottom: 0; width: 64px; height: auto; }
+.mc.mc-top .mcr { width: 80px; height: 118px; }
+.mc.mc-top .mcr .pt { width: 72px; height: 72px; }
+.mc.mc-top .mcr img { width: 80px; }
+.mc b { margin-top: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--gold-4); font: 700 12px/1.2 var(--display); letter-spacing: .05em; text-transform: uppercase; color: var(--gold-1); }
+.mc small { margin-top: 4px; font-size: 11px; line-height: 1.2; color: var(--text); }
+.mc small + small { margin-top: 2px; }
 .sc.mid .portrait { position: absolute; left: 50%; top: 0; width: 72px; height: 72px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: #0a1428 url(img/main-icon.webp) center/112% no-repeat; box-shadow: 0 0 0 2px var(--bg); }
 .sc.mid .art img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 104px; height: auto; max-height: none; }
 .sc.trophy .art img { width: 80px; height: auto; }
@@ -495,7 +512,7 @@ a.match:hover { border-color: var(--gold-4); }
       <div class="showcase">
         <div class="sc rank"><span class="h">Solo/Duo</span><span class="s">Peak Grandmaster</span><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span></div>
         <div class="sc honor"><span class="h">Honor</span><span class="s">Level 5</span><span class="art"><img src="img/honor.webp" alt="Honor level 5 emblem"></span></div>
-        <div class="sc mid"><span class="h">Mastery</span><span class="s">Qiyana</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span></div>
+        <div class="sc mid" tabindex="0" aria-describedby="mpop"><span class="h">Mastery score</span><span class="big">716</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span><div class="mpop" role="tooltip" id="mpop"><h4>Highest champion mastery</h4><div class="mrow"><div class="mc"><span class="mcr"><span class="pt" style="background-image:url(img/champ-katarina.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Katarina</b><small>Mastery 56</small><small>Best grade: N/A</small></div><div class="mc mc-top"><span class="mcr"><span class="pt" style="background-image:url(img/champ-qiyana.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Qiyana</b><small>Mastery 72</small><small>Best grade: N/A</small></div><div class="mc"><span class="mcr"><span class="pt" style="background-image:url(img/champ-hecarim.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Hecarim</b><small>Mastery 37</small><small>Best grade: N/A</small></div></div></div></div>
         <div class="sc trophy"><span class="h">Trophy</span><span class="s">3 projects shipped</span><span class="art"><img src="img/trophy-jl.svg" alt="Trophy"></span></div>
         <div class="sc flag"><span class="h">Banner</span><span class="s">University of Toronto</span><span class="art"><img src="img/banner-uoft.svg" alt="University of Toronto banner"></span></div>
       </div>
