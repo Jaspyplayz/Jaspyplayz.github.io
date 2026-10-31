@@ -5,3 +5,8 @@ exclude:
   - docs/
   - research/
   - prototype/
+  - api/
+  - package.json
+  - package-lock.json
+  - node_modules/
+  - vercel.json

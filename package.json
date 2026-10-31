@@ -1,0 +1,9 @@
+{
+  "name": "jaspyplayz-portfolio",
+  "private": true,
+  "type": "module",
+  "description": "Static portfolio plus one Vercel function (api/chat.js) for the AI chat.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0"
+  }
+}

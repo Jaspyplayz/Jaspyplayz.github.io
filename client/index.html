@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jasper Li</title>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* PROTOTYPE v5 (throwaway). League client profile screen, built with real client assets from
+   Community Dragon / Data Dragon under Riot's Legal Jibber Jabber policy (non-commercial, disclaimer below). */
+:root {
+  --bg: #010a13; --panel: #0a1428; --line: #1e2328; --rule: #463714;
+  --gold-1: #f0e6d2; --gold-2: #c8aa6e; --gold-3: #c89b3c; --gold-4: #785a28; --gold-5: #463714;
+  --ink: #cdbe91; --text: #a09b8c; --mute: #5b5a56;
+  --blue: #0ac8b9; --blue-2: #0397ab; --red: #e84057; --online: #0acf83; --away: #e9b84a;
+  --display: "Beaufort for LOL", "Source Serif 4", Georgia, serif;
+  --body: "Spiegel", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: #000; color: var(--text); font: 400 13px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
+p, h1, h2, h3 { margin: 0; }
+h1, h2, h3 { font-weight: 700; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.wrap { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+.client { max-width: 1280px; margin: 0 auto; background: var(--bg); border: 1px solid var(--gold-5); display: grid; grid-template-columns: 1fr 236px; grid-template-rows: 78px minmax(640px, 1fr); }
+.client > * { min-width: 0; }
+
+/* ---------- top bar ---------- */
+.top { grid-column: 1; display: flex; align-items: center; gap: 26px; padding: 0 20px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, rgba(1,10,19,.6), rgba(1,10,19,.92)); position: relative; z-index: 3; }
+.playwrap { position: relative; display: block; flex: none; width: 196px; height: 50px; }
+.playwrap .ll { position: absolute; left: 0; top: 1px; width: 46px; height: auto; z-index: 3; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+.playwrap .pf { position: absolute; left: 30px; top: 5px; width: 162px; height: 40px; }
+.playwrap .pb { position: absolute; left: 50px; top: 0; width: 146px; height: 50px; background: url(img/play-btn.webp) 0 0 / 100% 100% no-repeat; display: grid; place-items: center; padding: 0 6px 0 4px; font: 700 14px/1 var(--display); letter-spacing: .08em; color: var(--gold-1); }
+.playwrap:hover .pb { background-image: url(img/play-btn-hover.webp); }
+.pb b { position: relative; z-index: 1; font: inherit; }
+.ll-vid { display: none; position: absolute; pointer-events: none; }
+.ll-vid { left: -11px; top: -6px; width: 70px; height: 59px; z-index: 3; }
+.vids .ll-vid { display: block; }
+.vids .ll { visibility: hidden; }
+.tabs { display: flex; gap: 18px; }
+.tabs a { font: 700 14px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: color .15s; }
+.tabs a:hover, .tabs a.on { color: var(--gold-1); }
+.navic { margin-left: auto; display: flex; align-items: center; }
+.navic .nb { width: 46px; height: 40px; display: grid; place-items: center; border-left: 1px solid var(--line); opacity: .8; transition: opacity .15s; }
+.navic .nb:first-child { border-left: 0; }
+.navic img { width: 24px; height: 24px; }
+a.nb:hover, a.nb.on { opacity: 1; }
+a.nb:focus-visible, a.me:focus-visible { outline: 1px solid var(--blue); outline-offset: -2px; }
+.wallet { display: grid; gap: 4px; padding-left: 18px; border-left: 1px solid var(--line); font: 700 12px/1 var(--body); color: var(--gold-1); }
+.wallet span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wallet i { font-style: normal; color: var(--gold-2); font-size: 10px; letter-spacing: .1em; }
+
+/* ---------- social ---------- */
+.social { grid-column: 2; grid-row: 1 / 3; border-left: 1px solid var(--gold-5); background: var(--bg); display: flex; flex-direction: column; position: relative; z-index: 3; }
+.me { height: 78px; display: flex; gap: 12px; align-items: center; padding: 0 14px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, #091521, var(--bg)); }
+.me .ic { width: 50px; height: 50px; border-radius: 50%; padding: 2px; flex: none; background: linear-gradient(180deg, var(--gold-2), var(--gold-4)); position: relative; }
+.me .ic svg { width: 100%; height: 100%; display: block; border-radius: 50%; }
+.me .ic i { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font: 700 9px/1 var(--body); font-style: normal; color: var(--gold-1); background: var(--bg); border: 1px solid var(--gold-4); border-radius: 7px; padding: 2px 5px; white-space: nowrap; }
+.me b { display: block; color: var(--gold-1); font-size: 14px; font-weight: 700; }
+.me small { color: var(--online); font-size: 12px; }
+.me small::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--online); margin-right: 5px; vertical-align: 1px; }
+.soc-h { padding: 14px 14px 8px; font: 700 11px/1 var(--body); letter-spacing: .14em; color: var(--ink); }
+.req { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px 10px; color: var(--gold-3); font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--line); }
+.req b { background: var(--gold-4); color: var(--gold-1); font-size: 11px; padding: 1px 6px; }
+.grp { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; padding: 12px 14px 6px; font: 700 11px/1 var(--body); letter-spacing: .08em; color: var(--text); text-transform: uppercase; display: flex; gap: 6px; align-items: center; transition: color .15s; }
+.grp:hover { color: var(--gold-1); }
+.grp:focus-visible { outline: 1px solid var(--blue); outline-offset: -1px; }
+.grp::before { content: ""; border: 4px solid transparent; border-top: 5px solid currentColor; border-bottom: 0; transform: rotate(-90deg); transition: transform .2s ease; }
+.sgrp.open .grp::before { transform: none; }
+.rows { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
+.sgrp.open .rows { grid-template-rows: 1fr; }
+.rows-in { overflow: hidden; min-height: 0; }
+.rows-in .fr { transform-origin: left center; transition: opacity .2s ease, transform .25s ease; opacity: 0; transform: scale(.94); }
+.sgrp.open .rows-in .fr { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rows, .rows-in .fr, .grp::before { transition: none; } }
+.fr { display: flex; gap: 10px; align-items: center; padding: 6px 14px; transition: background .15s; }
+a.fr:hover { background: rgba(240,230,210,.04); }
+.fr .av { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold-4); display: grid; place-items: center; background: #0a1428 center/cover; color: var(--ink); flex: none; position: relative; font: 700 11px/1 var(--body); }
+.fr .av svg { width: 16px; height: 16px; }
+.fr .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--online); border: 2px solid var(--bg); }
+.fr.away .av::after { background: var(--away); }
+.fr b { display: block; color: var(--gold-1); font-size: 13px; font-weight: 600; line-height: 1.3; }
+.fr small { display: block; color: var(--online); font-size: 11px; }
+.fr.away small { color: var(--away); }
+.soc-foot { margin-top: auto; height: 36px; flex: none; display: flex; align-items: center; gap: 3px; padding: 0 4px; border-top: 1px solid var(--gold-5); background: #010a13; }
+.soc-foot .fb { width: 30px; height: 28px; display: grid; place-items: center; border: 1px solid #1e2328; background: #0a0e13; color: #8c8a80; }
+.soc-foot .fb svg { width: 15px; height: 15px; }
+.soc-foot button.fb { all: unset; box-sizing: border-box; cursor: pointer; width: 30px; height: 28px; display: grid; place-items: center; border: 1px solid #3c3c41; background: #0a0e13; color: var(--gold-1); transition: border-color .15s; }
+.soc-foot button.fb:hover, .soc-foot button.fb[aria-expanded="true"] { border-color: var(--gold-3); }
+.soc-foot button.fb:focus-visible { outline: 1px solid var(--blue); }
+.soc-foot .ver { margin-left: auto; height: 28px; padding: 0 9px; display: grid; place-items: center; border: 1px solid #1e2328; background: #0a0e13; font: 600 11px/1 var(--body); color: #6c6a64; }
+.soc-foot .fb.tog { position: relative; }
+.soc-foot .fb.tog[aria-pressed="false"] { color: #6c6a64; }
+.soc-foot .fb.tog[aria-pressed="true"] { border-color: var(--gold-4); }
+.soc-foot .fb.tog[aria-pressed="false"]::after { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 1.5px; background: currentColor; transform: rotate(-40deg); }
+.soc-foot .fb.bug { border-color: var(--gold-4); color: var(--gold-3); }
+.fr .av.av-tp { background: #1e1c19 url(img/turnpoint-logo.svg) center/100% no-repeat; }
+.fr.ai { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 6px 14px; transition: background .15s; }
+.fr.ai .av { background-image: url(img/main-tile.webp); background-size: 118%; }
+.fr.ai .av::after { background: var(--blue); }
+.fr.ai small { color: var(--blue); }
+.fr.ai:hover, .fr.ai[aria-expanded="true"] { background: rgba(240,230,210,.05); }
+.fr.ai:focus-visible { outline: 1px solid var(--blue); outline-offset: -1px; }
+
+/* docked whisper window, like the client's chat: conversation list + conversation, input level with the social footer */
+.chat { position: absolute; right: calc(100% + 1px); bottom: 0; width: 548px; height: 362px; display: grid; grid-template-columns: 200px 1fr; grid-template-rows: minmax(0, 1fr); overflow: hidden; background: linear-gradient(180deg, #0a1428 0%, #010a13 38%); border: 1px solid var(--gold-5); border-bottom: 0; box-shadow: 0 0 24px rgba(0,0,0,.6); z-index: 6; }
+.chat[hidden] { display: none; }
+.cv-list { border-right: 1px solid var(--gold-5); background: #010a13; padding-top: 1px; }
+.cv { display: flex; align-items: center; gap: 10px; height: 54px; padding: 0 12px 0 14px; border-left: 4px solid transparent; }
+.cv.on { background: linear-gradient(90deg, #1e2328, rgba(30,35,40,.4)); border-left-color: var(--gold-3); }
+.cv .av { width: 34px; height: 34px; border-radius: 50%; flex: none; border: 2px solid var(--gold-4); background: #0a1428 url(img/main-tile.webp) center/118% no-repeat; }
+.cv b { font: 700 13px/1.2 var(--body); color: var(--gold-1); text-transform: uppercase; letter-spacing: .01em; }
+.cv-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.chat-h { height: 48px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 10px; border-bottom: 1px solid var(--gold-5); background: linear-gradient(180deg, #0a1428, #010a13); }
+.chat-h .av { position: relative; width: 30px; height: 30px; border-radius: 50%; flex: none; border: 2px solid var(--gold-4); background: #0a1428 url(img/main-tile.webp) center/118% no-repeat; }
+.chat-h .av::after { content: ""; position: absolute; right: -3px; bottom: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); border: 2px solid #010a13; }
+.chat-h .who { flex: 1; min-width: 0; }
+.chat-h b { display: block; font: 700 13px/1.2 var(--body); color: var(--gold-1); text-transform: uppercase; }
+.chat-h small { display: block; font-size: 11px; line-height: 1.3; color: #6c6a64; }
+.chat-h .ctl { display: flex; align-items: center; gap: 2px; color: #8c8a80; }
+.chat-h .ctl span, .chat-h .ctl button { width: 22px; height: 22px; display: grid; place-items: center; }
+.chat-h .ctl svg { width: 13px; height: 13px; }
+.chat-x { all: unset; cursor: pointer; color: #a09b8c; }
+.chat-x:hover { color: var(--gold-1); }
+.chat-x:focus-visible { outline: 1px solid var(--blue); }
+.chat-log { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: 12px 8px 10px 12px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; scrollbar-color: var(--gold-4) #010a13; }
+.chat-log::-webkit-scrollbar { width: 6px; }
+.chat-log::-webkit-scrollbar-track { background: #010a13; }
+.chat-log::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold-3), var(--gold-4)); }
+.sys { flex: none; padding: 0 0 4px; border-bottom: 1px solid #1e2328; font-size: 12px; line-height: 1.45; color: var(--mute); }
+.msg { flex: none; max-width: 84%; padding: 7px 11px; font-size: 12.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid transparent; }
+.msg.bot { align-self: flex-start; background: #1e2328; border-color: #3c3c41; border-left: 2px solid var(--gold-4); color: var(--gold-1); }
+.msg.out { align-self: flex-end; background: #0a323c; border-color: #005a82; border-right: 2px solid var(--blue-2); color: var(--gold-1); }
+.msg.err { background: #1e2328; border-color: #3c3c41; border-left: 2px solid #c8aa6e; color: var(--gold-2); }
+.msg.typing::after { content: "..."; animation: dots 1s steps(4) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; color: #6c6a64; }
+@keyframes dots { from { width: 0; } to { width: 1.2em; } }
+.chat-sugg { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 12px 10px; }
+.chat-sugg[hidden] { display: none; }
+.chat-sugg button { all: unset; cursor: pointer; padding: 6px 10px; border: 1px solid var(--gold-4); background: linear-gradient(180deg, #1e2328, #161a1e); font: 700 10px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); transition: border-color .15s, color .15s; }
+.chat-sugg button:hover { border-color: var(--gold-2); color: var(--gold-1); }
+.chat-in { height: 36px; flex: none; display: flex; border-top: 1px solid var(--gold-5); background: #010a13; }
+.chat-in input { flex: 1; min-width: 0; margin: 3px 3px 3px 2px; background: #010a13; border: 1px solid var(--gold-5); caret-color: var(--gold-2); padding: 0 9px; font: 400 13px/1 var(--body); color: var(--gold-1); outline: none; transition: border-color .15s; }
+.chat-in input:focus { border-color: var(--gold-3); }
+.chat-in input::placeholder { color: var(--mute); }
+.chat-in button { display: none; }
+
+/* ---------- profile body ---------- */
+.body { grid-column: 1; position: relative; overflow: hidden; display: grid; grid-template-columns: 224px 1fr; grid-template-rows: auto 1fr; }
+.body > * { min-width: 0; }
+.splash { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--bg); }
+/* subtle life on the static splash: slow drift, a warm light that wanders, a few rising motes */
+.splash-art { position: absolute; inset: 0; background: url(img/splash.webp) left 170px top 0 / auto 112% no-repeat; transform-origin: 68% 35%; animation: drift 32s ease-in-out infinite alternate; will-change: transform; }
+.splash::before { content: ""; position: absolute; z-index: 1; left: 30%; top: -20%; width: 70%; height: 90%; background: radial-gradient(closest-side, rgba(255,214,140,.18), rgba(255,214,140,0)); mix-blend-mode: screen; animation: glow 14s ease-in-out infinite alternate; pointer-events: none; }
+.splash::after { z-index: 2; }
+.motes { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.motes i { position: absolute; bottom: -8px; width: 3px; height: 3px; border-radius: 50%; background: #f7dc9c; box-shadow: 0 0 6px 2px rgba(240,180,80,.55); opacity: 0; animation: rise 14s linear infinite; }
+.motes i:nth-child(1) { left: 48%; animation-delay: 0s; }
+.motes i:nth-child(2) { left: 56%; animation-delay: 3s; animation-duration: 17s; }
+.motes i:nth-child(3) { left: 63%; animation-delay: 6s; width: 2px; height: 2px; }
+.motes i:nth-child(4) { left: 70%; animation-delay: 1.5s; animation-duration: 19s; }
+.motes i:nth-child(5) { left: 76%; animation-delay: 8s; }
+.motes i:nth-child(6) { left: 82%; animation-delay: 4.5s; animation-duration: 16s; width: 2px; height: 2px; }
+.motes i:nth-child(7) { left: 88%; animation-delay: 10s; }
+.motes i:nth-child(8) { left: 93%; animation-delay: 2.5s; animation-duration: 18s; }
+.motes i:nth-child(9) { left: 59%; animation-delay: 11.5s; width: 2px; height: 2px; }
+.motes i:nth-child(10) { left: 85%; animation-delay: 7s; animation-duration: 21s; }
+@keyframes drift { from { transform: scale(1) translate3d(0, 0, 0); } to { transform: scale(1.06) translate3d(-14px, -6px, 0); } }
+@keyframes glow { from { transform: translate(-12%, 0); opacity: .7; } to { transform: translate(14%, 12%); opacity: 1; } }
+@keyframes rise { 0% { transform: translate(0, 0); opacity: 0; } 12% { opacity: .85; } 85% { opacity: .5; } 100% { transform: translate(36px, -600px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .splash-art, .splash::before, .motes i { animation: none; } .motes { display: none; } }
+.splash::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(1,10,19,.96) 0%, rgba(1,10,19,.72) 26%, rgba(1,10,19,0) 55%),
+              linear-gradient(90deg, rgba(1,10,19,.9) 0%, rgba(1,10,19,.72) 34%, rgba(1,10,19,.3) 55%, rgba(1,10,19,0) 70%),
+              linear-gradient(180deg, rgba(1,10,19,.55) 0%, rgba(1,10,19,0) 14%); }
+
+.subtabs { grid-column: 1 / 3; position: relative; z-index: 2; display: flex; gap: 24px; padding: 16px 24px 0 26px; overflow-x: auto; scrollbar-width: none; }
+.subtabs button { all: unset; cursor: pointer; padding: 2px 0 7px; font: 700 12px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s; }
+.subtabs button:hover { color: var(--gold-1); }
+.subtabs button.on { color: var(--gold-1); border-color: var(--gold-3); }
+.subtabs button:focus-visible { outline: 1px solid var(--blue); outline-offset: 3px; }
+
+/* hanging banner: real Grandmaster banner skin, icon framed in GM wings */
+.banner { grid-column: 1; grid-row: 2; position: relative; z-index: 2; margin-left: 26px; width: 180px; aspect-ratio: 360 / 965; max-height: 560px; align-self: start;
+  background: url(img/banner-gm.webp) top center / 100% 100% no-repeat; display: flex; flex-direction: column; align-items: center; padding-top: 34px; text-align: center; }
+.lvl { font: 700 11px/1 var(--body); color: var(--gold-1); border: 1px solid var(--gold-4); border-radius: 9px; padding: 3px 9px; background: rgba(1,10,19,.85); }
+.crest { position: relative; width: 168px; aspect-ratio: 420 / 382; margin-top: 2px; }
+.crest .wings { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.crest .icon { position: absolute; z-index: 1; left: 49.8%; top: 62.7%; width: 37%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden; background: #000; }
+.crest .icon svg { width: 100%; height: 100%; display: block; }
+.banner h1 { margin-top: 6px; font: 700 15px/1.2 var(--body); color: var(--gold-1); letter-spacing: .01em; }
+.banner .tag { margin-top: 2px; font-size: 11px; color: var(--text); }
+.banner .tok { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+.banner .tok span { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #3c3c41; background: radial-gradient(circle at 50% 35%, rgba(30,35,40,.9), rgba(1,10,19,.9) 70%); box-shadow: inset 0 0 0 3px rgba(1,10,19,.85), inset 0 0 0 4px rgba(200,170,110,.16); display: grid; place-items: center; color: var(--gold-2); }
+.banner .tok svg { width: 22px; height: 22px; display: block; }
+
+/* pages */
+.page { grid-column: 2; grid-row: 2; position: relative; z-index: 2; padding: 26px 26px 26px 8px; display: none; }
+.page.on { display: flex; flex-direction: column; }
+
+.intro { max-width: 380px; }
+.intro .eyebrow { font: 700 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-2); }
+.intro p { margin-top: 10px; font: 400 15px/1.5 var(--body); color: var(--gold-1); text-shadow: 0 1px 8px rgba(1,10,19,.9); }
+.status { margin-top: 14px; display: inline-flex; gap: 8px; align-items: center; padding: 6px 12px; background: rgba(1,10,19,.78); border: 1px solid var(--gold-5); font-size: 12px; color: var(--ink); }
+.status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--online); }
+
+.feat { margin-top: 14px; display: flex; gap: 12px; align-items: center; padding: 8px 14px 8px 8px; max-width: 380px; background: rgba(1,10,19,.82); border: 1px solid var(--gold-5); transition: border-color .15s; }
+.feat .thumb { width: 64px; height: 40px; flex: none; background: #0a1428 top left / cover; border: 1px solid var(--gold-5); }
+.feat small { display: block; font: 700 10px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); }
+.feat b { display: block; margin-top: 3px; font: 700 14px/1.2 var(--body); color: var(--gold-1); }
+.feat i { display: block; font-style: normal; font-size: 11px; color: var(--text); }
+
+/* Loot, Collection and the Mastery tab copy the client's own screens
+   (rcp-fe-lol-loot, rcp-fe-lol-collections and its champion-mastery cards). */
+.body[data-view="screen"] .subtabs, .body[data-view="screen"] .banner, .body[data-view="screen"] .splash { display: none; }
+.body[data-view="screen"] { background: #010a13 url(img/lc/bg-hextech.webp) 0 -80px / 1280px 720px no-repeat; }
+.body[data-view="wide"] .banner { display: none; }
+.body[data-view="wide"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.93) 0%, rgba(1,10,19,.86) 70%, rgba(1,10,19,.8) 100%); }
+.page.scr.on { display: block; }
+.lc-nav { display: flex; }
+.lc-nav button { all: unset; cursor: pointer; position: relative; padding: 0 12px; font: 500 12px/30px var(--display); letter-spacing: .1em; text-transform: uppercase; color: #cdbe91; transition: color .3s; }
+.lc-nav button:hover, .lc-nav button.on { color: #f0e6d2; }
+.lc-nav button.on::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #c89b3c; }
+.lc-nav button:focus-visible, .lt-tab:focus-visible, .li:focus-visible, .sk2:focus-visible, .lc-btn:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+/* hextech control panel */
+.lc-panel { width: 194px; }
+.lc-tot { text-align: center; }
+.lc-tot::before, .lc-tot::after { content: ""; display: block; height: 18px; background: url(img/lc/hex-top.png) no-repeat 0 1px / contain; }
+.lc-tot::after { background-image: url(img/lc/hex-bot.png); background-position: 0 0; }
+.lc-tot div { padding: 4px 10px 8px; background: url(img/lc/hex-mid.png) repeat-y 0 0 / contain; }
+.lc-tot b { display: block; font: 700 40px/42px var(--display); letter-spacing: .05em; color: #f0e6d2; }
+.lc-tot small { display: block; margin-top: 2px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #a09b8c; }
+.lc-note { margin-top: 18px; font: 400 12px/18px var(--body); letter-spacing: .025em; color: #a09b8c; }
+.lc-note b { color: #cdbe91; font-weight: 600; }
+/* item grid with groups */
+.lc-grid { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 transparent; }
+.lc-grid[hidden] { display: none; }
+.lc-grid::-webkit-scrollbar { width: 6px; } .lc-grid::-webkit-scrollbar-thumb { background: #785a28; }
+.lc-group { margin: 8px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; }
+.lc-group span { margin-left: 32px; color: #a09b8c; }
+.lc-sep { border-top: 1px solid #1b292a; width: 750px; max-width: 100%; margin: 0 0 16px; }
+.lc-items { display: flex; flex-wrap: wrap; margin-bottom: 8px; }
+/* champion-mastery card (rcp-fe-lol-champion-mastery-champion-item-lcm) */
+.cc { display: block; margin: 8px; width: 136px; }
+.cc .th { position: relative; display: block; width: 134px; height: 200px; border: 1px solid #1e2328; background: #010a13; }
+.cc:hover .th { border-image: linear-gradient(-45deg, #c89b3c, #fafafa) 1; }
+.cc .im { display: block; width: 100%; height: 100%; overflow: hidden; opacity: .8; }
+.cc:hover .im { opacity: 1; }
+.cc .im img { display: block; width: 100%; height: auto; }
+.cc .im.tech { display: grid; place-items: center; padding-bottom: 36px; box-sizing: border-box; background: radial-gradient(circle at 50% 38%, #0f3a4d, #04141f 62%, #010a13); }
+.cc .im.tech img { width: 58px; height: 58px; }
+.cc .im.tech .mono { font: 700 34px/1 var(--display); letter-spacing: .06em; color: #c8aa6e; }
+.cc .info { position: absolute; left: 0; right: 0; top: 164px; height: 35px; display: flex; background: linear-gradient(0deg, #010a13, rgba(1,10,19,.65)); border-top: 1px solid #1e2328; }
+.cc .badge { position: relative; width: 58px; flex: none; }
+.cc .badge img { position: absolute; left: -8px; top: -5px; width: 65px; height: 62px; }
+.cc .desc { flex: 1; font: 400 12px/35px var(--body); color: #cdbe91; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 6px; }
+.cc .info.plain .desc { padding: 0 6px; font-size: 11px; color: #a09b8c; }
+.cc .nm { display: block; margin: 16px 0; font: 400 13px/16px var(--body); color: #f0e6d2; text-align: center; }
+/* skin card (rcp-fe-lol-collections-skin-item) */
+.sk2 { all: unset; box-sizing: border-box; position: relative; display: block; width: 154px; margin: 8px 0; cursor: pointer; }
+.sk2 .th { position: relative; display: block; width: 134px; height: 194px; margin: 0 10px; }
+.sk2 .im { position: absolute; left: 0; top: 0; width: 131px; height: 194px; background: #0a1428 center top / cover; clip-path: polygon(12px 2px,3px 12px,3px 36px,5px 38px,5px 159px,3px 162px,4px 171px,0 173px,0 184px,11px 193px,117px 193px,130px 184px,130px 173px,126px 171px,126px 162px,125px 159px,125px 38px,128px 36px,128px 12px,118px 2px); opacity: .85; }
+.sk2:hover .im { opacity: 1; }
+.sk2 .bd { position: absolute; left: 0; top: -5px; width: 134px; height: 226px; background: no-repeat 0 0 / contain; pointer-events: none; }
+.sk2 .gem { position: absolute; left: 0; right: 0; bottom: -23px; height: 26px; background: no-repeat center / contain; }
+.sk2.locked .im { opacity: .6; border: 1px solid #3c3c41; clip-path: none; width: 132px; height: 192px; }
+.sk2.locked .im.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); font: 700 30px/1 var(--display); letter-spacing: .2em; color: #785a28; }
+.sk2 .lock { position: absolute; left: 50%; bottom: 13px; width: 30px; height: 30px; margin-left: -15px; background: url(img/lc/lock.png) center / contain; }
+.sk2 .nm { display: block; margin-top: 36px; font: 400 13px/16px var(--body); color: #f0e6d2; text-align: center; }
+.sk2 .nm small { display: block; font-size: 11px; color: #a09b8c; }
+/* loot inventory (rcp-fe-lol-loot) */
+.lt-inv { display: flex; }
+.lt-tabs { width: 70px; flex: none; padding-top: 4px; }
+.lt-tab { all: unset; box-sizing: border-box; position: relative; display: block; width: 44px; height: 32px; margin-bottom: 10px; cursor: pointer; opacity: .5; }
+.lt-tab img { display: block; width: 20px; height: 20px; margin: 6px 6px 6px 18px; }
+.lt-tab:hover, .lt-tab.on { opacity: 1; }
+.lt-tab.on::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #c89b3c; }
+.lt-sec { width: 332px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 transparent; }
+.lt-sec::-webkit-scrollbar { width: 6px; } .lt-sec::-webkit-scrollbar-thumb { background: #785a28; }
+.lt-st { padding: 5px 0 2px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #a09b8c; }
+.lt-sec hr { border: 0; border-bottom: 1px solid #785a28; height: 0; margin: 2px 0 14px; width: 322px; }
+.lt-grid2 { display: flex; flex-wrap: wrap; }
+.lt-grp[hidden] { display: none; }
+.li { all: unset; box-sizing: border-box; position: relative; display: block; width: 69px; height: 69px; margin: 0 12px 16px 2px; cursor: pointer; }
+.li .ic { position: absolute; inset: 0; background: #010a13 center / cover no-repeat; opacity: .9; }
+.li .ic.fit { background-size: 62%; background-color: #06141d; }
+.li .ic.mono { display: grid; place-items: center; font: 700 18px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); }
+.li .lf { position: absolute; inset: 0; border: 1px solid #463714; }
+.li:hover .lf { border-color: #785a28; }
+.li.shard .lf { background: none; border: 1px dashed #785a28; }
+.li .ov { position: absolute; inset: 0; background: #000; opacity: 0; }
+.li:hover .ov { opacity: .25; }
+.li.on .lf { border: 2px solid #c8aa6e; box-shadow: 0 0 10px rgba(200,170,110,.45); }
+.li .qt { position: absolute; right: 4px; bottom: 3px; font: 500 13px/16px var(--display); color: #cdbe91; text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 2px #000; }
+/* hextech crafter */
+.lt-craft { position: relative; width: 619px; height: 561px; }
+.lt-craft .ring { position: absolute; left: 50%; top: 304px; width: 420px; height: 413px; transform: translate(-50%, -50%); background: url(img/lc/crafter-frame.webp) center / contain no-repeat; }
+.lt-craft .nm { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font: 700 18px/22px var(--display); letter-spacing: .05em; text-transform: uppercase; color: #f0e6d2; text-shadow: 2px 2px 2px #000; }
+.lt-craft .kd { position: absolute; left: 0; right: 0; top: 40px; text-align: center; font: 700 11px/14px var(--body); letter-spacing: .14em; text-transform: uppercase; color: #c89b3c; }
+.lt-craft .art { position: absolute; left: 50%; top: 290px; width: 230px; height: 230px; transform: translate(-50%, -50%); display: grid; place-items: center; }
+.lt-craft .art img { max-width: 220px; max-height: 200px; }
+.lt-craft .art img.cover { width: 230px; height: 144px; max-width: none; object-fit: cover; object-position: left top; border: 1px solid #785a28; }
+.lt-craft .art img.round { width: 170px; height: 170px; border-radius: 50%; border: 2px solid #c89b3c; }
+.lt-craft .art .mono { font: 700 64px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; }
+.lt-craft .art img.logo { width: 120px; height: 120px; }
+.lt-craft .art .key { position: absolute; right: 4px; bottom: 10px; width: 84px; height: 84px; max-width: none; }
+.lt-craft .tx { position: absolute; left: 50%; top: 60px; width: 440px; margin: 0 0 0 -220px; text-align: center; font: 400 12px/18px var(--body); letter-spacing: .025em; color: #a09b8c; }
+.lt-craft .cta { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 4px; }
+.lc-btn { all: unset; box-sizing: border-box; position: relative; display: grid; place-items: center; width: 150px; height: 78px; padding-top: 12px; cursor: pointer; background: url(img/lc/craftbutton-up.png) center / contain no-repeat; font: 700 12px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: #f0e6d2; text-shadow: 0 1px 2px #000; white-space: nowrap; }
+.lc-btn:hover { background-image: url(img/lc/craftbutton-hover.png); }
+.lc-btn.off { cursor: default; color: #5b5a56; background-image: url(img/lc/craftbutton-disabled.png); }
+/* project overview pages (top tabs) */
+.body[data-view="project"] .subtabs, .body[data-view="project"] .banner { display: none; }
+.body[data-view="project"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.97) 0%, rgba(1,10,19,.9) 48%, rgba(1,10,19,.72) 100%); }
+.proj.on { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+.pj-kicker { font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); }
+.proj h2 { margin-top: 10px; font: 700 34px/1.05 var(--display); color: var(--gold-1); letter-spacing: .02em; }
+.pj-tag { margin-top: 8px; font-size: 15px; color: var(--ink); }
+.proj h3 { margin-top: 22px; padding-bottom: 6px; border-bottom: 1px solid var(--gold-5); font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-2); }
+.pj-text > p:not(.pj-tag) { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--text); }
+.proj ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.proj li { position: relative; padding-left: 16px; font-size: 13px; line-height: 1.5; color: var(--text); }
+.proj li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 5px; height: 5px; background: var(--gold-3); transform: rotate(45deg); }
+.pj-stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+.pj-stack span { padding: 5px 10px; border: 1px solid var(--gold-5); background: rgba(1,10,19,.7); font: 600 11px/1 var(--body); color: var(--gold-1); }
+.pj-cta { margin-top: 20px; display: flex; gap: 10px; }
+.btn { display: inline-grid; place-items: center; min-width: 120px; height: 34px; padding: 0 18px; border: 2px solid var(--gold-3); background: linear-gradient(180deg, #1e2328, #161a1e); font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-1); transition: border-color .15s, color .15s; }
+.btn:hover { border-color: var(--gold-1); }
+.btn.ghost { border-color: var(--gold-5); color: var(--ink); }
+.btn.off { border-color: var(--gold-5); color: var(--mute); cursor: default; }
+.pj-shot { border: 1px solid var(--gold-4); box-shadow: 0 0 0 4px rgba(1,10,19,.85), 0 0 0 5px var(--gold-5); background: #0a1428; aspect-ratio: 16 / 10; overflow: hidden; }
+.pj-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.pj-shot.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); }
+.pj-shot.empty span { font: 700 28px/1 var(--display); letter-spacing: .2em; color: var(--gold-4); }
+/* showcase */
+.showcase { margin-top: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; align-items: end; max-width: 760px; width: 100%; margin-left: auto; margin-right: auto; text-align: center; }
+.sc { display: grid; justify-items: center; align-content: end; }
+.sc .h { font: 700 12px/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.sc .s { margin-top: 2px; font: 700 10px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-1); min-height: 12px; }
+.sc .big { margin-top: 2px; font: 700 24px/1 var(--display); color: var(--gold-1); }
+.sc .art { margin-top: 12px; height: 104px; display: grid; place-items: end center; }
+.sc .art img { max-height: 100%; width: auto; }
+a.sc:hover .h { color: var(--gold-1); }
+.sc.rank .art img { width: 140px; height: auto; }
+.sc.mid { position: relative; outline: none; }
+.sc.mid .art { height: 132px; position: relative; width: 112px; }
+/* hover card like the client's: Highest Champion Mastery, centered on the slot (no Eternals) */
+.mpop { display: none; position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); width: 404px; padding: 18px 18px 16px; background: #010a13; border: 1px solid var(--gold-4); box-shadow: 0 10px 30px rgba(0,0,0,.75); z-index: 10; text-align: center; cursor: default; }
+.mpop::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 12px; height: 12px; background: #010a13; border-right: 1px solid var(--gold-4); border-bottom: 1px solid var(--gold-4); transform: translateX(-50%) rotate(45deg); }
+.sc.mid:hover .mpop, .sc.mid:focus-within .mpop { display: block; }
+.mpop h4 { margin: 0 0 16px; font: 700 13px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--gold-1); }
+.mrow { display: flex; justify-content: center; align-items: flex-end; gap: 14px; }
+.mc { width: 116px; display: grid; justify-items: center; }
+.mcr { position: relative; display: block; width: 64px; height: 98px; }
+.mcr .pt { position: absolute; left: 50%; top: 0; width: 56px; height: 56px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: #0a1428 center/112% no-repeat; box-shadow: 0 0 0 2px #010a13; z-index: 1; }
+.mcr img { position: absolute; left: 0; bottom: 0; width: 64px; height: auto; }
+.mc.mc-top .mcr { width: 80px; height: 118px; }
+.mc.mc-top .mcr .pt { width: 72px; height: 72px; }
+.mc.mc-top .mcr img { width: 80px; }
+.mc b { margin-top: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--gold-4); font: 700 12px/1.2 var(--display); letter-spacing: .05em; text-transform: uppercase; color: var(--gold-1); }
+.mc small { margin-top: 4px; font-size: 11px; line-height: 1.2; color: var(--text); }
+.mc small + small { margin-top: 2px; }
+.sc.mid .portrait { position: absolute; left: 50%; top: 0; width: 72px; height: 72px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: #0a1428 url(img/main-icon.webp) center/112% no-repeat; box-shadow: 0 0 0 2px var(--bg); }
+.sc.mid .art img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 104px; height: auto; max-height: none; }
+.sc.trophy .art img { width: 80px; height: auto; }
+.sc.flag .art img { width: 76px; height: auto; }
+.sc.honor .art img { width: 96px; height: auto; max-height: none; }
+
+/* match history: the client's layout (rcp-fe-lol-match-history), live from api/league.js, snapshot fallback */
+.mhp-title { font: 700 14px/18px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; }
+.mhp-nav { display: flex; margin-top: 12px; }
+.mhp-nav span { position: relative; padding: 0 12px; font: 500 12px/30px var(--display); letter-spacing: .1em; text-transform: uppercase; color: #f0e6d2; }
+.mhp-nav span::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #c89b3c; }
+.mhl { list-style: none; margin: 10px 0 0; padding: 0; }
+.pho { position: relative; display: grid; grid-template-columns: 52px 1fr auto; gap: 4px 14px; align-items: center; padding: 10px 4px 12px 0; }
+.pho::after { content: ""; position: absolute; left: 5px; right: 0; bottom: 0; height: 5px; background: url(img/mh/player_object_border.png) repeat-x 0 100%; }
+.pho:last-child::after { display: none; }
+.pho .pc { position: relative; width: 52px; height: 52px; background: url(img/mh/champion_frame.png) no-repeat 0 100% / 100%; grid-row: 1 / 3; }
+.pho .pc span { position: absolute; left: 3px; top: 3px; right: 3px; bottom: 3px; border-radius: 50%; overflow: hidden; background: #010a13; }
+.pho .pc img { display: block; width: 100%; height: 100%; transform: scale(1.12); }
+.pho .rt { font: 700 14px/18px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #0acbe6; white-space: nowrap; }
+.pho.loss .rt { color: #ff2345; }
+.pho .md, .pho .ot { font: 400 12px/16px var(--body); letter-spacing: .025em; color: #a09b8c; white-space: nowrap; }
+.pho .md { margin-top: 2px; }
+.pho .st { grid-column: 2; font: 700 16px/20px var(--display); letter-spacing: .05em; color: #a09b8c; white-space: nowrap; }
+.pho .st i { font-style: normal; display: inline-block; }
+.pho .st .cs { margin-left: 24px; }
+.pho .st .cs small, .pho .st .kp small { font: 700 11px/1 var(--display); letter-spacing: .06em; margin-left: 3px; color: #5b5a56; }
+.pho .st .kp { margin-left: 22px; }
+.pho .ot { grid-column: 3; grid-row: 1 / 3; text-align: right; line-height: 1.75; }
+.pho .ot .dot { margin: 0 6px; font-size: 9px; vertical-align: 1px; }
+.pho .rp { display: none; }
+.mhr { margin-top: 26px; }
+.mhr-t { font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; text-align: center; }
+.rpc { display: flex; justify-content: center; gap: 16px; margin-top: 14px; }
+.rpc div { position: relative; width: 66px; text-align: center; }
+.rpc .pt { display: block; width: 66px; height: 66px; background: #010a13 center / cover; }
+.rpc .cr { display: block; width: 58px; margin: -12px auto 0; position: relative; }
+.rpc b { display: block; margin-top: 8px; font: italic 700 14px/18px var(--display); letter-spacing: .06em; color: #c8aa6e; }
+.rpc-l { margin-top: 12px; text-align: center; font: 400 12px/16px var(--body); color: #a09b8c; }
+.mhr-hr { height: 1px; margin: 28px 0 26px; background: #1e2328; }
+.act { display: flex; justify-content: space-between; margin: 18px 4px 0; }
+.act div { width: 26px; display: flex; flex-direction: column; align-items: center; }
+.act .bar { position: relative; width: 8px; height: 90px; border: 1px solid #785a28; background: #1e2328; box-sizing: border-box; }
+.act .bar i { position: absolute; left: 1px; right: 1px; bottom: 1px; background: linear-gradient(180deg, #0ad6d0, #0596aa); }
+.act img { width: 26px; height: 26px; margin-top: 8px; }
+.mhr-c { margin-top: 20px; text-align: center; font: 400 11px/1.4 var(--body); color: #5b5a56; }
+.mhr-c a { color: #a09b8c; text-decoration: none; border-bottom: 1px solid #463714; }
+.mhr-c a:hover { color: #f0e6d2; }
+.mhr-c a:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+.mhr-c .lv::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: #5b5a56; vertical-align: 1px; }
+.mhr-c .lv.on::before { background: var(--online); }
+
+/* ranked */
+.ranks { display: flex; gap: 12px; flex-wrap: wrap; }
+.rk { width: 260px; text-align: center; padding: 22px 20px 20px; background: rgba(1,10,19,.86); border: 1px solid var(--line); display: grid; justify-items: center; align-content: end; }
+.rk .art { height: 130px; display: grid; place-items: center; }
+.rk img { width: 180px; height: auto; }
+.rk .h { margin-top: 14px; font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.rk b { display: block; margin-top: 6px; font: 700 18px/1.2 var(--display); color: var(--gold-1); }
+.rk small { display: block; margin-top: 4px; font-size: 12px; color: var(--text); }
+
+/* mastery */
+
+.legal { max-width: 1280px; margin: 10px auto 0; text-align: center; font-size: 11px; line-height: 1.5; color: var(--mute); }
+
+/* ---------- desktop: fixed 1280x720 client. Every position below is measured in client pixels from
+   ref-client-profile.png (client frame at x10,y10 of that screenshot), then the whole window is scaled to fit. ---------- */
+@media (min-width: 900px) {
+  html, body { height: 100%; overflow: hidden; }
+  .wrap { min-height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 12px; padding-bottom: 12px; }
+  .stage { margin: 0 auto; position: relative; flex: none; }
+  .client { position: absolute; top: 0; left: 0; width: 1280px; height: 720px; max-width: none; transform-origin: 0 0; grid-template-columns: 1048px 232px; grid-template-rows: 81px 639px; }
+
+  /* top bar: logo 25..68, frame 28..190 x 22..60, arrow 63..185 x 26..57, tabs from x227 */
+  .top { display: block; padding: 0; }
+  .playwrap { position: absolute; left: 25px; top: 0; width: 170px; height: 81px; }
+  .playwrap .ll { left: 0; top: 17px; width: 42px; }
+  .ll-vid { left: -10px; top: 10px; width: 64px; height: 54px; }
+  .playwrap .pf { left: 3px; top: 22px; width: 162px; height: 38px; }
+  .playwrap .pb { left: 28px; top: 17px; width: 136px; height: 49px; padding: 0; font-size: 13px; letter-spacing: .06em; }
+  .tabs { position: absolute; left: 227px; top: 0; height: 81px; align-items: center; gap: 25px; }
+  .tabs a { font-size: 14px; letter-spacing: .03em; }
+  .navic { position: absolute; right: 190px; top: 0; height: 81px; }
+  .wallet { position: absolute; right: 26px; top: 21px; height: 40px; width: 140px; padding: 0 12px; border: 1px solid #2a3540; border-radius: 20px; background: rgba(1,10,19,.6); align-content: center; }
+
+  /* social: x1048..1280; header 81, SOCIAL row 36, requests 40, groups 32, friends 48 */
+  .social .me { height: 81px; padding: 0 14px 0 15px; gap: 12px; }
+  .soc-h { height: 36px; padding: 0 17px; line-height: 38px; }
+  .req { height: 40px; padding: 0 17px; font-size: 14px; }
+  .grp { height: 32px; padding: 0 17px; }
+  .fr { height: 48px; padding: 0 14px; gap: 13px; }
+  .fr.ai { height: 48px; padding: 0 14px; gap: 13px; }
+  .fr .av { width: 36px; height: 36px; }
+  .fr b { font-size: 14px; font-weight: 600; }
+  .fr small { font-size: 12px; }
+
+  .body { display: block; }
+  .splash-art { background-size: auto 104%; }
+
+  /* sub tabs: OVERVIEW starts x47, centre y97 (client) */
+  .subtabs { position: absolute; top: 8px; left: 47px; right: 330px; padding: 0; gap: 26px; z-index: 4; }
+  .subtabs button { font: 700 12px/1 var(--display); letter-spacing: .05em; padding: 2px 0 6px; }
+
+  /* banner: panel x37..230, bottom tip y600; art is bottom-aligned and clipped by the top bar like the client */
+  .banner { position: absolute; left: 37px; top: 0; width: 193px; height: 519px; max-height: none; aspect-ratio: auto; margin: 0; padding: 0; background: none; z-index: 3; isolation: isolate; display: block; }
+  .banner::before { content: ""; position: absolute; z-index: -1; left: -37px; bottom: -28px; width: 270px; height: 723px; background: url(img/banner-gm.webp) 0 0 / 100% 100% no-repeat; }
+  .banner::after { content: ""; position: absolute; left: 50%; top: 553px; width: 9px; height: 9px; border-left: 2px solid #5b5a56; border-top: 2px solid #5b5a56; transform: translateX(-50%) rotate(45deg); }
+  .lvl { position: absolute; left: 50%; top: 85px; transform: translateX(-50%); }
+  .crest { position: absolute; left: -1.5px; top: 80px; width: 196px; margin: 0; }
+  .banner h1 { position: absolute; left: 0; right: 0; top: 290px; margin: 0; font-size: 15px; line-height: 18px; }
+  .banner .tag { position: absolute; left: 0; right: 0; top: 310px; margin: 0; }
+  .banner .tok { position: absolute; left: 23.5px; top: 351px; margin: 0; gap: 4px; }
+  .banner .tok span { width: 46px; height: 46px; }
+
+  .page { position: absolute; top: 0; bottom: 0; left: 230px; right: 0; padding: 56px 30px 0 34px; }
+  .page.on { display: block; }
+
+  /* showcase: column centres x373/516/659/803/946, label y497, sub y513 (client) */
+  .showcase { position: absolute; left: 71px; top: 404px; margin: 0; max-width: none; width: 720px; height: 200px; display: flex; gap: 0; }
+  .sc { position: relative; width: 143.5px; height: 200px; display: block; align-content: normal; text-align: center; }
+  .sc .h { display: block; margin-top: 6px; font: 700 11px/12px var(--display); letter-spacing: .06em; }
+  .sc .s { display: block; margin-top: 4px; font: 700 9px/11px var(--display); letter-spacing: .06em; }
+  .sc .big { display: block; margin-top: 4px; font: 700 22px/24px var(--display); }
+  .sc .art { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; height: auto; width: max-content; display: block; }
+  .sc .art img, .sc.mid .art img { position: static; transform: none; max-height: none; margin: 0; }
+  .sc.rank .art { top: 84px; } .sc.rank .art img { width: 138px; }
+  .sc.honor .art { top: 75px; } .sc.honor .art img { width: 90px; }
+  .sc.mid .art { position: absolute; top: 60px; width: 92px; height: 125px; }
+  .sc.mid .portrait { top: 0; width: 80px; height: 80px; z-index: 1; }
+  .sc.mid .art img { position: absolute; left: 0; bottom: 0; width: 92px; }
+  .sc.trophy .art { top: 86px; } .sc.trophy .art img { width: 76px; }
+  .sc.flag .art { top: 74px; } .sc.flag .art img { width: 76px; }
+  .page.proj.on { display: grid; left: 0; padding: 40px 44px 0 48px; grid-template-columns: 440px 1fr; gap: 40px; align-items: start; }
+  .page.scr { left: 0; padding: 0; }
+  .lc-nav { position: absolute; left: 32px; top: 8px; }
+  .lc-panel { position: absolute; left: 32px; top: 56px; }
+  .lc-grid { position: absolute; left: 260px; top: 56px; width: 794px; height: 582px; }
+  #pgMastery .lc-panel { top: 64px; }
+  #pgMastery .lc-grid { top: 64px; height: 574px; }
+  .lt-inv { position: absolute; left: 16px; top: 45px; height: 540px; }
+  .lt-sec { height: 520px; }
+  .lt-craft { position: absolute; left: 434px; top: 24px; }
+  .page.mhp { left: 0; padding: 0; }
+  .mhp-title { position: absolute; left: 35px; top: 64px; margin: 0; }
+  .mhp-nav { position: absolute; left: 34px; top: 90px; margin: 0; }
+  .mhl { position: absolute; left: 35px; top: 132px; width: 737px; height: 508px; margin: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 #010a13; }
+  .mhl::-webkit-scrollbar { width: 6px; }
+  .mhl::-webkit-scrollbar-track { background: #010a13; border-left: 1px solid #1e2328; }
+  .mhl::-webkit-scrollbar-thumb { background: #785a28; }
+  .pho { display: block; width: 710px; height: 88px; padding: 0; }
+  .pho .pc { position: absolute; left: 0; top: 13px; width: 61px; height: 61px; }
+  .pho .pc span { left: 3px; top: 3px; right: auto; bottom: auto; width: 55px; height: 55px; }
+  .pho .res { position: absolute; left: 81px; top: 12px; width: 157px; }
+  .pho .st { position: absolute; left: 264px; top: 34px; }
+  .pho .ot { position: absolute; left: 536px; top: 8px; width: 140px; text-align: left; }
+  .pho .rp { display: block; position: absolute; left: 683px; top: 16px; width: 30px; height: 30px; border: 2px solid #3c3c41; border-radius: 50%; box-sizing: border-box; }
+  .pho .rp::before { content: ""; position: absolute; left: 10px; top: 7px; border-left: 9px solid #3c3c41; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+  .mhr { position: absolute; left: 780px; top: 105px; width: 242px; margin: 0; }
+  .proj .pj-shot { margin-top: 30px; }
+  .legal { max-width: none; margin-top: 8px; font-size: 10px; line-height: 1.4; }
+}
+@media (max-width: 899px) {
+  .client { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .top { flex-wrap: wrap; padding: 12px 16px; gap: 16px; }
+  .wallet { display: none; }
+  .top { grid-row: 1; } .body { grid-row: 2; }
+  .social { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid var(--gold-5); }
+  .me { display: none; }
+  .splash-art { background-position: 60% top; background-size: cover; }
+  .showcase { align-items: start; }
+  .body { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .subtabs { grid-column: 1; padding: 14px 16px 0; }
+  .banner { grid-row: 2; margin: 8px auto 0; }
+  .page { grid-column: 1; grid-row: 3; padding: 18px 16px 22px; }
+  .showcase { grid-template-columns: repeat(2, 1fr); margin-top: 28px; row-gap: 22px; }
+  .rk { width: 100%; }
+  .lt-inv { flex-wrap: wrap; }
+  .lt-tabs { display: flex; width: 100%; gap: 8px; }
+  .lt-craft { width: 100%; height: 470px; margin-top: 12px; }
+  .lt-craft .ring { width: 340px; height: 334px; top: 250px; }
+  .lt-craft .art { top: 230px; transform: translate(-50%, -50%) scale(.8); }
+  .lt-craft .tx { width: 300px; margin-left: -150px; }
+  .lc-panel { width: auto; margin-bottom: 12px; }
+  .lc-tot { width: 194px; margin: 0 auto; }
+  .lc-note { text-align: center; }
+  .lc-nav { justify-content: center; margin-bottom: 14px; }
+  .lc-group { margin: 8px 0; }
+  .body[data-view="screen"] { background: linear-gradient(180deg, rgba(1,10,19,0) 55vh, #010a13 100vh) 0 0 / 100% 100vh no-repeat, #010a13 url(img/lc/bg-hextech.webp) 60% 0 / auto 100vh no-repeat; }
+  .subtabs { gap: 16px; }
+  .subtabs button { font-size: 11px; letter-spacing: .06em; }
+  .pho { grid-template-columns: 52px 1fr; }
+  .pho .ot { grid-column: 2; grid-row: auto; text-align: left; line-height: 16px; white-space: normal; }
+  .pho .ot > div { display: inline; }
+  .pho .ot > *:first-child::after { content: " · "; }
+  .lc-items { justify-content: center; }
+  .chat { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: min(70vh, 460px); grid-template-columns: 1fr; border: 1px solid var(--gold-5); border-bottom: 0; z-index: 20; }
+  .cv-list { display: none; }
+}
+@media (max-width: 600px) { .top { gap: 12px 18px; } .tabs { order: 3; width: 100%; } .navic { margin-left: 0; } .wallet { display: none; } .showcase { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="jl" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#000"/><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></symbol>
+</defs></svg>
+
+<div class="wrap">
+<div class="stage" id="stage"><div class="client" id="client">
+  <header class="top">
+    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb"><b>PLAY</b></span><img class="ll" src="img/lol-logo.webp" alt=""><video class="ll-vid" src="img/logo-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video></a>
+    <nav class="tabs" aria-label="Projects">
+      <a href="#turnpoint" data-go="turnpoint">Turnpoint</a>
+      <a href="#petri" data-go="petri">Petri</a>
+      <a href="#xarena" data-go="xarena">X Arena</a>
+    </nav>
+    <div class="navic">
+      <a class="nb" href="#overview" data-go="overview" aria-label="Profile: go to profile home" title="Profile"><img src="img/nav-profile.svg" alt=""></a>
+      <a class="nb" href="#loot" data-go="loot" aria-label="Loot" title="Loot"><img src="img/nav-loot.svg" alt=""></a>
+      <a class="nb" href="#collection" data-go="collection" aria-label="Collection" title="Collection"><img src="img/nav-collections.svg" alt=""></a>
+    </div>
+    <div class="wallet" aria-label="Stats">
+      <span>3 <i>SHIPPED</i></span>
+      <span>14 <i>SKILLS</i></span>
+    </div>
+  </header>
+
+  <aside class="social" aria-label="Social">
+    <a class="me" href="#overview" data-go="overview" aria-label="Jasper Li: go to profile home">
+      <div class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#jl"/></svg><i>Y2</i></div>
+      <div><b>Jasper Li</b><small>Online</small></div>
+    </a>
+    <div class="soc-h">SOCIAL</div>
+    <div class="req"><span>Internship requests</span><b>Open</b></div>
+    <section class="sgrp open">
+      <button class="grp" aria-expanded="true">Contact (3)</button>
+      <div class="rows"><div class="rows-in">
+      <a class="fr" href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></span><span><b>GitHub</b><small>Jaspyplayz</small></span></a>
+      <a class="fr" href="https://www.linkedin.com/in/jasper-li-567560349" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></span><span><b>LinkedIn</b><small>Jasper Li</small></span></a>
+      <a class="fr away" href="mailto:jaspy.li@mail.utoronto.ca"><span class="av">@</span><span><b>Email</b><small>jaspy.li@mail.utoronto.ca</small></span></a>
+      </div></div>
+    </section>
+    <section class="sgrp open">
+      <button class="grp" aria-expanded="true">Projects (3)</button>
+      <div class="rows"><div class="rows-in">
+      <div class="fr"><span class="av av-tp" aria-hidden="true"></span><span><b>Turnpoint</b><small>Live</small></span></div>
+      <div class="fr"><span class="av">PT</span><span><b>Petri</b><small>Live</small></span></div>
+      <div class="fr away"><span class="av">XA</span><span><b>X Arena</b><small>In development</small></span></div>
+      </div></div>
+    </section>
+    <section class="sgrp open">
+      <button class="grp" aria-expanded="true">Assistant (1)</button>
+      <div class="rows"><div class="rows-in">
+      <button class="fr ai" id="chatFriend" aria-expanded="false" aria-controls="chat"><span class="av"></span><span><b>Ask Jasper</b><small>Online · AI assistant</small></span></button>
+      </div></div>
+    </section>
+    <div class="chat" id="chat" role="dialog" aria-label="Chat with Jasper's assistant" hidden>
+      <div class="cv-list" aria-hidden="true"><div class="cv on"><span class="av"></span><b>Ask Jasper</b></div></div>
+      <div class="cv-main">
+        <div class="chat-h"><span class="av"></span><span class="who"><b>Ask Jasper</b><small>Ask Jasper #AI</small></span>
+          <span class="ctl"><button class="chat-x" id="chatClose" aria-label="Minimize chat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 10h10" stroke="currentColor" stroke-width="2"/></svg></button><span aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2.5v7" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="13" r="1.3" fill="currentColor"/></svg></span><span aria-hidden="true"><svg viewBox="0 0 16 16"><path fill="currentColor" d="M6.7 1h2.6l.4 2 1.3.6 1.7-1.1 1.8 1.8-1.1 1.7.6 1.3 2 .4v2.6l-2 .4-.6 1.3 1.1 1.7-1.8 1.8-1.7-1.1-1.3.6-.4 2H6.7l-.4-2-1.3-.6-1.7 1.1-1.8-1.8 1.1-1.7L2 9.7 0 9.3V6.7l2-.4.6-1.3-1.1-1.7 1.8-1.8L5 2.6 6.3 2zM8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg></span></span>
+        </div>
+        <div class="chat-log" id="chatLog" aria-live="polite">
+          <p class="sys">You're chatting with an AI assistant that answers from Jasper's profile. For anything else, email jaspy.li@mail.utoronto.ca.</p>
+          <div class="msg bot">Hi! Ask me about Jasper's projects, skills or what he's looking for.</div>
+        </div>
+        <div class="chat-sugg" id="chatSugg">
+          <button>What did he build with ML?</button><button>Is he looking for an internship?</button><button>What's Petri?</button>
+        </div>
+        <form class="chat-in" id="chatForm"><input id="chatInput" maxlength="500" placeholder="Type here..." autocomplete="off" aria-label="Message"><button type="submit">Send</button></form>
+      </div>
+    </div>
+    <div class="soc-foot">
+      <button class="fb" id="chatOpen" aria-expanded="false" aria-controls="chat" title="Ask about Jasper" aria-label="Ask about Jasper"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2 2.5h12v8.5H7l-3.5 3v-3H2z"/></svg></button>
+      <button class="fb tog" id="musicBtn" aria-pressed="false" title="Music" aria-label="Music"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M6 3.2 13 1.5v8.7a2.1 2.1 0 1 1-1.3-1.9V4.6L7.3 5.7v6.1a2.1 2.1 0 1 1-1.3-1.9z"/></svg></button>
+      <button class="fb tog" id="sfxBtn" aria-pressed="true" title="Sound effects" aria-label="Sound effects"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2 6h2.6L8 3v10L4.6 10H2z"/><path d="M10.4 5.6a3.4 3.4 0 0 1 0 4.8M12.2 3.8a6 6 0 0 1 0 8.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+      <span class="ver" aria-hidden="true">26.21</span>
+      <span class="fb bug" aria-hidden="true"><svg viewBox="0 0 16 16"><ellipse cx="8" cy="9.5" rx="3.5" ry="4.5" fill="currentColor"/><path d="M5.5 4.5 4 3M10.5 4.5 12 3M4.5 8H2M11.5 8H14M4.5 11.5 2.5 13M11.5 11.5l2 1.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg></span>
+    </div>
+  </aside>
+
+  <main class="body">
+    <div class="splash" aria-hidden="true"><div class="splash-art"></div><div class="motes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+    <nav class="subtabs" aria-label="Profile">
+      <button data-tab="overview" class="on">Overview</button>
+      <button data-tab="history">Match history</button>
+      <button data-tab="ranked">Ranked</button>
+      <button data-tab="mastery">Mastery</button>
+    </nav>
+
+    <section class="banner" aria-label="Player card">
+      <span class="lvl">YEAR 2</span>
+      <div class="crest">
+        <div class="icon"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#jl"/></svg></div>
+        <img class="wings" src="img/wings-gm.webp" alt="">
+      </div>
+      <h1>Jasper Li</h1>
+      <div class="tag">CS @ UofT · Class of 2029</div>
+      <div class="tok"><span title="Machine learning" aria-label="Machine learning"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.1" fill="none"><path d="M5.5 7.5L12 5M5.5 7.5L12 12M5.5 16.5L12 12M5.5 16.5L12 19M5.5 7.5L12 19M5.5 16.5L12 5M12 5l6.5 7M12 12h6.5M12 19l6.5-7" stroke-opacity=".55"/></g><g fill="currentColor"><circle cx="5.5" cy="7.5" r="1.9"/><circle cx="5.5" cy="16.5" r="1.9"/><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/><circle cx="18.5" cy="12" r="2.2"/></g></svg></span><span title="Web" aria-label="Web"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M13.5 5l-3 14" stroke-opacity=".7"/></g></svg></span><span title="Games" aria-label="Games"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"><path d="M7 7.5h10c2.4 0 4 2 4.4 4.6l.6 4c.3 2-1.8 3.3-3.3 2l-2.6-2.4H7.9l-2.6 2.4c-1.5 1.3-3.6 0-3.3-2l.6-4C3 9.5 4.6 7.5 7 7.5z"/><path d="M7.5 10.5v3.4M5.8 12.2h3.4" stroke-linecap="round"/></g><g fill="currentColor"><circle cx="16" cy="11" r="1"/><circle cx="17.8" cy="13.2" r="1"/></g></svg></span></div>
+    </section>
+
+    <section class="page on" data-page="overview">
+      <div class="intro">
+        <div class="eyebrow">Player profile</div>
+        <p>Second-year CS student at UofT. I build web apps, games and AI experiments.</p>
+        <div class="status">In queue for a Summer 2027 SWE internship</div>
+        <div class="feat"><span class="thumb" style="background-image:url(img/turnpoint.webp)"></span><span><small>Featured project</small><b>Turnpoint</b><i>Why a League game was won or lost, from real match data</i></span></div>
+      </div>
+      <div class="showcase">
+        <div class="sc rank"><span class="h">Solo/Duo</span><span class="s">Peak Grandmaster</span><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span></div>
+        <div class="sc honor"><span class="h">Honor</span><span class="s">Level 5</span><span class="art"><img src="img/honor.webp" alt="Honor level 5 emblem"></span></div>
+        <div class="sc mid" tabindex="0" aria-describedby="mpop"><span class="h">Mastery score</span><span class="big">716</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span><div class="mpop" role="tooltip" id="mpop"><h4>Highest champion mastery</h4><div class="mrow"><div class="mc"><span class="mcr"><span class="pt" style="background-image:url(img/champ-katarina.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Katarina</b><small>Mastery 56</small><small>Best grade: N/A</small></div><div class="mc mc-top"><span class="mcr"><span class="pt" style="background-image:url(img/champ-qiyana.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Qiyana</b><small>Mastery 72</small><small>Best grade: N/A</small></div><div class="mc"><span class="mcr"><span class="pt" style="background-image:url(img/champ-hecarim.webp)"></span><img src="img/mastery.webp" alt=""></span><b>Hecarim</b><small>Mastery 37</small><small>Best grade: N/A</small></div></div></div></div>
+        <div class="sc trophy"><span class="h">Trophy</span><span class="s">3 projects shipped</span><span class="art"><img src="img/trophy-jl.svg" alt="Trophy"></span></div>
+        <div class="sc flag"><span class="h">Banner</span><span class="s">University of Toronto</span><span class="art"><img src="img/banner-uoft.svg" alt="University of Toronto banner"></span></div>
+      </div>
+    </section>
+
+    <section class="page mhp" data-page="history" aria-label="Match history">
+      <h2 class="mhp-title" id="mhTitle">Recent games (last 15 ranked)</h2>
+      <div class="mhp-nav" aria-hidden="true"><span>General</span></div>
+      <ol class="mhl" id="mhList" aria-labelledby="mhTitle"></ol>
+      <div class="mhr">
+        <div class="mhr-t">Recently played champions</div>
+        <div class="rpc" id="mhChamps"></div>
+        <div class="rpc-l">% of games played</div>
+        <div class="mhr-hr"></div>
+        <div class="mhr-t">Recent activity</div>
+        <div class="act" id="mhAct"></div>
+        <div class="mhr-c"><span class="lv" id="mhLive">Snapshot</span> from <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Turnpoint</a>, my match analyzer</div>
+      </div>
+    </section>
+
+    <section class="page" data-page="ranked">
+      <div class="ptitle">Peak rank</div>
+      <div class="ranks">
+        <div class="rk"><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span><span class="h">League of Legends · Solo/Duo</span><b>Grandmaster</b><small>Peak · top 0.05%</small></div>
+      </div>
+    </section>
+
+    <section class="page scr" data-page="mastery" id="pgMastery" aria-label="Champion mastery">
+      <div class="lc-panel">
+        <div class="lc-tot"><div><b>716</b><small>Mastery score</small></div></div>
+        <p class="lc-note">My highest champion mastery, from the client. I main <b>Qiyana</b>, mostly in the jungle.</p>
+      </div>
+      <div class="lc-grid">
+        <div class="lc-group">Highest mastery<span>3</span></div>
+        <div class="lc-sep"></div>
+        <div class="lc-items">
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-qiyana.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 72</span></span></span><span class="nm">Qiyana</span></div>
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-katarina.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 56</span></span></span><span class="nm">Katarina</span></div>
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-hecarim.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 37</span></span></span><span class="nm">Hecarim</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page proj" data-page="turnpoint" aria-label="Turnpoint">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · Live</div>
+        <h2>Turnpoint</h2>
+        <p class="pj-tag">Find the minute your League game turned.</p>
+        <h3>Overview</h3>
+        <p>Look up any League of Legends player by Riot ID. Turnpoint compares them to the opponent in their role, minute by minute, from top lane to support, and points to the moments that decided the game, with AI recaps.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>Pulls real match timelines from the Riot API and caches them in Supabase.</li>
+          <li>Charts your gold against your lane opponent and flags turning points, like a jungle gank at 8:10 that swung 1,400 gold.</li>
+          <li>Machine learning models trained on real match data explain why a game was won or lost.</li>
+          <li>Insights track habits across games, like hitting level 6 before your opponent and how often those games were won.</li>
+        </ul>
+        <div class="pj-stack"><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>Riot API</span></div>
+        <div class="pj-cta"><a class="btn" href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Launch</a><a class="btn ghost" href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">Source</a></div>
+      </div>
+      <div class="pj-shot"><img src="img/turnpoint.webp" alt="Turnpoint home page"></div>
+    </section>
+
+    <section class="page proj" data-page="petri" aria-label="Petri">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · Live</div>
+        <h2>Petri</h2>
+        <p class="pj-tag">A pet that evolves from visitor ideas.</p>
+        <h3>Overview</h3>
+        <p>Petri is a self-evolving web app built by AI agents. Visitors poke, feed and name Blobby, then suggest what it should learn next. Agents turn those ideas into real code changes that ship to the live site.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>Each visitor idea becomes a user story with acceptance criteria.</li>
+          <li>An agent writes the change and its tests, then the feature map is regenerated.</li>
+          <li>A public timeline shows every evolution with before and after, and the files it touched.</li>
+        </ul>
+        <div class="pj-stack"><span>Next.js</span><span>TypeScript</span><span>AI agents</span></div>
+        <div class="pj-cta"><a class="btn" href="https://petri-pi.vercel.app" target="_blank" rel="noopener">Launch</a><a class="btn ghost" href="https://github.com/Jaspyplayz/petri" target="_blank" rel="noopener">Source</a></div>
+      </div>
+      <div class="pj-shot"><img src="img/petri.webp" alt="Petri home page"></div>
+    </section>
+
+    <section class="page scr" data-page="loot" aria-label="Loot">
+      <div class="lt-inv">
+        <div class="lt-tabs" role="tablist" aria-label="Loot categories">
+          <button class="lt-tab on" data-cat="all" role="tab" aria-selected="true" title="All"><img src="img/lc/cat-all.png" alt="All"></button>
+          <button class="lt-tab" data-cat="proj" role="tab" aria-selected="false" title="Projects"><img src="img/lc/cat-skin.png" alt="Projects"></button>
+          <button class="lt-tab" data-cat="eng" role="tab" aria-selected="false" title="Engineering"><img src="img/lc/cat-eternals.png" alt="Engineering"></button>
+          <button class="lt-tab" data-cat="edu" role="tab" aria-selected="false" title="Education"><img src="img/lc/cat-summonericon.png" alt="Education"></button>
+          <button class="lt-tab" data-cat="chest" role="tab" aria-selected="false" title="Internships"><img src="img/lc/cat-chest.png" alt="Internships"></button>
+        </div>
+        <div class="lt-sec" id="ltSec"></div>
+      </div>
+      <div class="lt-craft" id="ltCraft" aria-live="polite"></div>
+    </section>
+
+    <section class="page scr" data-page="collection" aria-label="Collection">
+      <div class="lc-nav" role="tablist" aria-label="Collection">
+        <button class="on" data-co="champs" role="tab" aria-selected="true">Champions</button>
+        <button data-co="skins" role="tab" aria-selected="false">Skins</button>
+      </div>
+      <div class="lc-panel">
+        <div class="lc-tot"><div><b id="coTot">14</b><small id="coLab">Champions owned</small></div></div>
+        <p class="lc-note">Champions are the tools I build with. <b>Skins</b> are the projects I've shipped.</p>
+      </div>
+      <div class="lc-grid co-pane" data-co="champs" aria-label="Tech stack"><div class="lc-group">Web<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/typescript.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">TypeScript</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/nextdotjs.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Next.js</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/react.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">React</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/tailwindcss.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Tailwind CSS</span></div></div><div class="lc-group">Data<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/python.svg" alt=""></span><span class="info plain"><span class="desc">Owned</span></span></span><span class="nm">Python</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/supabase.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Supabase</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/postgresql.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint</span></span></span><span class="nm">Postgres</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/drizzle.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint</span></span></span><span class="nm">Drizzle</span></div></div><div class="lc-group">Testing and shipping<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/vitest.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Vitest</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/playwright.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Playwright</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/githubactions.svg" alt=""></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">GitHub Actions</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/vercel.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Vercel</span></div></div><div class="lc-group">Games<span>2 / 2</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><span class="mono" aria-hidden="true">Lu</span></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">Luau</span></div><div class="cc"><span class="th"><span class="im tech"><span class="mono" aria-hidden="true">Ro</span></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">Rojo</span></div></div></div>
+      <div class="lc-grid co-pane" data-co="skins" hidden>
+        <div class="lc-group">Projects<span>2 / 3</span></div><div class="lc-sep"></div>
+        <div class="lc-items">
+          <button class="sk2" data-go="turnpoint"><span class="th"><span class="im" style="background-image:url(img/lc/skin-turnpoint.webp)"></span><span class="bd" style="background-image:url(img/lc/border-legendary.png)"></span><span class="gem" style="background-image:url(img/lc/gem-legendary.svg)"></span></span><span class="nm">Turnpoint<small>Legendary · Live</small></span></button>
+          <button class="sk2" data-go="petri"><span class="th"><span class="im" style="background-image:url(img/lc/skin-petri.webp)"></span><span class="bd" style="background-image:url(img/lc/border-epic.png)"></span><span class="gem" style="background-image:url(img/lc/gem-epic.svg)"></span></span><span class="nm">Petri<small>Epic · Live</small></span></button>
+          <button class="sk2 locked" data-go="xarena"><span class="th"><span class="im empty">XA</span><span class="lock"></span></span><span class="nm">X Arena<small>In development</small></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page proj" data-page="xarena" aria-label="X Arena">
+      <div class="pj-text">
+        <div class="pj-kicker">Project · In development · Sep 2026 to now</div>
+        <h2>X Arena</h2>
+        <p class="pj-tag">A multiplayer arena shooter on Roblox.</p>
+        <h3>Overview</h3>
+        <p>A fast first-person arena shooter built on Roblox, focused on movement that feels good and hits that feel fair online.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>First-person shooter movement.</li>
+          <li>Hitboxes are validated on the server, so clients can't fake hits.</li>
+          <li>Lag compensation rewinds positions so shots land where the player saw the target.</li>
+          <li>Code lives in files synced to Roblox with Rojo, with checks in GitHub Actions.</li>
+        </ul>
+        <div class="pj-stack"><span>Luau</span><span>Rojo</span><span>GitHub Actions</span></div>
+        <div class="pj-cta"><span class="btn off">In development</span></div>
+      </div>
+      <div class="pj-shot empty"><span>X ARENA</span></div>
+    </section>
+  </main>
+</div></div>
+<p class="legal">Jasper Li's portfolio isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+</div>
+
+<script>
+(function () {
+  // client sounds (Riot's own UI sfx and music). Effects on by default, music opt-in; both remembered per visitor.
+  var sfxOn = true, musicOn = false, cache = {};
+  try { sfxOn = localStorage.getItem('lc-sfx') !== '0'; musicOn = localStorage.getItem('lc-music') === '1'; } catch (e) {}
+  function sfx(name, vol) {
+    if (!sfxOn) return;
+    var base = cache[name] || (cache[name] = new Audio('snd/' + name + '.mp3'));
+    var a = base.paused ? base : base.cloneNode(); a.volume = vol || .4; a.currentTime = 0;
+    var pr = a.play(); if (pr && pr.catch) pr.catch(function () {});
+  }
+  var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page'), icons = document.querySelectorAll('.navic [data-go]');
+  function show(k) {
+    tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
+    icons.forEach(function (b) { b.classList.toggle('on', b.dataset.go === k); });
+    pages.forEach(function (p) { p.classList.toggle('on', p.dataset.page === k); });
+    var view = ['turnpoint', 'petri', 'xarena'].indexOf(k) > -1 ? 'project' : (k === 'loot' || k === 'collection') ? 'screen' : (k === 'history' || k === 'mastery') ? 'wide' : 'profile';
+    document.querySelector('.body').dataset.view = view;
+    document.querySelectorAll('.tabs a').forEach(function (a) { a.classList.toggle('on', a.dataset.go === k); });
+    try { history.replaceState(null, '', '#' + k); } catch (e) {}
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.go); }); });
+  document.querySelectorAll('.sgrp .grp').forEach(function (g) {
+    g.addEventListener('click', function () {
+      var open = g.parentNode.classList.toggle('open');
+      g.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  // whisper chat: talks to /api/chat (Vercel function). Elsewhere (e.g. a static preview) it explains itself.
+  var chat = document.getElementById('chat'), openBtn = document.getElementById('chatOpen'), log = document.getElementById('chatLog'),
+      form = document.getElementById('chatForm'), input = document.getElementById('chatInput'), sugg = document.getElementById('chatSugg'), history_ = [], busy = false;
+  var friend = document.getElementById('chatFriend');
+  function setOpen(o) { if (o === chat.hidden) sfx(o ? 'chat-open' : 'chat-close', .5); chat.hidden = !o; [openBtn, friend].forEach(function (b) { b.setAttribute('aria-expanded', o ? 'true' : 'false'); }); if (o) input.focus(); }
+  openBtn.addEventListener('click', function () { setOpen(chat.hidden); });
+  friend.addEventListener('click', function () { setOpen(true); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !chat.hidden) setOpen(false); });
+  document.getElementById('chatClose').addEventListener('click', function () { setOpen(false); });
+  function add(cls, text) { var d = document.createElement('div'); d.className = 'msg ' + cls; d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function send(text) {
+    text = (text || '').trim(); if (!text || busy) return;
+    busy = true; sugg.hidden = true; add('out', text); input.value = '';
+    history_.push({ role: 'user', content: text });
+    var t = add('bot typing', '');
+    fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history_.slice(-10) }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.reply) throw new Error(res.j && res.j.error || 'error');
+        t.classList.remove('typing'); sfx('chat-rcvd', .45); t.textContent = res.j.reply; history_.push({ role: 'assistant', content: res.j.reply });
+      })
+      .catch(function () {
+        history_.pop(); t.classList.remove('typing'); t.classList.add('err');
+        t.textContent = 'The chat runs on the deployed site. For now, reach Jasper at jaspy.li@mail.utoronto.ca.';
+      })
+      .then(function () { busy = false; log.scrollTop = log.scrollHeight; });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
+  sugg.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { send(b.textContent); }); });
+  var stage = document.getElementById('stage'), client = document.getElementById('client');
+  function fit() {
+    if (window.innerWidth < 900) { stage.style.width = stage.style.height = ''; client.style.transform = ''; return; }
+    var legal = document.querySelector('.legal'), lh = legal ? legal.offsetHeight + 8 : 0;
+    var sc = Math.min((stage.parentNode.clientWidth - 32) / 1280, (window.innerHeight - 24 - lh) / 720, 1.4);
+    client.style.transform = 'scale(' + sc + ')';
+    stage.style.width = 1280 * sc + 'px'; stage.style.height = 720 * sc + 'px';
+  }
+  fit(); window.addEventListener('resize', fit);
+
+  // sounds on the clickable parts, like the client
+  function on(sel, ev, fn) { document.querySelectorAll(sel).forEach(function (el) { el.addEventListener(ev, fn); }); }
+  on('.playwrap', 'mouseenter', function () { sfx('play-hover', .35); });
+  on('.playwrap', 'click', function () { sfx('play-click', .45); });
+  on('.tabs a, .subtabs button', 'mouseenter', function () { sfx('hover', .25); });
+  on('.tabs a, a.nb, a.me', 'click', function () { sfx('nav-click', .45); });
+  on('.subtabs button', 'click', function () { sfx('tab-click', .45); });
+  on('a.btn', 'mouseenter', function () { sfx('gold-hover', .3); });
+  on('a.btn', 'click', function () { sfx('gold-click', .4); });
+  on('.grp', 'click', function () { sfx('soc-click', .45); });
+  on('a.fr, .fr.ai', 'mouseenter', function () { sfx('row-hover', .35); });
+  on('.chat-sugg button', 'click', function () { sfx('click', .4); });
+
+  // music: Riot's client theme, looped, only after the visitor turns it on
+  var music = null, mBtn = document.getElementById('musicBtn'), sBtn = document.getElementById('sfxBtn');
+  function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function setMusic(o) {
+    musicOn = o; mBtn.setAttribute('aria-pressed', o ? 'true' : 'false'); save('lc-music', o ? '1' : '0');
+    if (o) { if (!music) { music = new Audio('snd/music.mp3'); music.loop = true; music.volume = .28; } var pr = music.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    else if (music) music.pause();
+  }
+  mBtn.addEventListener('click', function () { setMusic(!musicOn); });
+  sBtn.setAttribute('aria-pressed', sfxOn ? 'true' : 'false');
+  sBtn.addEventListener('click', function () { sfxOn = !sfxOn; sBtn.setAttribute('aria-pressed', sfxOn ? 'true' : 'false'); save('lc-sfx', sfxOn ? '1' : '0'); sfx('click', .4); });
+  // a returning visitor who left music on hears it again after their first click (browsers block audio before that)
+  if (musicOn) document.addEventListener('pointerdown', function () { if (musicOn) setMusic(true); }, { once: true });
+
+  // the client's own animated League logo (alpha video; Safari can't show alpha WebM, so it keeps the stills)
+  var pw = document.querySelector('.playwrap'), safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!safari && document.createElement('video').canPlayType('video/webm; codecs="vp9"')) {
+    pw.classList.add('vids');
+    var lv = pw.querySelector('.ll-vid');
+    if (!still) { var p1 = lv.play(); if (p1 && p1.catch) p1.catch(function () {}); }
+  }
+  var h = (location.hash || '').slice(1);
+
+  // Match history: live from /api/league (cached for a week at the edge), built-in snapshot (2026-10-31) when offline.
+  var SNAP = {"record":{"games":20,"wins":11,"losses":9,"winRatePercent":55,"kda":3.3,"csPerMin":5.5,"killParticipationPercent":51},"games":[{"playedAt":"2026-09-26T06:40:04.653Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":28,"kda":"7/2/12","csPerMin":8.4,"kp":50},{"playedAt":"2026-09-26T06:02:12.788Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":33,"kda":"12/6/13","csPerMin":7.4,"kp":64},{"playedAt":"2026-09-26T05:18:28.771Z","queue":"Ranked Solo","result":"loss","champion":"Wukong","champClass":"fighter","role":"Jungle","minutes":37,"kda":"8/7/9","csPerMin":6.4,"kp":55},{"playedAt":"2026-09-23T17:59:27.265Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":27,"kda":"14/3/9","csPerMin":8.3,"kp":74},{"playedAt":"2026-09-22T06:28:31.611Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":22,"kda":"14/3/9","csPerMin":7.4,"kp":52},{"playedAt":"2026-09-22T05:54:05.335Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Mid","minutes":30,"kda":"11/6/10","csPerMin":7,"kp":51},{"playedAt":"2026-09-22T05:17:13.769Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":33,"kda":"8/8/6","csPerMin":7.1,"kp":50},{"playedAt":"2026-09-22T04:46:55.819Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":25,"kda":"8/3/12","csPerMin":7.9,"kp":69},{"playedAt":"2026-09-22T04:11:03.694Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":27,"kda":"7/8/7","csPerMin":6.4,"kp":50},{"playedAt":"2026-09-22T03:43:40.408Z","queue":"Ranked Solo","result":"loss","champion":"Katarina","champClass":"assassin","role":"Mid","minutes":21,"kda":"5/6/6","csPerMin":6.2,"kp":79},{"playedAt":"2026-09-22T02:56:17.469Z","queue":"Ranked Solo","result":"loss","champion":"Hecarim","champClass":"fighter","role":"Jungle","minutes":38,"kda":"3/10/16","csPerMin":6.2,"kp":51},{"playedAt":"2026-09-22T02:11:51.597Z","queue":"Ranked Solo","result":"loss","champion":"Jarvan IV","champClass":"fighter","role":"Jungle","minutes":31,"kda":"5/9/16","csPerMin":6.3,"kp":53},{"playedAt":"2026-09-22T01:40:26.759Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":19,"kda":"12/1/6","csPerMin":8.9,"kp":78},{"playedAt":"2026-09-22T01:00:46.045Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":35,"kda":"15/5/8","csPerMin":7.5,"kp":68},{"playedAt":"2026-09-21T04:13:08.350Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":16,"kda":"4/1/2","csPerMin":8.5,"kp":21}]};
+  var LOCAL_ICON = { qiyana: 'img/champ-qiyana.webp', katarina: 'img/champ-katarina.webp', hecarim: 'img/champ-hecarim.webp', wukong: 'img/champ-wukong.webp', 'jarvan iv': 'img/champ-jarvaniv.webp' };
+  var CLASSES = ['fighter', 'tank', 'mage', 'assassin', 'support', 'marksman'];
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function iconFor(name, remote) { return LOCAL_ICON[String(name).toLowerCase()] || remote || ''; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function renderGames(d, live) {
+    var list = document.getElementById('mhList');
+    var games = (d.games || []).filter(function (g) { return /^Ranked/.test(g.queue); });
+    if (!list || !games.length) return;
+    document.getElementById('mhTitle').textContent = 'Recent games (last ' + games.length + ' ranked)';
+    list.textContent = '';
+    games.forEach(function (g) {
+      var win = g.result === 'win', li = el('li', 'pho ' + (win ? 'win' : 'loss')), day = new Date(g.playedAt);
+      var ch = el('span', 'pc'), ring = el('span'), img = el('img'); img.alt = g.champion; img.src = iconFor(g.champion, g.icon); img.loading = 'lazy'; ring.appendChild(img); ch.appendChild(ring); li.appendChild(ch);
+      var res = el('div', 'res'); res.appendChild(el('div', 'rt', win ? 'Victory' : 'Defeat')); res.appendChild(el('div', 'md', g.queue === 'Ranked Solo' ? 'Ranked Solo/Duo' : g.queue === 'Ranked Flex' ? 'Ranked Flex' : g.queue)); li.appendChild(res);
+      var st = el('div', 'st'); st.appendChild(el('i', 'k', String(g.kda).replace(/\//g, ' / ')));
+      var cs = el('i', 'cs', String(g.csPerMin)); cs.appendChild(el('small', null, 'CS/M')); st.appendChild(cs);
+      var kp = el('i', 'kp', g.kp + '%'); kp.appendChild(el('small', null, 'KP')); st.appendChild(kp);
+      li.appendChild(st);
+      var ot = el('div', 'ot'); ot.appendChild(el('div', null, "Summoner's Rift" + (g.role ? ' · ' + g.role : '')));
+      var dt = el('div'); dt.appendChild(document.createTextNode(g.minutes + ' min')); dt.appendChild(el('span', 'dot', '•'));
+      dt.appendChild(document.createTextNode(isNaN(day) ? '' : pad(day.getMonth() + 1) + '/' + pad(day.getDate()) + '/' + day.getFullYear())); ot.appendChild(dt); li.appendChild(ot);
+      var rp = el('span', 'rp'); rp.setAttribute('aria-hidden', 'true'); li.appendChild(rp);
+      list.appendChild(li);
+    });
+    // Recently played champions: top three by share of these games.
+    var counts = {}, order = [], cls = {};
+    games.forEach(function (g) { if (!counts[g.champion]) { counts[g.champion] = { n: 0, icon: g.icon }; order.push(g.champion); } counts[g.champion].n++; if (g.champClass) cls[g.champClass] = (cls[g.champClass] || 0) + 1; });
+    order.sort(function (a, b) { return counts[b].n - counts[a].n; });
+    var box = document.getElementById('mhChamps'); box.textContent = '';
+    order.slice(0, 3).forEach(function (name) {
+      var c = el('div'), pt = el('span', 'pt'), cr = el('img', 'cr');
+      pt.style.backgroundImage = 'url(' + iconFor(name, counts[name].icon) + ')'; pt.setAttribute('role', 'img'); pt.setAttribute('aria-label', name);
+      cr.src = 'img/mastery.webp'; cr.alt = '';
+      c.appendChild(pt); c.appendChild(cr); c.appendChild(el('b', null, Math.round(counts[name].n / games.length * 100) + '%'));
+      box.appendChild(c);
+    });
+    // Recent activity: share of games by champion class, in the client's order.
+    var act = document.getElementById('mhAct'); act.textContent = '';
+    CLASSES.forEach(function (k) {
+      var c = el('div'), bar = el('span', 'bar'), fill = el('i'), ic = el('img'), share = (cls[k] || 0) / games.length;
+      fill.style.height = share ? Math.max(4, Math.round(share * 86)) + 'px' : '0';
+      bar.appendChild(fill); ic.src = 'img/mh/role-' + k + '.png'; ic.alt = k.charAt(0).toUpperCase() + k.slice(1) + ' ' + Math.round(share * 100) + '%'; ic.title = ic.alt;
+      c.appendChild(bar); c.appendChild(ic); act.appendChild(c);
+    });
+    var lv = document.getElementById('mhLive');
+    lv.classList.toggle('on', !!live);
+    lv.textContent = live ? 'Live' : 'Snapshot (Oct 31, 2026)';
+  }
+  renderGames(SNAP, false);
+  function loadLeague() {
+    fetch('/api/league', { headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw r; return r.json(); })
+      .then(function (d) { renderGames(d, true); })
+      .catch(function () {});
+  }
+  loadLeague();
+
+  // Loot: achievements in the client's inventory + hextech crafter. Facts only.
+  var LOOT = [
+    { cat: 'proj', kind: 'Shipped project', name: 'Turnpoint', tile: 'img/turnpoint-logo.svg', fit: 1, art: 'img/turnpoint.webp', big: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint' }] },
+    { cat: 'proj', kind: 'Shipped project', name: 'Petri', tile: 'img/lc/tile-petri.webp', art: 'img/petri.webp', big: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri' }] },
+    { cat: 'proj', kind: 'Project in progress', name: 'X Arena', mono: 'XA', shard: true, text: 'Still being crafted. A multiplayer arena shooter on Roblox, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena' }] },
+    { cat: 'eng', kind: 'Machine learning', name: 'Match outcome models', mono: 'ML', text: 'Models trained on real match data explain why a game was won or lost. Part of Turnpoint.', cta: [{ label: 'Turnpoint', go: 'turnpoint' }] },
+    { cat: 'eng', kind: 'AI agents', name: 'Agent build pipeline', mono: 'AI', text: 'Each visitor idea becomes a user story with acceptance criteria. An agent writes the change and its tests, and a public timeline shows every evolution. Part of Petri.', cta: [{ label: 'Petri', go: 'petri' }] },
+    { cat: 'eng', kind: 'Networking', name: 'Lag compensation', mono: 'NET', shard: true, text: 'Server-validated hitboxes and lag compensation for a multiplayer shooter. In progress in X Arena.', cta: [{ label: 'X Arena', go: 'xarena' }] },
+    { cat: 'edu', kind: 'Education', name: 'UofT Computer Science', tile: 'img/banner-uoft.svg', fit: 1, art: 'img/banner-uoft.svg', text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
+    { cat: 'chest', kind: 'Locked chest', name: 'Summer 2027 internship', tile: 'img/loot-chest.webp', fit: 1, art: 'img/loot-chest.webp', key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
+  ];
+  var LOOT_CATS = [['proj', 'Projects'], ['eng', 'Engineering'], ['edu', 'Education'], ['chest', 'Internships']];
+  var ltSec = document.getElementById('ltSec'), ltCraft = document.getElementById('ltCraft');
+  function pickLoot(i, quiet) {
+    var it = LOOT[i];
+    ltSec.querySelectorAll('.li').forEach(function (b) { var on = +b.dataset.i === i; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    ltCraft.textContent = '';
+    ltCraft.appendChild(el('div', 'ring'));
+    ltCraft.appendChild(el('div', 'nm', it.name));
+    ltCraft.appendChild(el('div', 'kd', it.kind));
+    var art = el('div', 'art');
+    if (it.mono) art.appendChild(el('span', 'mono', it.mono));
+    else { var im = el('img', it.big || ''); im.src = it.art; im.alt = ''; art.appendChild(im); }
+    if (it.key) { var k = el('img', 'key'); k.src = 'img/loot-key.webp'; k.alt = ''; art.appendChild(k); }
+    ltCraft.appendChild(art);
+    ltCraft.appendChild(el('p', 'tx', it.text));
+    var cta = el('div', 'cta');
+    (it.cta || [{ label: 'Owned', off: true }]).forEach(function (x) {
+      var b = el(x.off ? 'span' : 'a', 'lc-btn' + (x.off ? ' off' : ''), x.label);
+      if (x.href) { b.href = x.href; if (x.href.indexOf('http') === 0) { b.target = '_blank'; b.rel = 'noopener'; } }
+      else if (x.go) { b.href = '#' + x.go; b.addEventListener('click', function (e) { e.preventDefault(); sfx('nav-click', .4); show(x.go); }); }
+      cta.appendChild(b);
+    });
+    ltCraft.appendChild(cta);
+    if (!quiet) sfx('click', .4);
+  }
+  if (ltSec) {
+    LOOT_CATS.forEach(function (c) {
+      var g = el('div', 'lt-grp'); g.dataset.cat = c[0];
+      g.appendChild(el('div', 'lt-st', c[1])); g.appendChild(el('hr'));
+      var grid = el('div', 'lt-grid2');
+      LOOT.forEach(function (it, i) {
+        if (it.cat !== c[0]) return;
+        var b = el('button', 'li' + (it.shard ? ' shard' : '')); b.type = 'button'; b.dataset.i = i; b.title = it.name; b.setAttribute('aria-label', it.name);
+        var ic = el('span', 'ic' + (it.fit ? ' fit' : '') + (it.mono ? ' mono' : ''), it.mono || null);
+        if (it.tile) ic.style.backgroundImage = 'url(' + it.tile + ')';
+        b.appendChild(ic); b.appendChild(el('span', 'lf')); b.appendChild(el('span', 'ov'));
+        if (it.key) b.appendChild(el('span', 'qt', '1'));
+        b.addEventListener('click', function () { pickLoot(i); });
+        grid.appendChild(b);
+      });
+      g.appendChild(grid); ltSec.appendChild(g);
+    });
+    pickLoot(0, true);
+    document.querySelectorAll('.lt-tab').forEach(function (t) {
+      t.addEventListener('click', function () {
+        sfx('tab-click', .45);
+        document.querySelectorAll('.lt-tab').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+        var first = null;
+        ltSec.querySelectorAll('.lt-grp').forEach(function (g) { g.hidden = t.dataset.cat !== 'all' && g.dataset.cat !== t.dataset.cat; if (!g.hidden && !first) first = g.querySelector('.li'); });
+        if (first) pickLoot(+first.dataset.i, true);
+      });
+    });
+  }
+  // Collection sub-nav
+  document.querySelectorAll('.lc-nav button').forEach(function (t) {
+    t.addEventListener('click', function () {
+      sfx('tab-click', .45);
+      var skins = t.dataset.co === 'skins';
+      document.querySelectorAll('.lc-nav button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      document.querySelectorAll('.co-pane').forEach(function (p) { p.hidden = p.dataset.co !== t.dataset.co; });
+      document.getElementById('coTot').textContent = skins ? '2' : '14';
+      document.getElementById('coLab').textContent = skins ? 'Skins owned' : 'Champions owned';
+    });
+  });
+  show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
+})();
+</script>
+</body>
+</html>
