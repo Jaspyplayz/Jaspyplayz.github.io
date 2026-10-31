@@ -1,0 +1,286 @@
+<title>Portfolio Layout Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* PROTOTYPE v4 (throwaway). Modelled on Jasper's screenshot of his League client PROFILE screen:
+   top bar (logo + Play), sub tabs, hanging banner on the left, full-bleed splash, showcase row along the bottom, social on the right.
+   Splash is Jasper's own: JL crest, his project screenshots, a Turnpoint-style win-chance curve. No Riot art. */
+:root {
+  --bg: #010a13; --line: #1e2328; --line-2: #3c3c41;
+  --gold: #c8aa6e; --gold-dim: #785a28; --gold-hi: #f0e6d2; --ink: #cdbe91; --text: #a09b8c;
+  --teal: #0ac8b9; --online: #1ec85a; --away: #d4a64a;
+  --display: "Cinzel", "Beaufort for LOL", Georgia, serif;
+  --body: "Mulish", "Spiegel", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: #05070a; color: var(--text); font: 400 14px/1.5 var(--body); }
+p { margin: 0; } h1, h2, h3 { margin: 0; font-family: var(--display); }
+a { color: inherit; } button { font: inherit; color: inherit; }
+
+.wrap { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+.client { max-width: 1280px; margin: 0 auto; border: 1px solid #463714; background: var(--bg); display: grid; grid-template-columns: 1fr 230px; grid-template-rows: auto minmax(620px, 1fr); }
+.client > * { min-width: 0; }
+
+/* top bar */
+.top { grid-column: 1; display: flex; align-items: center; gap: 22px; padding: 10px 18px; border-bottom: 1px solid #463714; background: linear-gradient(180deg, #0d141b, var(--bg)); position: relative; z-index: 3; }
+.logo { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; flex: none; background: #000; position: relative; z-index: 2; }
+.logo svg, .ic svg { width: 100%; height: 100%; display: block; }
+.playbox { display: inline-flex; margin-left: -40px; padding: 4px 6px 4px 0; border: 1px solid #463714; background: #02080d; position: relative; }
+.playbox::after { content: ""; position: absolute; top: 4px; bottom: 4px; right: 4px; width: 26px; border: 2px solid #0d3a40; border-left: 0; pointer-events: none; }
+.play { position: relative; z-index: 1; isolation: isolate; display: inline-flex; align-items: center; padding: 11px 50px; font: 800 17px/1 var(--display); letter-spacing: .06em; color: var(--gold-hi); text-decoration: none; background: linear-gradient(180deg, #0ac8b9, #0a7fa8); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
+.play::before { content: ""; position: absolute; inset: 2px; z-index: -1; background: linear-gradient(180deg, #232a30, #1a1f25); clip-path: polygon(0 0, calc(100% - 17px) 0, 100% 50%, calc(100% - 17px) 100%, 0 100%); }
+.play:hover::before { background: linear-gradient(180deg, #2c353c, #20272e); }
+.tabs { display: flex; gap: 4px; overflow-x: auto; }
+.tabs a { padding: 8px 10px; font: 700 15px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: var(--ink); white-space: nowrap; text-decoration: none; }
+.tabs a.on, .tabs a:hover { color: var(--gold-hi); }
+
+/* social */
+.social { grid-column: 2; grid-row: 1 / 3; border-left: 1px solid #463714; background: #010a13; display: flex; flex-direction: column; position: relative; z-index: 3; }
+.me { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.me .ic { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; position: relative; flex: none; background: #000; }
+.me .ic i { position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); font: 700 9px/1 var(--body); font-style: normal; color: var(--gold-hi); background: #010a13; border: 1px solid var(--gold-dim); border-radius: 8px; padding: 2px 5px; }
+.me b { display: block; color: var(--gold-hi); font-size: 14px; }
+.me small { color: var(--online); font-size: 12px; }
+.me small::before { content: "● "; font-size: 9px; }
+.soc-h { padding: 12px 14px 6px; font: 800 11px/1 var(--body); letter-spacing: .14em; color: var(--ink); }
+.req { display: flex; justify-content: space-between; padding: 8px 14px; color: var(--gold); font-size: 14px; }
+.req b { background: var(--gold-dim); color: var(--gold-hi); font-size: 11px; padding: 1px 6px; }
+.grp { padding: 10px 14px 4px; font: 800 11px/1 var(--body); letter-spacing: .1em; color: var(--text); text-transform: uppercase; }
+.grp::before { content: "▾ "; }
+.fr { display: flex; gap: 10px; align-items: center; padding: 7px 14px; text-decoration: none; }
+.fr:hover { background: rgba(200,170,110,.07); }
+.fr .av { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold-dim); display: grid; place-items: center; background: #0a1428; color: var(--gold-hi); flex: none; position: relative; font-size: 12px; }
+.fr .av svg { width: 16px; height: 16px; }
+.fr .av::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 9px; height: 9px; border-radius: 2px; background: var(--online); border: 2px solid #010a13; }
+.fr.away .av::after { background: var(--away); }
+.fr b { display: block; color: var(--gold-hi); font-size: 14px; font-weight: 600; line-height: 1.3; }
+.fr small { color: var(--online); font-size: 12px; }
+.fr.away small { color: var(--away); }
+.soc-foot { margin-top: auto; display: flex; justify-content: space-between; padding: 8px 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--line-2); }
+
+/* profile body */
+.body { grid-column: 1; position: relative; overflow: hidden; display: grid; grid-template-columns: 210px 1fr; grid-template-rows: auto 1fr; }
+.body > * { min-width: 0; }
+.splash { position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  background: radial-gradient(45% 60% at 62% 42%, rgba(10,200,185,.28), transparent 65%), radial-gradient(30% 40% at 80% 18%, rgba(200,170,110,.25), transparent 70%), radial-gradient(60% 50% at 40% 100%, rgba(0,90,130,.4), transparent 70%), linear-gradient(160deg, #06141f, #010a13 60%); }
+.splash .shot { position: absolute; aspect-ratio: 16/10; background-size: cover; background-position: top left; border: 1px solid rgba(200,170,110,.45); box-shadow: 0 24px 70px rgba(0,0,0,.7), 0 0 40px rgba(10,200,185,.15); }
+.splash .shot.a { width: 46%; right: -8%; top: 4%; opacity: .5; transform: perspective(1000px) rotateY(-22deg) rotate(-3deg); }
+.splash .shot.b { width: 34%; left: 20%; top: 8%; opacity: .35; transform: perspective(1000px) rotateY(18deg) rotate(3deg); }
+.splash .crest { position: absolute; left: 58%; top: 40%; width: min(460px, 55%); aspect-ratio: 1; transform: translate(-50%, -50%); }
+.splash .crest > svg, .splash .curve { width: 100%; height: 100%; display: block; }
+.splash .curve { position: absolute; inset: 0; }
+.splash .spark { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #f0e6d2; box-shadow: 0 0 8px 2px rgba(240,230,210,.6); }
+.splash .vig { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(1,10,19,.95) 0%, rgba(1,10,19,.35) 38%, transparent 60%), linear-gradient(90deg, rgba(1,10,19,.7), transparent 30%); }
+
+.subtabs { grid-column: 1 / 3; position: relative; z-index: 2; display: flex; gap: 22px; padding: 14px 24px 0 24px; overflow-x: auto; }
+.subtabs button { all: unset; cursor: pointer; padding-bottom: 6px; font: 800 12px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; border-bottom: 2px solid transparent; }
+.subtabs button.on { color: var(--gold-hi); border-color: var(--gold); }
+.subtabs button:focus-visible { outline: 1px solid var(--teal); }
+
+/* hanging banner */
+.banner { grid-column: 1; grid-row: 2; position: relative; z-index: 2; margin: 0 0 0 24px; width: 180px; align-self: start; padding: 28px 14px 70px; text-align: center;
+  background: linear-gradient(180deg, rgba(16,24,32,.92), rgba(10,20,30,.95) 70%, rgba(12,58,64,.95)); border: 1px solid var(--gold-dim); border-top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%); }
+.banner .lvl { display: inline-block; font: 700 11px/1 var(--body); color: var(--gold-hi); border: 1px solid var(--gold-dim); border-radius: 9px; padding: 3px 8px; background: #010a13; }
+.banner .frame { width: 132px; height: 132px; margin: 12px auto 6px; position: relative; }
+.banner .frame > svg { width: 100%; height: 100%; display: block; }
+.banner h1 { font-size: 18px; color: var(--gold-hi); letter-spacing: .02em; }
+.banner .tag { font-size: 12px; color: var(--text); }
+.banner .tok { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+.banner .tok span { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-2); background: rgba(1,10,19,.6); display: grid; place-items: center; font: 800 11px/1 var(--display); color: var(--gold); }
+
+/* pages */
+.page { grid-column: 2; grid-row: 2; position: relative; z-index: 2; padding: 22px 24px 24px; display: none; }
+.page.on { display: flex; flex-direction: column; }
+.hl { max-width: 440px; }
+.hl .eyebrow { font: 800 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.hl p { margin-top: 8px; font: 700 20px/1.35 var(--display); color: var(--gold-hi); text-shadow: 0 2px 12px rgba(0,0,0,.8); }
+.hl .queue { margin-top: 12px; display: inline-flex; gap: 8px; align-items: center; padding: 7px 12px; background: rgba(1,10,19,.75); border: 1px solid var(--gold-dim); font-size: 13px; color: var(--ink); }
+.hl .queue::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--online); box-shadow: 0 0 8px var(--online); }
+
+.showcase { margin-top: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-items: end; text-align: center; }
+.sc { text-decoration: none; display: grid; justify-items: center; gap: 2px; }
+.sc h3 { font: 700 12px/1.2 var(--display); letter-spacing: .08em; color: var(--ink); }
+.sc small { font: 800 10px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-hi); }
+.sc .big { font: 700 26px/1 var(--display); color: var(--gold-hi); margin-top: 4px; }
+.sc > svg { width: 112px; height: 100px; margin-top: 10px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.7)); }
+.sc.mid > svg { width: 120px; height: 128px; }
+.sc:hover h3 { color: var(--gold-hi); }
+
+/* match history */
+.match { display: grid; grid-template-columns: 6px 64px 1fr auto; gap: 14px; align-items: center; padding: 12px 14px 12px 0; margin-bottom: 8px; background: rgba(1,10,19,.82); border: 1px solid var(--line); text-decoration: none; max-width: 760px; }
+.match:hover { border-color: var(--gold-dim); }
+.match .bar { align-self: stretch; background: #0a96aa; }
+.match.ig .bar { background: var(--away); }
+.match .thumb { width: 64px; height: 48px; background-size: cover; background-position: top left; border: 1px solid var(--gold-dim); display: grid; place-items: center; font: 800 14px/1 var(--display); color: var(--gold); background-color: #0a1428; }
+.match b { display: block; font: 700 16px/1.2 var(--display); color: var(--gold-hi); }
+.match small { display: block; font-size: 13px; color: var(--text); }
+.match .res { text-align: right; font: 800 12px/1.3 var(--body); letter-spacing: .08em; text-transform: uppercase; color: #0ac8e6; }
+.match.ig .res { color: var(--away); }
+.match .res a { color: var(--ink); font-weight: 700; letter-spacing: .04em; }
+
+.ranks { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 10px; }
+.rk { text-align: center; padding: 18px 24px; background: rgba(1,10,19,.8); border: 1px solid var(--gold-dim); }
+.rk svg { width: 150px; height: 130px; }
+.rk b { display: block; font: 700 18px/1.2 var(--display); color: var(--gold-hi); }
+.rk small { font-size: 13px; color: var(--text); }
+.chips { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; max-width: 760px; }
+.chips li { padding: 12px; background: rgba(1,10,19,.82); border: 1px solid var(--gold-dim); text-align: center; font: 700 14px/1.2 var(--body); color: var(--gold-hi); }
+.chips li small { display: block; margin-top: 4px; font: 800 10px/1 var(--body); letter-spacing: .1em; color: var(--gold); }
+.ptitle { font: 700 22px/1.2 var(--display); color: var(--gold-hi); margin-bottom: 12px; text-shadow: 0 2px 10px #000; }
+
+@media (max-width: 960px) {
+  .client { grid-template-columns: 1fr; }
+  .social { grid-column: 1; grid-row: auto; border-left: 0; border-top: 1px solid #463714; }
+  .body { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .subtabs { grid-column: 1; padding: 12px 16px 0; }
+  .banner { grid-row: 2; margin: 0 auto; }
+  .page { grid-column: 1; grid-row: 3; padding: 18px 16px; }
+  .showcase { grid-template-columns: repeat(3, 1fr); margin-top: 28px; row-gap: 20px; }
+  .sc > svg, .sc.mid > svg { width: 90px; height: 84px; }
+  .match { grid-template-columns: 6px 48px 1fr; }
+  .match .thumb { width: 48px; height: 40px; }
+  .match .res { grid-column: 3; text-align: left; }
+}
+@media (max-width: 560px) { .tabs { display: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .splash .spark { animation: tw 3.6s ease-in-out infinite; }
+  @keyframes tw { 50% { opacity: .15; transform: translateY(-6px); } }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e6d2"/><stop offset=".5" stop-color="#c8aa6e"/><stop offset="1" stop-color="#785a28"/></linearGradient>
+    <linearGradient id="gGM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb3a3"/><stop offset=".5" stop-color="#d43b2a"/><stop offset="1" stop-color="#5a0f0a"/></linearGradient>
+    <linearGradient id="gET" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3e8ff"/><stop offset=".5" stop-color="#9b6bff"/><stop offset="1" stop-color="#2c1560"/></linearGradient>
+    <linearGradient id="gTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ff5ec"/><stop offset=".5" stop-color="#0ac8b9"/><stop offset="1" stop-color="#005a82"/></linearGradient>
+    <symbol id="wings" viewBox="0 0 120 100"><path d="M60 92L8 30l30 10 6-26 16 24 16-24 6 26 30-10z" opacity=".95"/></symbol>
+    <symbol id="jl" viewBox="0 0 64 64"><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+<div class="client">
+  <header class="top">
+    <div class="logo"><svg viewBox="0 0 64 64" aria-label="JL"><circle cx="32" cy="32" r="32" fill="#000"/><use href="#jl"/></svg></div>
+    <span class="playbox"><a class="play" href="https://league-web-app.vercel.app" target="_blank" rel="noopener">PLAY</a></span>
+    <nav class="tabs" aria-label="Main">
+      <a class="on" href="#overview">Profile</a>
+      <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Turnpoint</a>
+      <a href="https://petri-pi.vercel.app" target="_blank" rel="noopener">Petri</a>
+    </nav>
+  </header>
+
+  <aside class="social" aria-label="Social">
+    <div class="me">
+      <div class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#000"/><use href="#jl"/></svg><i>Y2</i></div>
+      <div><b>Jasper Li</b><small>Online</small></div>
+    </div>
+    <div class="soc-h">SOCIAL</div>
+    <div class="req"><span>Internship requests</span><b>Open</b></div>
+    <div class="grp">Contact (3)</div>
+    <a class="fr" href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.070 3.633 17.700 3.633 17.700c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.070 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.760-1.605-2.665-.3-5.466-1.332-5.466-5.930 0-1.310.465-2.380 1.235-3.220-.135-.303-.540-1.523.105-3.176 0 0 1.005-.322 3.300 1.230.960-.267 1.980-.399 3.000-.405 1.020.006 2.040.138 3.000.405 2.280-1.552 3.285-1.230 3.285-1.230.645 1.653.240 2.873.120 3.176.765.840 1.230 1.910 1.230 3.220 0 4.610-2.805 5.625-5.475 5.920.420.360.810 1.096.810 2.220 0 1.606-.015 2.896-.015 3.286 0 .315.210.690.825.570C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span><span><b>GitHub</b><small>Jaspyplayz</small></span></a>
+    <a class="fr" href="https://www.linkedin.com/in/jasper-li-567560349" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span><span><b>LinkedIn</b><small>Jasper Li</small></span></a>
+    <a class="fr away" href="mailto:jaspyplayz@gmail.com"><span class="av">@</span><span><b>Email</b><small>jaspyplayz@gmail.com</small></span></a>
+    <div class="grp">Projects (3)</div>
+    <a class="fr" href="https://league-web-app.vercel.app" target="_blank" rel="noopener"><span class="av">TP</span><span><b>Turnpoint</b><small>Live</small></span></a>
+    <a class="fr" href="https://petri-pi.vercel.app" target="_blank" rel="noopener"><span class="av">PT</span><span><b>Petri</b><small>Live</small></span></a>
+    <span class="fr away"><span class="av">XA</span><span><b>X Arena</b><small>In development</small></span></span>
+    <div class="soc-foot"><span>Class of 2029</span><span>v4</span></div>
+  </aside>
+
+  <main class="body">
+    <div class="splash" id="splash" aria-hidden="true"></div>
+
+    <nav class="subtabs" aria-label="Profile">
+      <button data-tab="overview" class="on">Overview</button>
+      <button data-tab="history">Match history</button>
+      <button data-tab="ranked">Ranked</button>
+      <button data-tab="mastery">Mastery</button>
+    </nav>
+
+    <section class="banner" aria-label="Player card">
+      <span class="lvl">YEAR 2</span>
+      <div class="frame"><svg viewBox="0 0 140 140" aria-hidden="true">
+        <path d="M70 6c10 18 30 14 44 4-2 22 8 34 22 40-16 8-18 26-10 44-18-4-30 6-34 24H48c-4-18-16-28-34-24 8-18 6-36-10-44 14-6 24-18 22-40 14 10 34 14 44-4z" fill="url(#gTeal)" opacity=".35"/>
+        <circle cx="70" cy="68" r="46" fill="none" stroke="url(#gGold)" stroke-width="4"/>
+        <circle cx="70" cy="68" r="41" fill="#000"/>
+        <svg x="34" y="32" width="72" height="72" viewBox="0 0 64 64"><use href="#jl"/></svg>
+        <path d="M70 108l12 14H58z" fill="url(#gGold)"/>
+      </svg></div>
+      <h1>Jasper Li</h1>
+      <div class="tag">CS @ University of Toronto</div>
+      <div class="tok"><span title="Peak Grandmaster">GM</span><span title="Peak Eternity">ET</span><span title="Machine learning">ML</span></div>
+    </section>
+
+    <section class="page on" data-page="overview">
+      <div class="hl">
+        <div class="eyebrow">Player profile</div>
+        <p>Second-year CS at UofT. I build web apps, games and AI experiments.</p>
+        <div class="queue">In queue for a Summer 2027 SWE internship</div>
+      </div>
+      <div class="showcase">
+        <a class="sc" href="#ranked" data-go="ranked"><h3>SOLO/DUO</h3><small>Peak Grandmaster</small>
+          <svg viewBox="0 0 120 100"><use href="#wings" fill="url(#gGM)"/><path d="M60 30l14 18-14 26-14-26z" fill="#fff" opacity=".85"/></svg></a>
+        <a class="sc" href="#ranked" data-go="ranked"><h3>RIVALS</h3><small>Peak Eternity</small>
+          <svg viewBox="0 0 120 100"><use href="#wings" fill="url(#gET)"/><circle cx="60" cy="48" r="13" fill="#fff" opacity=".85"/></svg></a>
+        <a class="sc mid" href="https://league-web-app.vercel.app" target="_blank" rel="noopener"><h3>FEATURED</h3><div class="big">Turnpoint</div>
+          <svg viewBox="0 0 120 128"><defs><clipPath id="cp"><circle cx="60" cy="56" r="40"/></clipPath></defs><path d="M30 80v40l30-12 30 12V80z" fill="#0c3a40" stroke="url(#gGold)" stroke-width="2"/><circle cx="60" cy="56" r="46" fill="url(#gGold)"/><image href="img/turnpoint.webp" x="0" y="16" width="160" height="90" preserveAspectRatio="xMinYMin slice" clip-path="url(#cp)"/><circle cx="60" cy="56" r="40" fill="none" stroke="#010a13" stroke-width="2"/></svg></a>
+        <a class="sc" href="#history" data-go="history"><h3>TROPHY</h3><small>3 projects shipped</small>
+          <svg viewBox="0 0 120 100"><path d="M38 16h44v18c0 16-10 28-22 28S38 50 38 34z" fill="url(#gGold)"/><path d="M38 22H24c0 14 8 20 16 20M82 22h14c0 14-8 20-16 20" fill="none" stroke="#c8aa6e" stroke-width="4"/><rect x="54" y="60" width="12" height="14" fill="#785a28"/><rect x="40" y="74" width="40" height="10" fill="url(#gGold)"/><text x="60" y="42" text-anchor="middle" font-size="14" font-weight="800" fill="#010a13" font-family="Cinzel, serif">3</text></svg></a>
+        <div class="sc"><h3>BANNER</h3><small>Class of 2029</small>
+          <svg viewBox="0 0 120 100"><rect x="34" y="6" width="52" height="6" rx="3" fill="url(#gGold)"/><path d="M40 12h40v70l-20-12-20 12z" fill="#efe6d4" stroke="url(#gGold)" stroke-width="2"/><svg x="44" y="24" width="32" height="32" viewBox="0 0 64 64"><g fill="none" stroke="#785a28" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></svg></svg></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="history">
+      <div class="ptitle">Match history</div>
+      <a class="match" href="https://league-web-app.vercel.app" target="_blank" rel="noopener"><span class="bar"></span><span class="thumb" style="background-image:url(img/turnpoint.webp)"></span><span><b>Turnpoint</b><small>League match analyzer. Trains ML models on real match data to show why a game was won or lost. Next.js · TypeScript · Supabase</small></span><span class="res">Victory · Live</span></a>
+      <a class="match" href="https://petri-pi.vercel.app" target="_blank" rel="noopener"><span class="bar"></span><span class="thumb" style="background-image:url(img/petri.webp)"></span><span><b>Petri</b><small>Self-evolving web app built by AI agents.</small></span><span class="res">Victory · Live</span></a>
+      <div class="match ig"><span class="bar"></span><span class="thumb">XA</span><span><b>X Arena</b><small>Multiplayer arena shooter on Roblox. FPS movement, server-validated hitboxes, lag compensation. Luau · Rojo · GitHub Actions</small></span><span class="res">In game<br>Sep 2026 to now</span></div>
+    </section>
+
+    <section class="page" data-page="ranked">
+      <div class="ptitle">Peak ranks</div>
+      <div class="ranks">
+        <div class="rk"><svg viewBox="0 0 120 100"><use href="#wings" fill="url(#gGM)"/><path d="M60 30l14 18-14 26-14-26z" fill="#fff" opacity=".85"/></svg><b>Peak Grandmaster</b><small>League of Legends · top 0.05% NA</small></div>
+        <div class="rk"><svg viewBox="0 0 120 100"><use href="#wings" fill="url(#gET)"/><circle cx="60" cy="48" r="13" fill="#fff" opacity=".85"/></svg><b>Peak Eternity</b><small>Marvel Rivals · top 0.15%</small></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="mastery">
+      <div class="ptitle">Mastery</div>
+      <ul class="chips">
+        <li>TypeScript</li><li>Next.js</li><li>React</li><li>Python</li><li>Supabase</li><li>Postgres</li><li>Tailwind CSS</li><li>Luau</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li><li>Rojo</li>
+      </ul>
+    </section>
+  </main>
+</div>
+</div>
+
+<script>
+(function () {
+  // Personal splash: JL crest, Jasper's project screenshots, a Turnpoint-style win-chance curve, sparks.
+  var pts = [], y = 50, s = 7;
+  for (var i = 0; i <= 40; i++) { s = (s * 9301 + 49297) % 233280; y += (s / 233280 - 0.42) * 9; y = Math.max(30, Math.min(80, y)); pts.push((i * 2.5).toFixed(1) + ',' + (100 - y).toFixed(1)); }
+  var curve = '<svg class="curve" viewBox="0 0 100 100" preserveAspectRatio="none"><g stroke="rgba(200,170,110,.1)" stroke-width=".15"><line x1="0" x2="100" y1="30" y2="30"/><line x1="0" x2="100" y1="50" y2="50"/><line x1="0" x2="100" y1="70" y2="70"/></g><polyline points="' + pts.join(' ') + '" fill="none" stroke="#c8aa6e" stroke-opacity=".7" vector-effect="non-scaling-stroke" style="stroke-width:3px"/></svg>';
+  var crest = '<div class="crest"><svg viewBox="0 0 200 200"><defs><radialGradient id="cg"><stop offset="0" stop-color="#0ac8b9" stop-opacity=".4"/><stop offset="1" stop-color="#0ac8b9" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="100" r="98" fill="url(#cg)"/><g fill="none" stroke="#c8aa6e"><circle cx="100" cy="100" r="92" stroke-opacity=".25" stroke-width=".6"/><circle cx="100" cy="100" r="78" stroke-opacity=".5" stroke-width="1.4" stroke-dasharray="2 6"/><circle cx="100" cy="100" r="64" stroke-opacity=".7" stroke-width="2"/></g><path d="M100 22l5 9h-10zM100 178l5-9h-10zM22 100l9 5v-10zM178 100l-9 5v-10z" fill="#c8aa6e" fill-opacity=".6"/><svg x="46" y="46" width="108" height="108" viewBox="0 0 64 64" opacity=".9"><use href="#jl"/></svg></svg></div>';
+  var sparks = ''; s = 3;
+  for (var j = 0; j < 22; j++) { s = (s * 9301 + 49297) % 233280; var x = 25 + (s / 233280) * 72; s = (s * 9301 + 49297) % 233280; var yy = 5 + (s / 233280) * 70; sparks += '<i class="spark" style="left:' + x.toFixed(1) + '%;top:' + yy.toFixed(1) + '%;opacity:' + (0.3 + (j % 5) / 7).toFixed(2) + ';animation-delay:' + (j % 7) * 0.5 + 's"></i>'; }
+  document.getElementById('splash').innerHTML = '<div class="shot b" style="background-image:url(img/petri.webp)"></div><div class="shot a" style="background-image:url(img/turnpoint.webp)"></div>' + curve + crest + sparks + '<div class="vig"></div>';
+
+  var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page');
+  function show(k) {
+    tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
+    pages.forEach(function (p) { p.classList.toggle('on', p.dataset.page === k); });
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.go); }); });
+  var h = (location.hash || '').slice(1);
+  show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
+})();
+</script>

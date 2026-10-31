@@ -94,8 +94,19 @@ button { font: inherit; color: inherit; }
 .hero { position: relative; overflow: hidden; padding: 30px 32px; display: grid; align-content: start; gap: 12px; min-height: 560px; }
 .hero .bgimg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .6; filter: saturate(.9); }
 .hero .bgcurve { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(1,10,19,.96) 0%, rgba(1,10,19,.75) 45%, rgba(1,10,19,.25) 100%), linear-gradient(0deg, rgba(1,10,19,.9), transparent 40%); }
-.hero > :not(.bgimg):not(.bgcurve):not(.shade):not(.panel):not(.actions) { position: relative; z-index: 1; }
+.splash { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(55% 75% at 72% 48%, rgba(10,200,185,.22), transparent 62%), radial-gradient(35% 45% at 88% 22%, rgba(200,170,110,.22), transparent 70%), radial-gradient(50% 60% at 60% 100%, rgba(0,90,130,.35), transparent 70%), #010a13; }
+.splash .shot { position: absolute; width: 48%; aspect-ratio: 16/10; background-size: cover; background-position: top left; border: 1px solid rgba(200,170,110,.45); box-shadow: 0 24px 70px rgba(0,0,0,.7), 0 0 40px rgba(10,200,185,.15); }
+.splash .shot.a { right: -6%; top: 6%; opacity: .55; transform: perspective(1000px) rotateY(-20deg) rotate(-3deg); }
+.splash .shot.b { right: 22%; top: 46%; width: 40%; opacity: .4; transform: perspective(1000px) rotateY(-16deg) rotate(4deg); }
+.splash .crest { position: absolute; right: 6%; top: 50%; width: min(420px, 50%); aspect-ratio: 1; transform: translateY(-50%); opacity: .9; }
+.splash .crest svg { width: 100%; height: 100%; display: block; }
+.splash .spark { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #f0e6d2; box-shadow: 0 0 8px 2px rgba(240,230,210,.6); opacity: .7; }
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.stat { min-width: 132px; padding: 12px 14px; background: rgba(1,10,19,.78); border: 1px solid var(--gold-dim); border-top: 2px solid var(--gold); }
+.stat b { display: block; font: 700 22px/1.1 var(--display); color: var(--gold-hi); }
+.stat small { font-size: 12px; color: var(--text); }
+.hero .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(1,10,19,.95) 0%, rgba(1,10,19,.7) 38%, rgba(1,10,19,.05) 75%), linear-gradient(0deg, rgba(1,10,19,.9), transparent 40%); }
+.hero > :not(.bgimg):not(.bgcurve):not(.splash):not(.shade):not(.panel):not(.actions) { position: relative; z-index: 1; }
 .eyebrow { font: 800 13px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 .hero h1 { font-size: clamp(28px, 4.4vw, 46px); line-height: 1.1; color: var(--gold-hi); letter-spacing: .03em; text-transform: uppercase; max-width: 16ch; }
 .hero .desc { color: var(--gold-hi); max-width: 46ch; font-size: 15px; }
@@ -187,25 +198,33 @@ button { font: inherit; color: inherit; }
       '<g stroke="rgba(200,170,110,.12)" stroke-width=".15">' + [20,40,60,80].map(function (v) { return '<line x1="0" x2="100" y1="' + v + '" y2="' + v + '"/>'; }).join('') + '</g>' +
       '<line x1="0" x2="100" y1="50" y2="50" stroke="rgba(10,200,185,.35)" stroke-width=".2" stroke-dasharray="1 1"/>' +
       '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#c8aa6e" stroke-width=".6" vector-effect="non-scaling-stroke" style="stroke-width:3px"/>' +
-      </svg>';
+      '</svg>';
+  }
+  function splash(k) {
+    var crest = '<div class="crest"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="cg"><stop offset="0" stop-color="#0ac8b9" stop-opacity=".35"/><stop offset="1" stop-color="#0ac8b9" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="100" r="98" fill="url(#cg)"/><g fill="none" stroke="#c8aa6e"><circle cx="100" cy="100" r="92" stroke-opacity=".25" stroke-width=".6"/><circle cx="100" cy="100" r="78" stroke-opacity=".5" stroke-width="1.4" stroke-dasharray="2 6"/><circle cx="100" cy="100" r="64" stroke-opacity=".7" stroke-width="2"/><path d="M100 22l5 9h-10zM100 178l5-9h-10zM22 100l9 5v-10zM178 100l-9 5v-10z" fill="#c8aa6e" fill-opacity=".6" stroke="none"/></g><g transform="translate(54 54) scale(1.44)" fill="none" stroke="#f0e6d2" stroke-opacity=".85" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></svg></div>';
+    var sparks = '', s = 3;
+    for (var i = 0; i < 18; i++) { s = (s * 9301 + 49297) % 233280; var x = 40 + (s / 233280) * 58; s = (s * 9301 + 49297) % 233280; var y = 5 + (s / 233280) * 90; sparks += '<i class="spark" style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;opacity:' + (0.3 + (i % 5) / 8) + '"></i>'; }
+    var shots = k === 'home' ? '<div class="shot a" style="background-image:url(img/turnpoint.webp)"></div><div class="shot b" style="background-image:url(img/petri.webp)"></div>' : '';
+    return '<div class="splash" aria-hidden="true">' + shots + curve() + (k === 'home' ? '' : crest) + sparks + '</div>';
   }
   var V = {
-    home: { bg: 'curve', eyebrow: 'Player profile', title: 'Jasper Li', desc: 'Second-year CS at UofT. I build web apps, games and AI experiments.', meta: ['Class of 2029', 'Looking for a Summer 2027 SWE internship'], panel: ['Now playing', 'X Arena, a Roblox arena shooter'], actions: [['Play Turnpoint', 'https://league-web-app.vercel.app']] },
+    home: { bg: 'splash', stats: [['GM', 'Peak League rank'], ['3', 'Projects shipped'], ['2029', 'Graduating']], eyebrow: 'Player profile', title: 'Jasper Li', desc: 'Second-year CS at UofT. I build web apps, games and AI experiments.', meta: ['Class of 2029', 'Looking for a Summer 2027 SWE internship'], panel: ['Now playing', 'X Arena, a Roblox arena shooter'], actions: [['Play Turnpoint', 'https://league-web-app.vercel.app']] },
     turnpoint: { bg: 'img/turnpoint.webp', eyebrow: 'Featured project', title: 'Turnpoint', desc: 'A League match analyzer. It trains machine learning models on real match data to show why a game was won or lost.', meta: ['Next.js', 'TypeScript', 'Supabase'], actions: [['Code', 'https://github.com/Jaspyplayz/League-Web-App', 1], ['Play', 'https://league-web-app.vercel.app']] },
     petri: { bg: 'img/petri.webp', eyebrow: 'Project', title: 'Petri', desc: 'A self-evolving web app built by AI agents.', meta: ['Next.js', 'TypeScript'], actions: [['Code', 'https://github.com/Jaspyplayz/petri', 1], ['Play', 'https://petri-pi.vercel.app']] },
-    xarena: { bg: 'curve', eyebrow: 'In development · Sep 2026 to now', title: 'X Arena', desc: 'A multiplayer arena shooter on Roblox, with FPS movement, server-validated hitboxes and lag compensation.', meta: ['Luau', 'Rojo', 'GitHub Actions'], panel: ['Coming soon', 'Playable build not public yet'] },
-    ranks: { bg: 'curve', eyebrow: 'Ranked', title: 'Peak ranks', ranks: true },
-    skills: { bg: 'curve', eyebrow: 'Mastery', title: 'Skills', skills: ['TypeScript', 'Python', 'Next.js', 'React', 'Tailwind CSS', 'Postgres', 'Supabase', 'Drizzle', 'Vitest', 'Playwright', 'GitHub Actions', 'Vercel', 'Luau', 'Rojo'] }
+    xarena: { bg: 'splash', eyebrow: 'In development · Sep 2026 to now', title: 'X Arena', desc: 'A multiplayer arena shooter on Roblox, with FPS movement, server-validated hitboxes and lag compensation.', meta: ['Luau', 'Rojo', 'GitHub Actions'], panel: ['Coming soon', 'Playable build not public yet'] },
+    ranks: { bg: 'splash', eyebrow: 'Ranked', title: 'Peak ranks', ranks: true },
+    skills: { bg: 'splash', eyebrow: 'Mastery', title: 'Skills', skills: ['TypeScript', 'Python', 'Next.js', 'React', 'Tailwind CSS', 'Postgres', 'Supabase', 'Drizzle', 'Vitest', 'Playwright', 'GitHub Actions', 'Vercel', 'Luau', 'Rojo'] }
   };
   var hero = document.getElementById('hero');
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function render(k) {
     var v = V[k], h = '';
-    h += v.bg === 'curve' ? curve() : '<div class="bgimg" style="background-image:url(' + v.bg + ')"></div>';
+    h += v.bg === 'splash' ? splash(k) : '<div class="bgimg" style="background-image:url(' + v.bg + ')"></div>';
     h += '<div class="shade"></div>';
     h += '<div class="eyebrow">' + esc(v.eyebrow) + '</div><h1>' + esc(v.title) + '</h1>';
     if (v.desc) h += '<p class="desc">' + esc(v.desc) + '</p>';
     if (v.meta) h += '<div class="meta">' + v.meta.map(function (m) { return '<span>' + esc(m) + '</span>'; }).join('') + '</div>';
+    if (v.stats) h += '<div class="stats">' + v.stats.map(function (s) { return '<div class="stat"><b>' + esc(s[0]) + '</b><small>' + esc(s[1]) + '</small></div>'; }).join('') + '</div>';
     if (v.ranks) h += '<div class="ranks"><div class="rk"><div class="em gm">GM</div><div><b>Peak Grandmaster</b><small>League of Legends · top 0.05% NA</small></div></div><div class="rk"><div class="em et">ET</div><div><b>Peak Eternity</b><small>Marvel Rivals · top 0.15%</small></div></div></div>';
     if (v.skills) h += '<ul class="chips">' + v.skills.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>';
     if (v.panel) h += '<div class="panel">' + esc(v.panel[0]) + '<small>' + esc(v.panel[1]) + '</small></div>';
