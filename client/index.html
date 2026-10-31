@@ -39,6 +39,13 @@ img { display: block; max-width: 100%; }
 .playwrap .pf { position: absolute; left: 30px; top: 5px; width: 162px; height: 40px; }
 .playwrap .pb { position: absolute; left: 50px; top: 0; width: 146px; height: 50px; background: url(img/play-btn.webp) 0 0 / 100% 100% no-repeat; display: grid; place-items: center; padding: 0 6px 0 4px; font: 700 14px/1 var(--display); letter-spacing: .08em; color: var(--gold-1); }
 .playwrap:hover .pb { background-image: url(img/play-btn-hover.webp); }
+.pb b { position: relative; z-index: 1; font: inherit; }
+.pb-vid, .ll-vid { display: none; position: absolute; pointer-events: none; }
+.pb-vid { inset: 0; width: 100%; height: 100%; object-fit: fill; opacity: 0; transition: opacity .2s; }
+.ll-vid { left: -11px; top: -6px; width: 70px; height: 59px; z-index: 3; }
+.vids .pb-vid, .vids .ll-vid { display: block; }
+.vids .ll { visibility: hidden; }
+.playwrap:hover .pb-vid { opacity: 1; }
 .tabs { display: flex; gap: 18px; }
 .tabs a { font: 700 14px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); white-space: nowrap; transition: color .15s; }
 .tabs a:hover, .tabs a.on { color: var(--gold-1); }
@@ -89,7 +96,12 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .soc-foot button.fb:hover, .soc-foot button.fb[aria-expanded="true"] { border-color: var(--gold-3); }
 .soc-foot button.fb:focus-visible { outline: 1px solid var(--blue); }
 .soc-foot .ver { margin-left: auto; height: 28px; padding: 0 9px; display: grid; place-items: center; border: 1px solid #1e2328; background: #0a0e13; font: 600 11px/1 var(--body); color: #6c6a64; }
+.soc-foot .fb.tog { position: relative; }
+.soc-foot .fb.tog[aria-pressed="false"] { color: #6c6a64; }
+.soc-foot .fb.tog[aria-pressed="true"] { border-color: var(--gold-4); }
+.soc-foot .fb.tog[aria-pressed="false"]::after { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 1.5px; background: currentColor; transform: rotate(-40deg); }
 .soc-foot .fb.bug { border-color: var(--gold-4); color: var(--gold-3); }
+.fr .av.av-tp { background: #1e1c19 url(img/turnpoint-logo.svg) center/100% no-repeat; }
 .fr.ai { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 6px 14px; transition: background .15s; }
 .fr.ai .av { background-image: url(img/main-tile.webp); background-size: 118%; }
 .fr.ai .av::after { background: var(--blue); }
@@ -282,6 +294,7 @@ a.match:hover { border-color: var(--gold-4); }
   .top { display: block; padding: 0; }
   .playwrap { position: absolute; left: 25px; top: 0; width: 170px; height: 81px; }
   .playwrap .ll { left: 0; top: 17px; width: 42px; }
+  .ll-vid { left: -10px; top: 10px; width: 64px; height: 54px; }
   .playwrap .pf { left: 3px; top: 22px; width: 162px; height: 38px; }
   .playwrap .pb { left: 28px; top: 17px; width: 136px; height: 49px; padding: 0; font-size: 13px; letter-spacing: .06em; }
   .tabs { position: absolute; left: 227px; top: 0; height: 81px; align-items: center; gap: 25px; }
@@ -373,7 +386,7 @@ a.match:hover { border-color: var(--gold-4); }
 <div class="wrap">
 <div class="stage" id="stage"><div class="client" id="client">
   <header class="top">
-    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb">PLAY</span><img class="ll" src="img/lol-logo.webp" alt=""></a>
+    <a class="playwrap" href="#overview" data-go="overview" aria-label="Play: go to profile home"><img class="pf" src="img/play-frame.webp" alt=""><span class="pb"><video class="pb-vid" src="img/play-hover-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video><b>PLAY</b></span><img class="ll" src="img/lol-logo.webp" alt=""><video class="ll-vid" src="img/logo-loop.webm" muted loop playsinline preload="auto" aria-hidden="true"></video></a>
     <nav class="tabs" aria-label="Projects">
       <a href="#turnpoint" data-go="turnpoint">Turnpoint</a>
       <a href="#petri" data-go="petri">Petri</a>
@@ -402,13 +415,13 @@ a.match:hover { border-color: var(--gold-4); }
       <div class="rows"><div class="rows-in">
       <a class="fr" href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></span><span><b>GitHub</b><small>Jaspyplayz</small></span></a>
       <a class="fr" href="https://www.linkedin.com/in/jasper-li-567560349" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></span><span><b>LinkedIn</b><small>Jasper Li</small></span></a>
-      <a class="fr away" href="mailto:jaspyplayz@gmail.com"><span class="av">@</span><span><b>Email</b><small>jaspyplayz@gmail.com</small></span></a>
+      <a class="fr away" href="mailto:jaspy.li@mail.utoronto.ca"><span class="av">@</span><span><b>Email</b><small>jaspy.li@mail.utoronto.ca</small></span></a>
       </div></div>
     </section>
     <section class="sgrp open">
       <button class="grp" aria-expanded="true">Projects (3)</button>
       <div class="rows"><div class="rows-in">
-      <div class="fr"><span class="av">TP</span><span><b>Turnpoint</b><small>Live</small></span></div>
+      <div class="fr"><span class="av av-tp" aria-hidden="true"></span><span><b>Turnpoint</b><small>Live</small></span></div>
       <div class="fr"><span class="av">PT</span><span><b>Petri</b><small>Live</small></span></div>
       <div class="fr away"><span class="av">XA</span><span><b>X Arena</b><small>In development</small></span></div>
       </div></div>
@@ -426,7 +439,7 @@ a.match:hover { border-color: var(--gold-4); }
           <span class="ctl"><button class="chat-x" id="chatClose" aria-label="Minimize chat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 10h10" stroke="currentColor" stroke-width="2"/></svg></button><span aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2.5v7" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="13" r="1.3" fill="currentColor"/></svg></span><span aria-hidden="true"><svg viewBox="0 0 16 16"><path fill="currentColor" d="M6.7 1h2.6l.4 2 1.3.6 1.7-1.1 1.8 1.8-1.1 1.7.6 1.3 2 .4v2.6l-2 .4-.6 1.3 1.1 1.7-1.8 1.8-1.7-1.1-1.3.6-.4 2H6.7l-.4-2-1.3-.6-1.7 1.1-1.8-1.8 1.1-1.7L2 9.7 0 9.3V6.7l2-.4.6-1.3-1.1-1.7 1.8-1.8L5 2.6 6.3 2zM8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg></span></span>
         </div>
         <div class="chat-log" id="chatLog" aria-live="polite">
-          <p class="sys">You're chatting with an AI assistant that answers from Jasper's profile. For anything else, email jaspyplayz@gmail.com.</p>
+          <p class="sys">You're chatting with an AI assistant that answers from Jasper's profile. For anything else, email jaspy.li@mail.utoronto.ca.</p>
           <div class="msg bot">Hi! Ask me about Jasper's projects, skills or what he's looking for.</div>
         </div>
         <div class="chat-sugg" id="chatSugg">
@@ -437,8 +450,8 @@ a.match:hover { border-color: var(--gold-4); }
     </div>
     <div class="soc-foot">
       <button class="fb" id="chatOpen" aria-expanded="false" aria-controls="chat" title="Ask about Jasper" aria-label="Ask about Jasper"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2 2.5h12v8.5H7l-3.5 3v-3H2z"/></svg></button>
-      <span class="fb" aria-hidden="true"><svg viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M4 2.5h8.5v9a2 2 0 0 1-2 2H3.5V4.5M4 2.5a1.5 1.5 0 0 0-1.5 1.5v.5H4M6 6h4.5M6 8.5h4.5"/></svg></span>
-      <span class="fb" aria-hidden="true"><svg viewBox="0 0 16 16"><rect x="5.5" y="1.5" width="5" height="8.5" rx="2.5" fill="currentColor"/><path d="M3.5 7.5a4.5 4.5 0 0 0 9 0M8 12v2.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      <button class="fb tog" id="musicBtn" aria-pressed="false" title="Music" aria-label="Music"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M6 3.2 13 1.5v8.7a2.1 2.1 0 1 1-1.3-1.9V4.6L7.3 5.7v6.1a2.1 2.1 0 1 1-1.3-1.9z"/></svg></button>
+      <button class="fb tog" id="sfxBtn" aria-pressed="true" title="Sound effects" aria-label="Sound effects"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2 6h2.6L8 3v10L4.6 10H2z"/><path d="M10.4 5.6a3.4 3.4 0 0 1 0 4.8M12.2 3.8a6 6 0 0 1 0 8.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button>
       <span class="ver" aria-hidden="true">26.21</span>
       <span class="fb bug" aria-hidden="true"><svg viewBox="0 0 16 16"><ellipse cx="8" cy="9.5" rx="3.5" ry="4.5" fill="currentColor"/><path d="M5.5 4.5 4 3M10.5 4.5 12 3M4.5 8H2M11.5 8H14M4.5 11.5 2.5 13M11.5 11.5l2 1.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg></span>
     </div>
@@ -569,6 +582,15 @@ a.match:hover { border-color: var(--gold-4); }
 
 <script>
 (function () {
+  // client sounds (Riot's own UI sfx and music). Effects on by default, music opt-in; both remembered per visitor.
+  var sfxOn = true, musicOn = false, cache = {};
+  try { sfxOn = localStorage.getItem('lc-sfx') !== '0'; musicOn = localStorage.getItem('lc-music') === '1'; } catch (e) {}
+  function sfx(name, vol) {
+    if (!sfxOn) return;
+    var base = cache[name] || (cache[name] = new Audio('snd/' + name + '.mp3'));
+    var a = base.paused ? base : base.cloneNode(); a.volume = vol || .4; a.currentTime = 0;
+    var pr = a.play(); if (pr && pr.catch) pr.catch(function () {});
+  }
   var tabs = document.querySelectorAll('.subtabs button'), pages = document.querySelectorAll('.page'), icons = document.querySelectorAll('.navic button');
   function show(k) {
     tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
@@ -591,7 +613,7 @@ a.match:hover { border-color: var(--gold-4); }
   var chat = document.getElementById('chat'), openBtn = document.getElementById('chatOpen'), log = document.getElementById('chatLog'),
       form = document.getElementById('chatForm'), input = document.getElementById('chatInput'), sugg = document.getElementById('chatSugg'), history_ = [], busy = false;
   var friend = document.getElementById('chatFriend');
-  function setOpen(o) { chat.hidden = !o; [openBtn, friend].forEach(function (b) { b.setAttribute('aria-expanded', o ? 'true' : 'false'); }); if (o) input.focus(); }
+  function setOpen(o) { if (o === chat.hidden) sfx(o ? 'chat-open' : 'chat-close', .5); chat.hidden = !o; [openBtn, friend].forEach(function (b) { b.setAttribute('aria-expanded', o ? 'true' : 'false'); }); if (o) input.focus(); }
   openBtn.addEventListener('click', function () { setOpen(chat.hidden); });
   friend.addEventListener('click', function () { setOpen(true); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !chat.hidden) setOpen(false); });
@@ -606,11 +628,11 @@ a.match:hover { border-color: var(--gold-4); }
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (res) {
         if (!res.ok || !res.j.reply) throw new Error(res.j && res.j.error || 'error');
-        t.classList.remove('typing'); t.textContent = res.j.reply; history_.push({ role: 'assistant', content: res.j.reply });
+        t.classList.remove('typing'); sfx('chat-rcvd', .45); t.textContent = res.j.reply; history_.push({ role: 'assistant', content: res.j.reply });
       })
       .catch(function () {
         history_.pop(); t.classList.remove('typing'); t.classList.add('err');
-        t.textContent = 'The chat runs on the deployed site. For now, reach Jasper at jaspyplayz@gmail.com.';
+        t.textContent = 'The chat runs on the deployed site. For now, reach Jasper at jaspy.li@mail.utoronto.ca.';
       })
       .then(function () { busy = false; log.scrollTop = log.scrollHeight; });
   }
@@ -624,6 +646,44 @@ a.match:hover { border-color: var(--gold-4); }
     stage.style.width = 1280 * sc + 'px'; stage.style.height = 720 * sc + 'px';
   }
   fit(); window.addEventListener('resize', fit);
+
+  // sounds on the clickable parts, like the client
+  function on(sel, ev, fn) { document.querySelectorAll(sel).forEach(function (el) { el.addEventListener(ev, fn); }); }
+  on('.playwrap', 'mouseenter', function () { sfx('play-hover', .35); });
+  on('.playwrap', 'click', function () { sfx('play-click', .45); });
+  on('.tabs a, .subtabs button', 'mouseenter', function () { sfx('hover', .25); });
+  on('.tabs a', 'click', function () { sfx('nav-click', .45); });
+  on('.subtabs button', 'click', function () { sfx('tab-click', .45); });
+  on('a.btn', 'mouseenter', function () { sfx('gold-hover', .3); });
+  on('a.btn', 'click', function () { sfx('gold-click', .4); });
+  on('.grp', 'click', function () { sfx('soc-click', .45); });
+  on('a.fr, .fr.ai', 'mouseenter', function () { sfx('row-hover', .35); });
+  on('.chat-sugg button', 'click', function () { sfx('click', .4); });
+
+  // music: Riot's client theme, looped, only after the visitor turns it on
+  var music = null, mBtn = document.getElementById('musicBtn'), sBtn = document.getElementById('sfxBtn');
+  function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function setMusic(o) {
+    musicOn = o; mBtn.setAttribute('aria-pressed', o ? 'true' : 'false'); save('lc-music', o ? '1' : '0');
+    if (o) { if (!music) { music = new Audio('snd/music.mp3'); music.loop = true; music.volume = .28; } var pr = music.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    else if (music) music.pause();
+  }
+  mBtn.addEventListener('click', function () { setMusic(!musicOn); });
+  sBtn.setAttribute('aria-pressed', sfxOn ? 'true' : 'false');
+  sBtn.addEventListener('click', function () { sfxOn = !sfxOn; sBtn.setAttribute('aria-pressed', sfxOn ? 'true' : 'false'); save('lc-sfx', sfxOn ? '1' : '0'); sfx('click', .4); });
+  // a returning visitor who left music on hears it again after their first click (browsers block audio before that)
+  if (musicOn) document.addEventListener('pointerdown', function () { if (musicOn) setMusic(true); }, { once: true });
+
+  // the client's own animated League logo and PLAY hover glow (alpha video; Safari can't show alpha WebM, so it keeps the stills)
+  var pw = document.querySelector('.playwrap'), safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!safari && document.createElement('video').canPlayType('video/webm; codecs="vp9"')) {
+    pw.classList.add('vids');
+    var lv = pw.querySelector('.ll-vid'), hv = pw.querySelector('.pb-vid');
+    if (!still) { var p1 = lv.play(); if (p1 && p1.catch) p1.catch(function () {}); }
+    pw.addEventListener('mouseenter', function () { hv.currentTime = 0; var p2 = hv.play(); if (p2 && p2.catch) p2.catch(function () {}); });
+    pw.addEventListener('mouseleave', function () { hv.pause(); });
+  }
   var h = (location.hash || '').slice(1);
   show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
 })();
