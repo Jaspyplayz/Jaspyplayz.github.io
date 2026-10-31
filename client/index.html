@@ -101,6 +101,7 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .msg.typing::after { content: "..."; animation: dots 1s steps(4) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; }
 @keyframes dots { from { width: 0; } to { width: 1.2em; } }
 .chat-sugg { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 10px 8px; }
+.chat-sugg[hidden] { display: none; }
 .chat-sugg button { all: unset; cursor: pointer; padding: 4px 8px; border: 1px solid var(--gold-5); font-size: 11px; color: var(--ink); }
 .chat-sugg button:hover { border-color: var(--gold-3); color: var(--gold-1); }
 .chat-in { display: flex; border-top: 1px solid var(--gold-5); }
