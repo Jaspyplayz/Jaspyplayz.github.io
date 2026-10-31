@@ -1,0 +1,7 @@
+# GitHub Pages: keep agent and planning files out of the published site.
+exclude:
+  - CLAUDE.md
+  - GLOSSARY.md
+  - docs/
+  - research/
+  - prototype/
