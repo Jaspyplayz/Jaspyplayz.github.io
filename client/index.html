@@ -17,7 +17,7 @@
   --bg: #010a13; --panel: #0a1428; --line: #1e2328; --rule: #463714;
   --gold-1: #f0e6d2; --gold-2: #c8aa6e; --gold-3: #c89b3c; --gold-4: #785a28; --gold-5: #463714;
   --ink: #cdbe91; --text: #a09b8c; --mute: #5b5a56;
-  --blue: #0ac8b9; --blue-2: #0397ab; --online: #0acf83; --away: #e9b84a;
+  --blue: #0ac8b9; --blue-2: #0397ab; --red: #e84057; --online: #0acf83; --away: #e9b84a;
   --display: "Beaufort for LOL", "Source Serif 4", Georgia, serif;
   --body: "Spiegel", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
   color-scheme: dark;
@@ -275,20 +275,31 @@ a.sc:hover .h { color: var(--gold-1); }
 .sc.flag .art img { width: 76px; height: auto; }
 .sc.honor .art img { width: 96px; height: auto; max-height: none; }
 
-/* match history */
-.ptitle { font: 700 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 14px; }
-.list { display: grid; gap: 6px; max-width: 760px; }
-.match { display: grid; grid-template-columns: 4px 72px 1fr auto; gap: 16px; align-items: center; padding: 10px 16px 10px 0; background: rgba(1,10,19,.86); border: 1px solid var(--line); transition: border-color .15s; }
-a.match:hover { border-color: var(--gold-4); }
-.match .bar { align-self: stretch; background: var(--blue-2); }
-.match.ig .bar { background: var(--gold-4); }
-.match .thumb { width: 72px; height: 46px; background: #0a1428 top left / cover; border: 1px solid var(--gold-5); display: grid; place-items: center; font: 700 13px/1 var(--display); color: var(--gold-2); }
-.match b { display: block; font: 700 14px/1.3 var(--body); color: var(--gold-1); }
-.match small { display: block; font-size: 12px; color: var(--text); }
-.match .stack { margin-top: 3px; font-size: 11px; color: var(--mute); letter-spacing: .02em; }
-.match .res { text-align: right; font: 700 11px/1.4 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); white-space: nowrap; }
-.match.ig .res { color: var(--gold-3); }
-.match .res span { display: block; color: var(--mute); letter-spacing: .04em; font-weight: 600; text-transform: none; }
+/* match history (live from api/league.js, snapshot fallback) */
+.mh-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 760px; margin-bottom: 4px; padding: 9px 14px; background: rgba(1,10,19,.94); border: 1px solid var(--line); border-top-color: var(--gold-5); }
+.mh-head .ptitle { margin-bottom: 5px; }
+.mh-sum { font-size: 12px; color: var(--text); white-space: nowrap; }
+.mh-sum b { color: var(--gold-1); font-weight: 600; }
+.mh-sum .w { color: var(--blue); } .mh-sum .l { color: var(--red); }
+.mh-live { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 var(--body); color: var(--mute); white-space: nowrap; }
+.mh-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--mute); }
+.mh-live.on { color: var(--text); } .mh-live.on i { background: var(--online); }
+.mh { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; max-width: 760px; }
+.g { display: grid; grid-template-columns: 3px 40px 112px 104px minmax(0,1fr) 64px 52px 84px; gap: 14px; align-items: center; height: 44px; padding-right: 14px; background: rgba(1,10,19,.94); border: 1px solid var(--line); }
+.g .bar { align-self: stretch; background: var(--blue-2); }
+.g.loss .bar { background: var(--red); }
+.g .ci { width: 36px; height: 36px; border: 1px solid var(--gold-5); background: #0a1428; overflow: hidden; }
+.g .ci img { display: block; width: 100%; height: 100%; transform: scale(1.1); }
+.g b { display: block; font: 600 13px/1.25 var(--body); color: var(--gold-1); white-space: nowrap; }
+.g small { display: block; font-size: 11px; line-height: 1.3; color: var(--mute); white-space: nowrap; }
+.g .r b { font: 700 12px/1.25 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.g.loss .r b { color: var(--red); }
+.g .k b { letter-spacing: .02em; }
+.g .s, .g .t { text-align: right; }
+.mh-foot { max-width: 760px; margin-top: 8px; text-shadow: 0 1px 4px #010a13; font-size: 11px; color: var(--mute); }
+.mh-foot a { color: var(--gold-2); text-decoration: none; }
+.mh-foot a:hover { color: var(--gold-1); }
+.mh-foot a:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
 
 /* ranked */
 .ranks { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -391,9 +402,13 @@ a.match:hover { border-color: var(--gold-4); }
   .banner { grid-row: 2; margin: 8px auto 0; }
   .page { grid-column: 1; grid-row: 3; padding: 18px 16px 22px; }
   .showcase { grid-template-columns: repeat(2, 1fr); margin-top: 28px; row-gap: 22px; }
-  .match { grid-template-columns: 4px 56px 1fr; }
-  .match .thumb { width: 56px; height: 40px; }
-  .match .res { grid-column: 3; text-align: left; }
+  .mh-head { flex-wrap: wrap; align-items: flex-start; }
+  .g { grid-template-columns: 3px 36px 1fr auto; height: auto; padding: 6px 12px 6px 0; row-gap: 2px; }
+  .g .who, .g .s { display: none; }
+  .g .k { grid-column: 3; grid-row: 2; }
+  .g .t { grid-column: 4; grid-row: 1 / 3; }
+  .g .ci { grid-row: 1 / 3; }
+  .g .bar { grid-row: 1 / 3; }
   .rk { width: 100%; }
   .chat { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: min(70vh, 460px); grid-template-columns: 1fr; border: 1px solid var(--gold-5); border-bottom: 0; z-index: 20; }
   .cv-list { display: none; }
@@ -518,13 +533,13 @@ a.match:hover { border-color: var(--gold-4); }
       </div>
     </section>
 
-    <section class="page" data-page="history">
-      <div class="ptitle">Recent games</div>
-      <div class="list">
-        <div class="match"><span class="bar"></span><span class="thumb" style="background-image:url(img/turnpoint.webp)"></span><span><b>Turnpoint</b><small>League match analyzer. Trains ML models on real match data to show why a game was won or lost.</small><span class="stack">Next.js · TypeScript · Supabase</span></span><span class="res">Victory<span>Live</span></span></div>
-        <div class="match"><span class="bar"></span><span class="thumb" style="background-image:url(img/petri.webp)"></span><span><b>Petri</b><small>Self-evolving web app built by AI agents.</small><span class="stack">AI agents · Web</span></span><span class="res">Victory<span>Live</span></span></div>
-        <div class="match ig"><span class="bar"></span><span class="thumb">XA</span><span><b>X Arena</b><small>Multiplayer arena shooter on Roblox. FPS movement, server-validated hitboxes, lag compensation.</small><span class="stack">Luau · Rojo · GitHub Actions</span></span><span class="res">In game<span>Sep 2026 to now</span></span></div>
+    <section class="page" data-page="history" aria-label="Match history">
+      <div class="mh-head">
+        <div><div class="ptitle">Recent games</div><div class="mh-sum" id="mhSum"></div></div>
+        <div class="mh-live" id="mhLive"><i></i><span>Snapshot</span></div>
       </div>
+      <ol class="mh" id="mhList"></ol>
+      <div class="mh-foot">Ranked games on NA, pulled live from <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Turnpoint</a>, my match analyzer.</div>
     </section>
 
     <section class="page" data-page="ranked">
@@ -708,6 +723,66 @@ a.match:hover { border-color: var(--gold-4); }
     if (!still) { var p1 = lv.play(); if (p1 && p1.catch) p1.catch(function () {}); }
   }
   var h = (location.hash || '').slice(1);
+
+  // Match history + mastery: live from /api/league, built-in snapshot (2026-10-31) when offline.
+  var SNAP = {"record":{"games":10,"wins":6,"losses":4,"winRatePercent":60,"kda":3.6,"csPerMin":7.2,"killParticipationPercent":59},"games":[{"playedAt":"2026-09-26T06:40:04.653Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":28,"kda":"7/2/12","csPerMin":8.4,"kp":50},{"playedAt":"2026-09-26T06:02:12.788Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":33,"kda":"12/6/13","csPerMin":7.4,"kp":64},{"playedAt":"2026-09-26T05:18:28.771Z","queue":"Ranked Solo","result":"loss","champion":"Wukong","role":"Jungle","minutes":37,"kda":"8/7/9","csPerMin":6.4,"kp":55},{"playedAt":"2026-09-23T17:59:27.265Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":27,"kda":"14/3/9","csPerMin":8.3,"kp":74},{"playedAt":"2026-09-22T06:28:31.611Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":22,"kda":"14/3/9","csPerMin":7.4,"kp":52},{"playedAt":"2026-09-22T05:54:05.335Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Mid","minutes":30,"kda":"11/6/10","csPerMin":7,"kp":51},{"playedAt":"2026-09-22T05:17:13.769Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","role":"Jungle","minutes":33,"kda":"8/8/6","csPerMin":7.1,"kp":50},{"playedAt":"2026-09-22T04:46:55.819Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":25,"kda":"8/3/12","csPerMin":7.9,"kp":69},{"playedAt":"2026-09-22T04:11:03.694Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","role":"Jungle","minutes":27,"kda":"7/8/7","csPerMin":6.4,"kp":50},{"playedAt":"2026-09-22T03:43:40.408Z","queue":"Ranked Solo","result":"loss","champion":"Katarina","role":"Mid","minutes":21,"kda":"5/6/6","csPerMin":6.2,"kp":79}]};
+  var LOCAL_ICON = { qiyana: 'img/champ-qiyana.webp', katarina: 'img/champ-katarina.webp', hecarim: 'img/champ-hecarim.webp', wukong: 'img/champ-wukong.webp' };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function pair(cls, big, small) { var w = el('span', cls); w.appendChild(el('b', null, big)); w.appendChild(el('small', null, small)); return w; }
+  function iconFor(name, remote) { return LOCAL_ICON[String(name).toLowerCase()] || remote || ''; }
+  function renderGames(d, live) {
+    var list = document.getElementById('mhList'), sum = document.getElementById('mhSum'), badge = document.getElementById('mhLive');
+    if (!list || !d.games || !d.games.length) return;
+    list.textContent = '';
+    d.games.forEach(function (g) {
+      var win = g.result === 'win', li = el('li', 'g ' + (win ? 'win' : 'loss'));
+      var p = String(g.kda).split('/').map(Number), ratio = (p[0] + p[2]) / Math.max(p[1], 1);
+      var ci = el('span', 'ci'), img = el('img'); img.alt = ''; img.src = iconFor(g.champion, g.icon); img.loading = 'lazy'; ci.appendChild(img);
+      var day = new Date(g.playedAt);
+      li.appendChild(el('span', 'bar'));
+      li.appendChild(ci);
+      li.appendChild(pair('r', win ? 'Victory' : 'Defeat', g.queue === 'Ranked Solo' ? 'Ranked Solo/Duo' : g.queue));
+      li.appendChild(pair('who', g.champion, g.role));
+      li.appendChild(pair('k', String(g.kda).replace(/\//g, ' / '), ratio.toFixed(2) + ' KDA'));
+      li.appendChild(pair('s', String(g.csPerMin), 'CS/min'));
+      li.appendChild(pair('s', g.kp + '%', 'Kill part.'));
+      li.appendChild(pair('t', g.minutes + 'm', isNaN(day) ? '' : day.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })));
+      li.setAttribute('aria-label', (win ? 'Victory' : 'Defeat') + ' as ' + g.champion + ', ' + g.kda);
+      list.appendChild(li);
+    });
+    var r = d.record;
+    if (r) {
+      sum.innerHTML = '';
+      sum.appendChild(document.createTextNode('Last ' + r.games + ' · '));
+      sum.appendChild(el('b', 'w', r.wins + 'W')); sum.appendChild(document.createTextNode(' '));
+      sum.appendChild(el('b', 'l', r.losses + 'L'));
+      sum.appendChild(document.createTextNode(' · ' + r.winRatePercent + '% win rate · ' + r.kda + ' KDA · ' + r.csPerMin + ' CS/min'));
+    }
+    badge.classList.toggle('on', !!live);
+    badge.lastChild.textContent = live ? 'Live · updated ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'Snapshot · Oct 31, 2026';
+  }
+  function renderMastery(m) {
+    if (!m || !m.top || m.top.length < 3) return;
+    var big = document.querySelector('.sc.mid .big'), cards = document.querySelectorAll('.mpop .mc'), order = [m.top[1], m.top[0], m.top[2]];
+    if (big && m.score) big.textContent = m.score;
+    order.forEach(function (c, i) {
+      var card = cards[i]; if (!card) return;
+      card.querySelector('.pt').style.backgroundImage = 'url(' + iconFor(c.champion, c.icon) + ')';
+      card.querySelector('b').textContent = c.champion;
+      card.querySelector('small').textContent = 'Mastery ' + c.level;
+    });
+    var portrait = document.querySelector('.sc.mid .portrait');
+    if (portrait && m.top[0].champion.toLowerCase() !== 'qiyana') portrait.style.backgroundImage = 'url(' + iconFor(m.top[0].champion, m.top[0].icon) + ')';
+  }
+  renderGames(SNAP, false);
+  function loadLeague() {
+    fetch('/api/league', { headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw r; return r.json(); })
+      .then(function (d) { if (d.games && d.games.length) renderGames(d, true); renderMastery(d.mastery); })
+      .catch(function () {});
+  }
+  loadLeague();
+  setInterval(function () { if (!document.hidden) loadLeague(); }, 5 * 60 * 1000);
   show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
 })();
 </script>
