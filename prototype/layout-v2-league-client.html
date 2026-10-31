@@ -1,0 +1,259 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0">
+<title>Portfolio Layout Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* PROTOTYPE (throwaway). Question: what does the portfolio look like laid out like the actual League client?
+   Mirrors the client's structure: top bar with Play button, nav, currencies and profile icon; profile page with
+   sub-tabs (Overview, Match History, Ranked, Mastery); social panel on the right. No Riot artwork or logos.
+   Colors and fonts are client-style placeholders until the colors-and-fonts ticket. */
+:root {
+  --bg: #010a13;
+  --bar: #010a13;
+  --panel: #0a1428;
+  --panel-2: #091428;
+  --line: #1e2328;
+  --line-2: #3c3c41;
+  --gold: #c8aa6e;
+  --gold-dim: #785a28;
+  --gold-hi: #f0e6d2;
+  --ink: #cdbe91;
+  --text: #a09b8c;
+  --blue: #0ac8b9;
+  --win: #0a96aa;
+  --loss: #be1e37;
+  --online: #0acbe6;
+  --green: #1ec85a;
+  --display: "Cinzel", "Beaufort for LOL", Georgia, serif;
+  --body: "Mulish", "Spiegel", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font: 400 14px/1.5 var(--body); }
+a { color: var(--gold-hi); }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--display); letter-spacing: .05em; }
+button { font: inherit; color: inherit; }
+
+.client { display: grid; grid-template-columns: 1fr 240px; grid-template-rows: auto 1fr; min-height: 100vh; border: 1px solid var(--line); max-width: 1280px; margin: 0 auto; }
+.client > * { min-width: 0; }
+
+/* top bar */
+.top { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); background: linear-gradient(180deg, #0b1620, var(--bar)); border-bottom: 1px solid var(--gold-dim); }
+.play { position: relative; display: grid; place-items: center; padding: 10px 28px 10px 34px; font: 800 17px/1 var(--display); letter-spacing: .12em; color: var(--gold-hi); text-decoration: none; background: linear-gradient(180deg, #1e2d3d, #0a1428); border: 2px solid var(--gold); clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%); }
+.play::before { content: ""; position: absolute; left: 6px; top: 50%; width: 14px; height: 14px; transform: translateY(-50%) rotate(45deg); border: 2px solid var(--blue); background: radial-gradient(var(--blue), transparent 70%); }
+.play small { display: block; font: 700 9px/1 var(--body); letter-spacing: .16em; color: var(--blue); margin-top: 3px; }
+.nav { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
+.nav button { all: unset; cursor: pointer; padding: 10px 14px; font: 800 13px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.nav button.on { color: var(--gold-hi); text-shadow: 0 0 12px rgba(240,230,210,.5); box-shadow: inset 0 -2px var(--gold); }
+.nav button:focus-visible, .sub button:focus-visible { outline: 1px solid var(--blue); }
+.wallet { display: flex; gap: 14px; font: 700 12px/1.2 var(--body); color: var(--gold-hi); white-space: nowrap; }
+.wallet span b { display: block; font-size: 10px; letter-spacing: .12em; color: var(--text); font-weight: 700; }
+.me-icon { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; flex: none; position: relative; }
+.me-icon svg { width: 100%; height: 100%; display: block; }
+.me-icon i { position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); font: 800 9px/1 var(--body); font-style: normal; color: var(--gold-hi); background: var(--bg); border: 1px solid var(--gold-dim); padding: 2px 5px; border-radius: 8px; }
+
+/* main area */
+.main { position: relative; overflow: hidden; background:
+  radial-gradient(70% 90% at 75% 20%, rgba(10,200,185,.20), transparent 60%),
+  radial-gradient(60% 80% at 30% 100%, rgba(200,170,110,.16), transparent 60%),
+  repeating-linear-gradient(60deg, rgba(200,170,110,.035) 0 2px, transparent 2px 28px),
+  linear-gradient(180deg, #0c1a2a, #010a13 85%); }
+.sub { display: flex; gap: 4px; padding: 12px 24px 0; border-bottom: 1px solid var(--line); background: rgba(1,10,19,.55); overflow-x: auto; }
+.sub button { all: unset; cursor: pointer; padding: 10px 12px; font: 800 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--text); white-space: nowrap; }
+.sub button.on { color: var(--gold-hi); box-shadow: inset 0 -2px var(--gold); }
+.page { padding: 24px; }
+.page[hidden] { display: none; }
+
+/* overview: hanging banner + ranked + highlights */
+.ov { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; }
+.ov > * { min-width: 0; }
+.banner { position: relative; display: grid; justify-items: center; gap: 10px; padding: 26px 16px 46px; text-align: center; background: linear-gradient(180deg, #2a1c0a, #160f06 60%, #0b0804); border: 1px solid var(--gold-dim); border-top: 4px solid var(--gold); clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); }
+.banner .icon { width: 108px; height: 108px; border-radius: 50%; padding: 4px; background: conic-gradient(from 210deg, var(--gold-dim), var(--gold-hi), var(--gold), var(--gold-dim)); position: relative; }
+.banner .icon svg { width: 100%; height: 100%; display: block; }
+.banner .icon i { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); font: 800 11px/1 var(--body); font-style: normal; color: var(--gold-hi); background: #160f06; border: 1px solid var(--gold); padding: 3px 8px; border-radius: 10px; }
+.banner h1 { font-size: 22px; color: var(--gold-hi); margin-top: 8px; }
+.banner .title { font: 700 11px/1.3 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.banner .tokens { display: flex; gap: 8px; margin-top: 4px; }
+.banner .tokens span { width: 30px; height: 30px; border: 1px solid var(--gold-dim); transform: rotate(45deg); display: grid; place-items: center; background: #0b0804; }
+.banner .tokens span b { transform: rotate(-45deg); font: 800 9px/1 var(--body); color: var(--gold-hi); }
+.ov-right { display: grid; gap: 18px; }
+.headline { font: 600 clamp(20px, 3vw, 28px)/1.3 var(--display); color: var(--gold-hi); max-width: 30ch; }
+.hl-sub { color: var(--text); }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.card { background: rgba(10,20,40,.82); border: 1px solid var(--line-2); padding: 16px; display: grid; gap: 10px; align-content: start; }
+.card h2 { font: 800 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.rank { display: flex; gap: 14px; align-items: center; }
+.emblem { width: 64px; height: 64px; flex: none; clip-path: polygon(50% 0, 95% 25%, 95% 70%, 50% 100%, 5% 70%, 5% 25%); display: grid; place-items: center; font: 800 16px/1 var(--display); color: #fff; }
+.emblem.gm { background: radial-gradient(circle at 50% 35%, #ff9b8a, #c0392b 55%, #4a0f0a); }
+.emblem.et { background: radial-gradient(circle at 50% 35%, #f0e2ff, #9b6bff 55%, #2c1560); }
+.rank b { display: block; font: 700 15px/1.2 var(--display); color: var(--gold-hi); }
+.rank small { color: var(--text); font-size: 12px; }
+.stat { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-block: 6px; }
+.stat span:first-child { color: var(--text); }
+.stat span:last-child { color: var(--gold-hi); text-align: right; }
+
+/* match history */
+.mh { display: grid; gap: 6px; }
+.match { display: grid; grid-template-columns: 6px 64px minmax(0, 1fr) auto; gap: 14px; align-items: center; background: linear-gradient(90deg, rgba(10,150,170,.18), rgba(10,20,40,.85) 40%); border: 1px solid var(--line-2); padding-right: 14px; min-height: 84px; }
+.match.wip { background: linear-gradient(90deg, rgba(200,170,110,.16), rgba(10,20,40,.85) 40%); }
+.match .strip { align-self: stretch; background: var(--win); }
+.match.wip .strip { background: var(--gold); }
+.match .champ { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold-dim); background: #0a1428 center/cover; display: grid; place-items: center; font: 800 14px var(--display); color: var(--gold); }
+.match .res { font: 800 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--win); }
+.match.wip .res { color: var(--gold); }
+.match h3 { font-size: 16px; color: var(--gold-hi); margin-top: 4px; }
+.match p { font-size: 13px; }
+.match .items { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.match .items span { font: 700 10px/1 var(--body); padding: 5px 6px; border: 1px solid var(--line-2); background: #010a13; color: var(--ink); }
+.match .right { text-align: right; display: grid; gap: 6px; justify-items: end; font-size: 12px; }
+.match .right a { font: 800 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-hi); text-decoration: none; border: 1px solid var(--gold-dim); padding: 6px 10px; }
+.match .right a:hover { border-color: var(--gold); }
+
+/* mastery */
+.mastery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+.m { background: rgba(10,20,40,.82); border: 1px solid var(--line-2); padding: 14px 10px; display: grid; justify-items: center; gap: 8px; text-align: center; }
+.m .crest { width: 54px; height: 54px; clip-path: polygon(50% 0, 100% 35%, 80% 100%, 20% 100%, 0 35%); background: linear-gradient(160deg, var(--gold-hi), var(--gold) 40%, var(--gold-dim)); display: grid; place-items: center; font: 800 13px var(--display); color: #160f06; }
+.m b { color: var(--gold-hi); font-size: 13px; }
+.m small { font-size: 11px; color: var(--text); }
+
+/* social panel */
+.social { background: linear-gradient(180deg, #0a1428, #010a13); border-left: 1px solid var(--line); display: grid; align-content: start; }
+.social .self { display: flex; gap: 10px; align-items: center; padding: 14px; border-bottom: 1px solid var(--line); }
+.social .self b { display: block; color: var(--gold-hi); font-size: 13px; }
+.social .self small { color: var(--green); font-size: 11px; }
+.social h2 { font: 800 10px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--text); padding: 14px 14px 8px; }
+.friend { display: flex; gap: 10px; align-items: center; padding: 8px 14px; text-decoration: none; }
+.friend:hover { background: rgba(200,170,110,.08); }
+.friend .av { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--online); display: grid; place-items: center; background: #010a13; color: var(--gold-hi); flex: none; }
+.friend .av svg { width: 16px; height: 16px; }
+.friend b { display: block; font-size: 13px; color: var(--gold-hi); font-weight: 700; }
+.friend small { font-size: 11px; color: var(--online); }
+
+@media (max-width: 900px) {
+  .client { grid-template-columns: 1fr; }
+  .social { border-left: 0; border-top: 1px solid var(--line); }
+  .wallet { display: none; }
+  .ov { grid-template-columns: 1fr; }
+  .banner { max-width: 260px; justify-self: center; }
+}
+@media (max-width: 560px) {
+  .cards { grid-template-columns: 1fr; }
+  .match { grid-template-columns: 6px 48px minmax(0, 1fr); }
+  .match .champ { width: 48px; height: 48px; }
+  .match .right { grid-column: 3; justify-items: start; text-align: left; padding-bottom: 12px; }
+  .play { padding: 8px 18px 8px 28px; font-size: 14px; }
+  .page { padding: 16px; }
+  .sub { padding-inline: 12px; }
+}
+</style>
+
+<div class="client">
+  <header class="top">
+    <a class="play" href="https://league-web-app.vercel.app" target="_blank" rel="noopener">PLAY<small>TURNPOINT</small></a>
+    <nav class="nav" aria-label="Main">
+      <button class="on" data-go="overview">Home</button>
+      <button data-go="history">Projects</button>
+      <button data-go="mastery">Skills</button>
+    </nav>
+    <div class="wallet"><span><b>PROJECTS</b>3</span><span><b>CLASS OF</b>2029</span></div>
+    <div class="me-icon" title="Jasper Li"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#000"/><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></svg><i>Y2</i></div>
+  </header>
+
+  <main class="main">
+    <nav class="sub" aria-label="Profile">
+      <button class="on" data-tab="overview">Overview</button>
+      <button data-tab="history">Match history</button>
+      <button data-tab="ranked">Ranked</button>
+      <button data-tab="mastery">Mastery</button>
+    </nav>
+
+    <section class="page" data-page="overview">
+      <div class="ov">
+        <div class="banner">
+          <div class="icon"><svg viewBox="0 0 64 64" aria-label="JL logo"><circle cx="32" cy="32" r="32" fill="#000"/><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></svg><i>YEAR 2</i></div>
+          <h1>Jasper Li</h1>
+          <div class="title">CS @ University of Toronto</div>
+          <div class="tokens" aria-label="Peak ranks"><span><b>GM</b></span><span><b>ET</b></span><span><b>ML</b></span></div>
+        </div>
+        <div class="ov-right">
+          <p class="headline">Second-year CS at UofT. I build web apps, games and AI experiments.</p>
+          <div class="cards">
+            <div class="card"><h2>Ranked · peak</h2>
+              <div class="rank"><div class="emblem gm">GM</div><div><b>Grandmaster</b><small>League of Legends · top 0.05% NA</small></div></div>
+              <div class="rank"><div class="emblem et">ET</div><div><b>Eternity</b><small>Marvel Rivals · top 0.15%</small></div></div>
+            </div>
+            <div class="card"><h2>Status</h2>
+              <div class="stat"><span>In queue for</span><span>Summer 2027 SWE internship</span></div>
+              <div class="stat"><span>Main role</span><span>Full-stack</span></div>
+              <div class="stat"><span>Class of</span><span>2029</span></div>
+              <div class="stat"><span>Last played</span><span>X Arena</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="history" hidden>
+      <div class="mh">
+        <div class="match"><span class="strip"></span><div class="champ" style="background-image:url(img/turnpoint.webp)"></div>
+          <div><span class="res">Victory · Live</span><h3>Turnpoint</h3><p>League match analyzer. Trains machine learning models on real match data to show why a game was won or lost.</p><div class="items"><span>Next.js</span><span>TypeScript</span><span>Supabase</span></div></div>
+          <div class="right"><a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Play</a><a href="https://github.com/Jaspyplayz/League-Web-App" target="_blank" rel="noopener">Code</a></div></div>
+        <div class="match"><span class="strip"></span><div class="champ" style="background-image:url(img/petri.webp)"></div>
+          <div><span class="res">Victory · Live</span><h3>Petri</h3><p>Self-evolving web app built by AI agents.</p><div class="items"><span>Next.js</span><span>TypeScript</span></div></div>
+          <div class="right"><a href="https://petri-pi.vercel.app" target="_blank" rel="noopener">Play</a><a href="https://github.com/Jaspyplayz/petri" target="_blank" rel="noopener">Code</a></div></div>
+        <div class="match wip"><span class="strip"></span><div class="champ">XA</div>
+          <div><span class="res">In game · Sep 2026 to now</span><h3>X Arena</h3><p>Multiplayer arena shooter on Roblox with FPS movement, server-validated hitboxes and lag compensation.</p><div class="items"><span>Luau</span><span>Rojo</span><span>GitHub Actions</span></div></div>
+          <div class="right"><small>Spectate soon</small></div></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="ranked" hidden>
+      <div class="cards">
+        <div class="card"><h2>League of Legends · Solo/Duo</h2><div class="rank"><div class="emblem gm" style="width:96px;height:96px;font-size:22px">GM</div><div><b>Peak Grandmaster</b><small>Top 0.05% of North America</small></div></div></div>
+        <div class="card"><h2>Marvel Rivals · Competitive</h2><div class="rank"><div class="emblem et" style="width:96px;height:96px;font-size:22px">ET</div><div><b>Peak Eternity</b><small>Top 0.15% of players</small></div></div></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="mastery" hidden>
+      <div class="mastery">
+        <div class="m"><div class="crest">TS</div><b>TypeScript</b><small>Turnpoint, Petri</small></div>
+        <div class="m"><div class="crest">NX</div><b>Next.js</b><small>Turnpoint, Petri</small></div>
+        <div class="m"><div class="crest">RE</div><b>React</b><small>Turnpoint, Petri</small></div>
+        <div class="m"><div class="crest">PY</div><b>Python</b><small>Dodge game</small></div>
+        <div class="m"><div class="crest">PG</div><b>Postgres</b><small>Turnpoint</small></div>
+        <div class="m"><div class="crest">SB</div><b>Supabase</b><small>Turnpoint</small></div>
+        <div class="m"><div class="crest">LU</div><b>Luau</b><small>X Arena</small></div>
+        <div class="m"><div class="crest">PW</div><b>Playwright</b><small>Turnpoint</small></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="social" aria-label="Contact">
+    <div class="self"><div class="me-icon" style="width:38px;height:38px"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#000"/><g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20.5V37a6 6 0 0 1-12 0"/><path d="M37.5 20.5V43H48"/></g></svg></div><div><b>Jasper Li</b><small>Online · open to internships</small></div></div>
+    <h2>Add friend (3)</h2>
+    <a class="friend" href="https://github.com/Jaspyplayz" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span><span><b>GitHub</b><small>Jaspyplayz</small></span></a>
+    <a class="friend" href="https://www.linkedin.com/in/jasper-li-567560349" target="_blank" rel="noopener"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span><span><b>LinkedIn</b><small>Jasper Li</small></span></a>
+    <a class="friend" href="mailto:jaspyplayz@gmail.com"><span class="av">@</span><span><b>Email</b><small>jaspyplayz@gmail.com</small></span></a>
+  </aside>
+</div>
+
+<script>
+(function () {
+  var subs = document.querySelectorAll('.sub button');
+  var navs = document.querySelectorAll('.nav button');
+  var pages = document.querySelectorAll('.page');
+  function go(name) {
+    pages.forEach(function (p) { p.hidden = p.dataset.page !== name; });
+    subs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === name); });
+    navs.forEach(function (b) { b.classList.toggle('on', b.dataset.go === name); });
+  }
+  subs.forEach(function (b) { b.onclick = function () { go(b.dataset.tab); }; });
+  navs.forEach(function (b) { b.onclick = function () { go(b.dataset.go); }; });
+  var h = (location.hash || '').slice(1);
+  if (['overview','history','ranked','mastery'].indexOf(h) >= 0) go(h);
+})();
+</script>
+</body></html>
