@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Mulish:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
 /* PROTOTYPE v5 (throwaway). League client profile screen, built with real client assets from
    Community Dragon / Data Dragon under Riot's Legal Jibber Jabber policy (non-commercial, disclaimer below). */
@@ -16,8 +16,8 @@
   --gold-1: #f0e6d2; --gold-2: #c8aa6e; --gold-3: #c89b3c; --gold-4: #785a28; --gold-5: #463714;
   --ink: #cdbe91; --text: #a09b8c; --mute: #5b5a56;
   --blue: #0ac8b9; --blue-2: #0397ab; --online: #0acf83; --away: #e9b84a;
-  --display: "Cinzel", "Beaufort for LOL", Georgia, serif;
-  --body: "Mulish", "Spiegel", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Beaufort for LOL", "Source Serif 4", Georgia, serif;
+  --body: "Spiegel", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -235,7 +235,7 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 a.sc:hover .h { color: var(--gold-1); }
 .sc.rank .art img { width: 140px; height: auto; }
 .sc.mid .art { height: 132px; position: relative; width: 112px; }
-.sc.mid .portrait { position: absolute; left: 50%; top: 0; width: 72px; height: 72px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: url(img/main-tile.webp) center/118% no-repeat; box-shadow: 0 0 0 2px var(--bg); }
+.sc.mid .portrait { position: absolute; left: 50%; top: 0; width: 72px; height: 72px; transform: translateX(-50%); border-radius: 50%; border: 2px solid var(--gold-3); background: #0a1428 url(img/main-icon.webp) center/112% no-repeat; box-shadow: 0 0 0 2px var(--bg); }
 .sc.mid .art img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 104px; height: auto; max-height: none; }
 .sc.trophy .art img { width: 80px; height: auto; }
 .sc.flag .art img { width: 76px; height: auto; }
@@ -475,7 +475,7 @@ a.match:hover { border-color: var(--gold-4); }
       <div class="showcase">
         <div class="sc rank"><span class="h">Solo/Duo</span><span class="s">Peak Grandmaster</span><span class="art"><img src="img/rank-gm.webp" alt="Grandmaster emblem"></span></div>
         <div class="sc honor"><span class="h">Honor</span><span class="s">Level 5</span><span class="art"><img src="img/honor.webp" alt="Honor level 5 emblem"></span></div>
-        <div class="sc mid"><span class="h">Main</span><span class="big">Qiyana</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span></div>
+        <div class="sc mid"><span class="h">Mastery</span><span class="s">Qiyana</span><span class="art"><span class="portrait"></span><img src="img/mastery.webp" alt=""></span></div>
         <div class="sc trophy"><span class="h">Trophy</span><span class="s">3 projects shipped</span><span class="art"><img src="img/trophy-jl.svg" alt="Trophy"></span></div>
         <div class="sc flag"><span class="h">Banner</span><span class="s">University of Toronto</span><span class="art"><img src="img/banner-uoft.svg" alt="University of Toronto banner"></span></div>
       </div>
