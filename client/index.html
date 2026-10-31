@@ -218,71 +218,105 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .feat b { display: block; margin-top: 3px; font: 700 14px/1.2 var(--body); color: var(--gold-1); }
 .feat i { display: block; font-style: normal; font-size: 11px; color: var(--text); }
 
-/* loot (achievements as hextech inventory) and collection (tech stack as champions, projects as skins) */
-.page.wide.on { display: block; }
-.lt { display: grid; grid-template-columns: 150px minmax(0,1fr) 300px; gap: 18px; align-items: start; }
-.lt-cats { display: grid; gap: 2px; padding: 8px 0; background: rgba(1,10,19,.92); border: 1px solid var(--line); border-top-color: var(--gold-5); }
-.lt-cats button, .co-tabs button { all: unset; box-sizing: border-box; cursor: pointer; }
-.lt-cats button { display: flex; justify-content: space-between; padding: 8px 14px; font: 700 11px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--text); border-left: 2px solid transparent; }
-.lt-cats button span { color: var(--mute); letter-spacing: 0; }
-.lt-cats button:hover { color: var(--gold-1); }
-.lt-cats button.on { color: var(--gold-1); border-left-color: var(--gold-3); background: linear-gradient(90deg, rgba(200,155,60,.12), transparent); }
-.lt-cats button:focus-visible, .co-tabs button:focus-visible, .it:focus-visible, .sk:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
-.lt-head, .co-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
-.lt-head h2, .co-head h2 { font: 700 22px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: var(--gold-1); }
-.lt-head small, .co-head small { font-size: 12px; color: var(--text); }
-.lt-grid { display: grid; grid-template-columns: repeat(4, 96px); gap: 14px 16px; padding: 16px; background: rgba(1,10,19,.92); border: 1px solid var(--line); min-height: 300px; align-content: start; }
-.it { all: unset; box-sizing: border-box; cursor: pointer; width: 96px; text-align: center; }
-.it[hidden] { display: none; }
-.it .fr { position: relative; display: grid; place-items: center; width: 96px; height: 96px; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); border: 1px solid var(--gold-5); overflow: hidden; }
-.it.perm .fr { border-color: var(--gold-4); }
-.it.shard .fr { border: 1px dashed var(--gold-4); }
-.it .fr img { max-width: 78px; max-height: 78px; }
-.it .fr img.cover { max-width: none; max-height: none; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-.it .fr img.round { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold-4); }
-.it .fr .mono { font: 700 24px/1 var(--display); letter-spacing: .12em; color: var(--gold-2); }
-.it .fr .key { position: absolute; right: 2px; bottom: 2px; width: 34px; height: 34px; max-width: none; }
-.it .lb { display: block; margin-top: 6px; font: 600 11px/1.25 var(--body); color: var(--text); }
-.it:hover .fr { border-color: var(--gold-3); }
-.it.on .fr { border: 2px solid var(--gold-2); box-shadow: inset 0 0 18px rgba(200,170,110,.25); }
-.it.on .lb { color: var(--gold-1); }
-.lt-detail { padding: 18px 20px 20px; background: rgba(1,10,19,.94); border: 1px solid var(--gold-5); text-align: center; min-height: 420px; }
-.ld-art { display: grid; place-items: center; height: 150px; margin-bottom: 14px; }
-.ld-art img { max-width: 150px; max-height: 150px; }
-.ld-art img.cover { max-width: 100%; width: 100%; height: 150px; object-fit: cover; object-position: top left; border: 1px solid var(--gold-4); }
-.ld-art img.round { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold-3); }
-.ld-art .mono { display: grid; place-items: center; width: 120px; height: 120px; border: 1px dashed var(--gold-4); font: 700 36px/1 var(--display); letter-spacing: .12em; color: var(--gold-2); }
-.ld-kind { font: 700 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-3); }
-.ld-name { margin-top: 6px; font: 700 20px/1.15 var(--display); color: var(--gold-1); }
-.ld-text { margin-top: 10px; font-size: 13px; line-height: 1.55; color: var(--text); text-align: left; }
-.ld-cta { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-.ld-cta .btn { min-width: 110px; }
-
-.co-tabs { display: flex; align-items: center; gap: 22px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--gold-5); max-width: 920px; }
-.co-tabs button { font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--text); padding: 4px 0; border-bottom: 2px solid transparent; }
-.co-tabs button:hover { color: var(--gold-1); }
-.co-tabs button.on { color: var(--gold-1); border-bottom-color: var(--gold-3); }
-.co-tabs .co-count { margin-left: auto; font-size: 12px; color: var(--text); }
-.co-pane[hidden] { display: none; }
-.chg { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, 116px); gap: 12px; }
-.ch { position: relative; height: 150px; display: flex; flex-direction: column; align-items: center; padding-top: 18px; background: radial-gradient(circle at 50% 30%, #12303b, #010a13 70%); border: 1px solid var(--gold-5); }
-.ch img, .ch .mono { width: 46px; height: 46px; }
-.ch .mono { display: grid; place-items: center; font: 700 22px/1 var(--display); letter-spacing: .06em; color: var(--gold-2); border: 1px solid var(--gold-4); border-radius: 50%; }
-.ch b { margin-top: 14px; font: 700 12px/1.2 var(--body); color: var(--gold-1); text-align: center; }
-.ch small { margin-top: 3px; padding: 0 6px; font-size: 10px; line-height: 1.3; color: var(--mute); text-align: center; }
-.ch::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--gold-4); }
-.skg { display: grid; grid-template-columns: repeat(3, 280px); gap: 18px; }
-.sk { all: unset; box-sizing: border-box; cursor: pointer; display: block; background: rgba(1,10,19,.94); border: 1px solid var(--gold-5); }
-.sk:hover { border-color: var(--gold-3); }
-.sk .shot { display: block; height: 176px; background: #0a1428 top left / cover; border-bottom: 1px solid var(--gold-5); }
-.sk .shot.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); font: 700 30px/1 var(--display); letter-spacing: .2em; color: var(--gold-4); }
-.sk .meta { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
-.sk .gem { width: 34px; height: 16px; object-fit: contain; flex: none; }
-.sk .gem.none { display: inline-block; border-top: 1px dashed var(--gold-4); height: 0; margin-top: 2px; }
-.sk b { display: block; font: 700 15px/1.2 var(--display); color: var(--gold-1); }
-.sk small { display: block; font-size: 11px; color: var(--text); }
-.sk.locked .shot { filter: grayscale(.6) brightness(.8); }
-
+/* Loot, Collection and the Mastery tab copy the client's own screens
+   (rcp-fe-lol-loot, rcp-fe-lol-collections and its champion-mastery cards). */
+.body[data-view="screen"] .subtabs, .body[data-view="screen"] .banner, .body[data-view="screen"] .splash { display: none; }
+.body[data-view="screen"] { background: #010a13 url(img/lc/bg-hextech.webp) 0 -80px / 1280px 720px no-repeat; }
+.body[data-view="wide"] .banner { display: none; }
+.body[data-view="wide"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.93) 0%, rgba(1,10,19,.86) 70%, rgba(1,10,19,.8) 100%); }
+.page.scr.on { display: block; }
+.lc-nav { display: flex; }
+.lc-nav button { all: unset; cursor: pointer; position: relative; padding: 0 12px; font: 500 12px/30px var(--display); letter-spacing: .1em; text-transform: uppercase; color: #cdbe91; transition: color .3s; }
+.lc-nav button:hover, .lc-nav button.on { color: #f0e6d2; }
+.lc-nav button.on::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #c89b3c; }
+.lc-nav button:focus-visible, .lt-tab:focus-visible, .li:focus-visible, .sk2:focus-visible, .lc-btn:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+/* hextech control panel */
+.lc-panel { width: 194px; }
+.lc-tot { text-align: center; }
+.lc-tot::before, .lc-tot::after { content: ""; display: block; height: 18px; background: url(img/lc/hex-top.png) no-repeat 0 1px / contain; }
+.lc-tot::after { background-image: url(img/lc/hex-bot.png); background-position: 0 0; }
+.lc-tot div { padding: 4px 10px 8px; background: url(img/lc/hex-mid.png) repeat-y 0 0 / contain; }
+.lc-tot b { display: block; font: 700 40px/42px var(--display); letter-spacing: .05em; color: #f0e6d2; }
+.lc-tot small { display: block; margin-top: 2px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #a09b8c; }
+.lc-note { margin-top: 18px; font: 400 12px/18px var(--body); letter-spacing: .025em; color: #a09b8c; }
+.lc-note b { color: #cdbe91; font-weight: 600; }
+/* item grid with groups */
+.lc-grid { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 transparent; }
+.lc-grid[hidden] { display: none; }
+.lc-grid::-webkit-scrollbar { width: 6px; } .lc-grid::-webkit-scrollbar-thumb { background: #785a28; }
+.lc-group { margin: 8px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; }
+.lc-group span { margin-left: 32px; color: #a09b8c; }
+.lc-sep { border-top: 1px solid #1b292a; width: 750px; max-width: 100%; margin: 0 0 16px; }
+.lc-items { display: flex; flex-wrap: wrap; margin-bottom: 8px; }
+/* champion-mastery card (rcp-fe-lol-champion-mastery-champion-item-lcm) */
+.cc { display: block; margin: 8px; width: 136px; }
+.cc .th { position: relative; display: block; width: 134px; height: 200px; border: 1px solid #1e2328; background: #010a13; }
+.cc:hover .th { border-image: linear-gradient(-45deg, #c89b3c, #fafafa) 1; }
+.cc .im { display: block; width: 100%; height: 100%; overflow: hidden; opacity: .8; }
+.cc:hover .im { opacity: 1; }
+.cc .im img { display: block; width: 100%; height: auto; }
+.cc .im.tech { display: grid; place-items: center; padding-bottom: 36px; box-sizing: border-box; background: radial-gradient(circle at 50% 38%, #0f3a4d, #04141f 62%, #010a13); }
+.cc .im.tech img { width: 58px; height: 58px; }
+.cc .im.tech .mono { font: 700 34px/1 var(--display); letter-spacing: .06em; color: #c8aa6e; }
+.cc .info { position: absolute; left: 0; right: 0; top: 164px; height: 35px; display: flex; background: linear-gradient(0deg, #010a13, rgba(1,10,19,.65)); border-top: 1px solid #1e2328; }
+.cc .badge { position: relative; width: 58px; flex: none; }
+.cc .badge img { position: absolute; left: -8px; top: -5px; width: 65px; height: 62px; }
+.cc .desc { flex: 1; font: 400 12px/35px var(--body); color: #cdbe91; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 6px; }
+.cc .info.plain .desc { padding: 0 6px; font-size: 11px; color: #a09b8c; }
+.cc .nm { display: block; margin: 16px 0; font: 400 13px/16px var(--body); color: #f0e6d2; text-align: center; }
+/* skin card (rcp-fe-lol-collections-skin-item) */
+.sk2 { all: unset; box-sizing: border-box; position: relative; display: block; width: 154px; margin: 8px 0; cursor: pointer; }
+.sk2 .th { position: relative; display: block; width: 134px; height: 194px; margin: 0 10px; }
+.sk2 .im { position: absolute; left: 0; top: 0; width: 131px; height: 194px; background: #0a1428 left top / cover; clip-path: polygon(12px 2px,3px 12px,3px 36px,5px 38px,5px 159px,3px 162px,4px 171px,0 173px,0 184px,11px 193px,117px 193px,130px 184px,130px 173px,126px 171px,126px 162px,125px 159px,125px 38px,128px 36px,128px 12px,118px 2px); opacity: .85; }
+.sk2:hover .im { opacity: 1; }
+.sk2 .bd { position: absolute; left: 0; top: -5px; width: 134px; height: 226px; background: no-repeat 0 0 / contain; pointer-events: none; }
+.sk2 .gem { position: absolute; left: 0; right: 0; bottom: -23px; height: 26px; background: no-repeat center / contain; }
+.sk2.locked .im { opacity: .6; border: 1px solid #3c3c41; clip-path: none; width: 132px; height: 192px; }
+.sk2.locked .im.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); font: 700 30px/1 var(--display); letter-spacing: .2em; color: #785a28; }
+.sk2 .lock { position: absolute; left: 50%; bottom: 13px; width: 30px; height: 30px; margin-left: -15px; background: url(img/lc/lock.png) center / contain; }
+.sk2 .nm { display: block; margin-top: 36px; font: 400 13px/16px var(--body); color: #f0e6d2; text-align: center; }
+.sk2 .nm small { display: block; font-size: 11px; color: #a09b8c; }
+/* loot inventory (rcp-fe-lol-loot) */
+.lt-inv { display: flex; }
+.lt-tabs { width: 70px; flex: none; padding-top: 4px; }
+.lt-tab { all: unset; box-sizing: border-box; position: relative; display: block; width: 44px; height: 32px; margin-bottom: 10px; cursor: pointer; opacity: .5; }
+.lt-tab img { display: block; width: 20px; height: 20px; margin: 6px 6px 6px 18px; }
+.lt-tab:hover, .lt-tab.on { opacity: 1; }
+.lt-tab.on::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #c89b3c; }
+.lt-sec { width: 332px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 transparent; }
+.lt-sec::-webkit-scrollbar { width: 6px; } .lt-sec::-webkit-scrollbar-thumb { background: #785a28; }
+.lt-st { padding: 5px 0 2px; font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #a09b8c; }
+.lt-sec hr { border: 0; border-bottom: 1px solid #785a28; height: 0; margin: 2px 0 14px; width: 322px; }
+.lt-grid2 { display: flex; flex-wrap: wrap; }
+.lt-grp[hidden] { display: none; }
+.li { all: unset; box-sizing: border-box; position: relative; display: block; width: 69px; height: 69px; margin: 0 12px 16px 2px; cursor: pointer; }
+.li .ic { position: absolute; inset: 0; background: #010a13 center / cover no-repeat; opacity: .9; }
+.li .ic.fit { background-size: 80%; background-color: #06141d; }
+.li .ic.mono { display: grid; place-items: center; font: 700 20px/1 var(--display); letter-spacing: .1em; color: #c8aa6e; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); }
+.li .fr { position: absolute; inset: 0; background: url(img/lc/permanent.png) center / 100% no-repeat; }
+.li.shard .fr { background: none; border: 1px dashed #785a28; }
+.li .ov { position: absolute; inset: 0; background: #000; opacity: 0; }
+.li:hover .ov { opacity: .25; }
+.li.on .fr { box-shadow: 0 0 0 2px #c8aa6e, 0 0 12px rgba(200,170,110,.5); }
+.li .qt { position: absolute; right: 4px; bottom: 3px; font: 500 13px/16px var(--display); color: #cdbe91; text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 2px #000; }
+/* hextech crafter */
+.lt-craft { position: relative; width: 619px; height: 561px; }
+.lt-craft .ring { position: absolute; left: 50%; top: 304px; width: 420px; height: 413px; transform: translate(-50%, -50%); background: url(img/lc/crafter-frame.webp) center / contain no-repeat; }
+.lt-craft .nm { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font: 700 18px/22px var(--display); letter-spacing: .05em; text-transform: uppercase; color: #f0e6d2; text-shadow: 2px 2px 2px #000; }
+.lt-craft .kd { position: absolute; left: 0; right: 0; top: 40px; text-align: center; font: 700 11px/14px var(--body); letter-spacing: .14em; text-transform: uppercase; color: #c89b3c; }
+.lt-craft .art { position: absolute; left: 50%; top: 290px; width: 230px; height: 230px; transform: translate(-50%, -50%); display: grid; place-items: center; }
+.lt-craft .art img { max-width: 220px; max-height: 200px; }
+.lt-craft .art img.cover { width: 230px; height: 144px; max-width: none; object-fit: cover; object-position: left top; border: 1px solid #785a28; }
+.lt-craft .art img.round { width: 170px; height: 170px; border-radius: 50%; border: 2px solid #c89b3c; }
+.lt-craft .art .mono { font: 700 64px/1 var(--display); letter-spacing: .14em; color: #785a28; }
+.lt-craft .art .key { position: absolute; right: 4px; bottom: 10px; width: 84px; height: 84px; max-width: none; }
+.lt-craft .tx { position: absolute; left: 50%; top: 60px; width: 440px; margin: 0 0 0 -220px; text-align: center; font: 400 12px/18px var(--body); letter-spacing: .025em; color: #a09b8c; }
+.lt-craft .cta { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 4px; }
+.lc-btn { all: unset; box-sizing: border-box; position: relative; display: grid; place-items: center; width: 150px; height: 78px; padding-top: 12px; cursor: pointer; background: url(img/lc/craftbutton-up.png) center / contain no-repeat; font: 700 12px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: #f0e6d2; text-shadow: 0 1px 2px #000; white-space: nowrap; }
+.lc-btn:hover { background-image: url(img/lc/craftbutton-hover.png); }
+.lc-btn.off { cursor: default; color: #5b5a56; background-image: url(img/lc/craftbutton-disabled.png); }
+.lt-help { width: 40px; flex: none; padding-top: 10px; }
+.lt-help::before { content: ""; display: block; width: 18px; height: 1px; margin-left: 18px; background: #785a28; }
 /* project overview pages (top tabs) */
 .body[data-view="project"] .subtabs, .body[data-view="project"] .banner { display: none; }
 .body[data-view="project"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.97) 0%, rgba(1,10,19,.9) 48%, rgba(1,10,19,.72) 100%); }
@@ -341,8 +375,6 @@ a.sc:hover .h { color: var(--gold-1); }
 .sc.honor .art img { width: 96px; height: auto; max-height: none; }
 
 /* match history: the client's layout (rcp-fe-lol-match-history), live from api/league.js, snapshot fallback */
-.body[data-view="history"] .banner { display: none; }
-.body[data-view="history"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.93) 0%, rgba(1,10,19,.86) 70%, rgba(1,10,19,.8) 100%); }
 .mhp-title { font: 700 14px/18px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; }
 .mhp-nav { display: flex; margin-top: 12px; }
 .mhp-nav span { position: relative; padding: 0 12px; font: 500 12px/30px var(--display); letter-spacing: .1em; text-transform: uppercase; color: #f0e6d2; }
@@ -397,9 +429,6 @@ a.sc:hover .h { color: var(--gold-1); }
 .rk small { display: block; margin-top: 4px; font-size: 12px; color: var(--text); }
 
 /* mastery */
-.chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; max-width: 760px; }
-.chips li { padding: 11px 12px; background: rgba(1,10,19,.86); border: 1px solid var(--line); font: 600 13px/1.2 var(--body); color: var(--gold-1); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.chips li small { font: 700 10px/1 var(--body); letter-spacing: .1em; color: var(--gold-3); }
 
 .legal { max-width: 1280px; margin: 10px auto 0; text-align: center; font-size: 11px; line-height: 1.5; color: var(--mute); }
 
@@ -471,7 +500,15 @@ a.sc:hover .h { color: var(--gold-1); }
   .sc.trophy .art { top: 86px; } .sc.trophy .art img { width: 76px; }
   .sc.flag .art { top: 74px; } .sc.flag .art img { width: 76px; }
   .page.proj.on { display: grid; left: 0; padding: 40px 44px 0 48px; grid-template-columns: 440px 1fr; gap: 40px; align-items: start; }
-  .page.wide { left: 0; padding: 34px 44px 0 48px; }
+  .page.scr { left: 0; padding: 0; }
+  .lc-nav { position: absolute; left: 32px; top: 8px; }
+  .lc-panel { position: absolute; left: 32px; top: 56px; }
+  .lc-grid { position: absolute; left: 260px; top: 56px; width: 794px; height: 582px; }
+  #pgMastery .lc-panel { top: 64px; }
+  #pgMastery .lc-grid { top: 64px; height: 574px; }
+  .lt-inv { position: absolute; left: 16px; top: 45px; height: 540px; }
+  .lt-sec { height: 520px; }
+  .lt-craft { position: absolute; left: 434px; top: 24px; }
   .page.mhp { left: 0; padding: 0; }
   .mhp-title { position: absolute; left: 35px; top: 64px; margin: 0; }
   .mhp-nav { position: absolute; left: 34px; top: 90px; margin: 0; }
@@ -506,14 +543,15 @@ a.sc:hover .h { color: var(--gold-1); }
   .page { grid-column: 1; grid-row: 3; padding: 18px 16px 22px; }
   .showcase { grid-template-columns: repeat(2, 1fr); margin-top: 28px; row-gap: 22px; }
   .rk { width: 100%; }
-  .lt { grid-template-columns: 1fr; }
-  .lt-cats { display: flex; overflow-x: auto; padding: 0; }
-  .lt-cats button { border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
-  .lt-cats button.on { border-bottom-color: var(--gold-3); background: none; }
-  .lt-grid { grid-template-columns: repeat(auto-fill, 96px); justify-content: center; min-height: 0; }
-  .lt-detail { min-height: 0; }
-  .chg { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
-  .skg { grid-template-columns: 1fr; }
+  .lt-inv { flex-wrap: wrap; }
+  .lt-tabs { display: flex; width: 100%; gap: 8px; }
+  .lt-help { display: none; }
+  .lt-craft { width: 100%; height: 470px; margin-top: 12px; }
+  .lt-craft .ring { width: 340px; height: 334px; top: 250px; }
+  .lt-craft .art { top: 230px; transform: translate(-50%, -50%) scale(.8); }
+  .lt-craft .tx { width: 300px; margin-left: -150px; }
+  .lc-panel { width: 100%; margin-bottom: 12px; }
+  .lc-items { justify-content: center; }
   .chat { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: min(70vh, 460px); grid-template-columns: 1fr; border: 1px solid var(--gold-5); border-bottom: 0; z-index: 20; }
   .cv-list { display: none; }
 }
@@ -659,11 +697,20 @@ a.sc:hover .h { color: var(--gold-1); }
       </div>
     </section>
 
-    <section class="page" data-page="mastery">
-      <div class="ptitle">Champion pool</div>
-      <ul class="chips">
-        <li>TypeScript</li><li>Next.js</li><li>React</li><li>Python</li><li>Supabase</li><li>Postgres</li><li>Tailwind CSS</li><li>Luau</li><li>Drizzle</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li><li>Rojo</li>
-      </ul>
+    <section class="page scr" data-page="mastery" id="pgMastery" aria-label="Champion mastery">
+      <div class="lc-panel">
+        <div class="lc-tot"><div><b>716</b><small>Mastery score</small></div></div>
+        <p class="lc-note">My highest champion mastery, from the client. I main <b>Qiyana</b>, mostly in the jungle.</p>
+      </div>
+      <div class="lc-grid">
+        <div class="lc-group">Highest mastery<span>3</span></div>
+        <div class="lc-sep"></div>
+        <div class="lc-items">
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-qiyana.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 72</span></span></span><span class="nm">Qiyana</span></div>
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-katarina.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 56</span></span></span><span class="nm">Katarina</span></div>
+          <div class="cc"><span class="th"><span class="im"><img src="img/lc/load-hecarim.webp" alt=""></span><span class="info"><span class="badge"><img src="img/lc/crest-m10.png" alt=""></span><span class="desc">Mastery 37</span></span></span><span class="nm">Hecarim</span></div>
+        </div>
+      </div>
     </section>
 
     <section class="page proj" data-page="turnpoint" aria-label="Turnpoint">
@@ -705,36 +752,36 @@ a.sc:hover .h { color: var(--gold-1); }
       <div class="pj-shot"><img src="img/petri.webp" alt="Petri home page"></div>
     </section>
 
-    <section class="page wide" data-page="loot" aria-label="Loot">
-      <div class="lt">
-        <div class="lt-cats" role="tablist" aria-label="Loot categories">
-          <button class="on" data-cat="all" role="tab" aria-selected="true">All <span>8</span></button>
-          <button data-cat="ach" role="tab" aria-selected="false">Achievements <span>4</span></button>
-          <button data-cat="proj" role="tab" aria-selected="false">Projects <span>3</span></button>
-          <button data-cat="chest" role="tab" aria-selected="false">Chests <span>1</span></button>
+    <section class="page scr" data-page="loot" aria-label="Loot">
+      <div class="lt-inv">
+        <div class="lt-tabs" role="tablist" aria-label="Loot categories">
+          <button class="lt-tab on" data-cat="all" role="tab" aria-selected="true" title="All"><img src="img/lc/cat-all.png" alt="All"></button>
+          <button class="lt-tab" data-cat="ach" role="tab" aria-selected="false" title="Achievements"><img src="img/lc/cat-eternals.png" alt="Achievements"></button>
+          <button class="lt-tab" data-cat="proj" role="tab" aria-selected="false" title="Projects"><img src="img/lc/cat-skin.png" alt="Projects"></button>
+          <button class="lt-tab" data-cat="chest" role="tab" aria-selected="false" title="Chests"><img src="img/lc/cat-chest.png" alt="Chests"></button>
         </div>
-        <div>
-          <div class="lt-head"><h2>Loot</h2><small>Everything I've earned so far</small></div>
-          <div class="lt-grid" id="ltGrid"></div>
-        </div>
-        <aside class="lt-detail" id="ltDetail" aria-live="polite"></aside>
+        <div class="lt-sec" id="ltSec"></div>
+        <div class="lt-help" aria-hidden="true"></div>
       </div>
+      <div class="lt-craft" id="ltCraft" aria-live="polite"></div>
     </section>
 
-    <section class="page wide" data-page="collection" aria-label="Collection">
-      <div class="co-tabs" role="tablist" aria-label="Collection">
+    <section class="page scr" data-page="collection" aria-label="Collection">
+      <div class="lc-nav" role="tablist" aria-label="Collection">
         <button class="on" data-co="champs" role="tab" aria-selected="true">Champions</button>
         <button data-co="skins" role="tab" aria-selected="false">Skins</button>
-        <span class="co-count" id="coCount">14 of 14 owned</span>
       </div>
-      <div class="co-pane" data-co="champs">
-        <ul class="chg" aria-label="Tech stack"><li class="ch"><img src="img/tech/typescript.svg" alt=""><b>TypeScript</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/nextdotjs.svg" alt=""><b>Next.js</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/react.svg" alt=""><b>React</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/python.svg" alt=""><b>Python</b></li><li class="ch"><img src="img/tech/supabase.svg" alt=""><b>Supabase</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/postgresql.svg" alt=""><b>Postgres</b><small>Turnpoint</small></li><li class="ch"><img src="img/tech/tailwindcss.svg" alt=""><b>Tailwind CSS</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/drizzle.svg" alt=""><b>Drizzle</b><small>Turnpoint</small></li><li class="ch"><img src="img/tech/vitest.svg" alt=""><b>Vitest</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/playwright.svg" alt=""><b>Playwright</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/githubactions.svg" alt=""><b>GitHub Actions</b><small>X Arena</small></li><li class="ch"><img src="img/tech/vercel.svg" alt=""><b>Vercel</b><small>Turnpoint · Petri</small></li><li class="ch"><span class="mono" aria-hidden="true">Lu</span><b>Luau</b><small>X Arena</small></li><li class="ch"><span class="mono" aria-hidden="true">Ro</span><b>Rojo</b><small>X Arena</small></li></ul>
+      <div class="lc-panel">
+        <div class="lc-tot"><div><b id="coTot">14</b><small id="coLab">Champions owned</small></div></div>
+        <p class="lc-note">Champions are the tools I build with. <b>Skins</b> are the projects I've shipped.</p>
       </div>
-      <div class="co-pane" data-co="skins" hidden>
-        <div class="skg">
-          <button class="sk" data-go="turnpoint"><span class="shot" style="background-image:url(img/turnpoint.webp)"></span><span class="meta"><img class="gem" src="img/rarity-legendary.png" alt="Legendary"><span><b>Turnpoint</b><small>Legendary · Live</small></span></span></button>
-          <button class="sk" data-go="petri"><span class="shot" style="background-image:url(img/petri.webp)"></span><span class="meta"><img class="gem" src="img/rarity-epic.png" alt="Epic"><span><b>Petri</b><small>Epic · Live</small></span></span></button>
-          <button class="sk locked" data-go="xarena"><span class="shot empty">XA</span><span class="meta"><span class="gem none"></span><span><b>X Arena</b><small>Not yet released · in development</small></span></span></button>
+      <div class="lc-grid co-pane" data-co="champs" aria-label="Tech stack"><div class="lc-group">Web<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/typescript.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">TypeScript</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/nextdotjs.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Next.js</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/react.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">React</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/tailwindcss.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Tailwind CSS</span></div></div><div class="lc-group">Data<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/python.svg" alt=""></span><span class="info plain"><span class="desc">Owned</span></span></span><span class="nm">Python</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/supabase.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Supabase</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/postgresql.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint</span></span></span><span class="nm">Postgres</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/drizzle.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint</span></span></span><span class="nm">Drizzle</span></div></div><div class="lc-group">Testing and shipping<span>4 / 4</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/vitest.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Vitest</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/playwright.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Playwright</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/githubactions.svg" alt=""></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">GitHub Actions</span></div><div class="cc"><span class="th"><span class="im tech"><img src="img/tech/vercel.svg" alt=""></span><span class="info plain"><span class="desc">Turnpoint · Petri</span></span></span><span class="nm">Vercel</span></div></div><div class="lc-group">Games<span>2 / 2</span></div><div class="lc-sep"></div><div class="lc-items"><div class="cc"><span class="th"><span class="im tech"><span class="mono" aria-hidden="true">Lu</span></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">Luau</span></div><div class="cc"><span class="th"><span class="im tech"><span class="mono" aria-hidden="true">Ro</span></span><span class="info plain"><span class="desc">X Arena</span></span></span><span class="nm">Rojo</span></div></div></div>
+      <div class="lc-grid co-pane" data-co="skins" hidden>
+        <div class="lc-group">Projects<span>2 / 3</span></div><div class="lc-sep"></div>
+        <div class="lc-items">
+          <button class="sk2" data-go="turnpoint"><span class="th"><span class="im" style="background-image:url(img/turnpoint.webp)"></span><span class="bd" style="background-image:url(img/lc/border-legendary.png)"></span><span class="gem" style="background-image:url(img/lc/gem-legendary.svg)"></span></span><span class="nm">Turnpoint<small>Legendary · Live</small></span></button>
+          <button class="sk2" data-go="petri"><span class="th"><span class="im" style="background-image:url(img/petri.webp)"></span><span class="bd" style="background-image:url(img/lc/border-epic.png)"></span><span class="gem" style="background-image:url(img/lc/gem-epic.svg)"></span></span><span class="nm">Petri<small>Epic · Live</small></span></button>
+          <button class="sk2 locked" data-go="xarena"><span class="th"><span class="im empty">XA</span><span class="lock"></span></span><span class="nm">X Arena<small>In development</small></span></button>
         </div>
       </div>
     </section>
@@ -779,8 +826,8 @@ a.sc:hover .h { color: var(--gold-1); }
     tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
     icons.forEach(function (b) { b.classList.toggle('on', b.dataset.go === k); });
     pages.forEach(function (p) { p.classList.toggle('on', p.dataset.page === k); });
-    var proj = ['turnpoint', 'petri', 'xarena', 'loot', 'collection'].indexOf(k) > -1;
-    document.querySelector('.body').dataset.view = proj ? 'project' : k === 'history' ? 'history' : 'profile';
+    var view = ['turnpoint', 'petri', 'xarena'].indexOf(k) > -1 ? 'project' : (k === 'loot' || k === 'collection') ? 'screen' : (k === 'history' || k === 'mastery') ? 'wide' : 'profile';
+    document.querySelector('.body').dataset.view = view;
     document.querySelectorAll('.tabs a').forEach(function (a) { a.classList.toggle('on', a.dataset.go === k); });
     try { history.replaceState(null, '', '#' + k); } catch (e) {}
   }
@@ -928,70 +975,79 @@ a.sc:hover .h { color: var(--gold-1); }
   }
   loadLeague();
 
-  // Loot: achievements as a hextech inventory. Facts only.
+  // Loot: achievements in the client's inventory + hextech crafter. Facts only.
   var LOOT = [
-    { cat: 'ach', cls: 'perm', kind: 'Ranked reward', name: 'Peak Grandmaster', art: 'img/rank-gm.webp', text: 'Peaked Grandmaster in Solo/Duo, the top 0.05% of North America. Mostly on Qiyana.', cta: [{ label: 'Match history', go: 'history' }] },
-    { cat: 'proj', cls: 'perm', kind: 'Project permanent', name: 'Turnpoint', art: 'img/turnpoint.webp', fit: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint', ghost: true }] },
-    { cat: 'proj', cls: 'perm', kind: 'Project permanent', name: 'Petri', art: 'img/petri.webp', fit: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri', ghost: true }] },
-    { cat: 'proj', cls: 'shard', kind: 'Project shard', name: 'X Arena', mono: 'XA', text: 'Still being crafted. A multiplayer arena shooter on Roblox with server-validated hitboxes and lag compensation, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena', ghost: true }] },
-    { cat: 'ach', cls: 'perm', kind: 'Champion mastery', name: 'Qiyana · Mastery 72', art: 'img/main-icon.webp', fit: 'round', text: 'My main. Mastery score 716 across all champions.' },
-    { cat: 'ach', cls: '', kind: 'Honor reward', name: 'Honor level 5', art: 'img/honor.webp', text: 'Honor level 5, the highest honor level in League.' },
-    { cat: 'ach', cls: '', kind: 'Event token', name: 'UofT Computer Science', art: 'img/banner-uoft.svg', text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
-    { cat: 'chest', cls: 'perm', kind: 'Locked chest', name: 'Summer 2027 internship', art: 'img/loot-chest.webp', key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
+    { cat: 'ach', kind: 'Ranked reward', name: 'Peak Grandmaster', art: 'img/rank-gm.webp', fit: 1, text: 'Peaked Grandmaster in Solo/Duo, the top 0.05% of North America. Mostly on Qiyana.', cta: [{ label: 'Match history', go: 'history' }] },
+    { cat: 'ach', kind: 'Champion mastery', name: 'Qiyana · Mastery 72', art: 'img/main-icon.webp', big: 'round', text: 'My main. Mastery score 716 across all champions.', cta: [{ label: 'Mastery', go: 'mastery' }] },
+    { cat: 'ach', kind: 'Honor reward', name: 'Honor level 5', art: 'img/honor.webp', fit: 1, text: 'Honor level 5, the highest honor level in League.' },
+    { cat: 'ach', kind: 'Event token', name: 'UofT Computer Science', art: 'img/banner-uoft.svg', fit: 1, text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
+    { cat: 'proj', kind: 'Project permanent', name: 'Turnpoint', art: 'img/turnpoint.webp', big: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint' }] },
+    { cat: 'proj', kind: 'Project permanent', name: 'Petri', art: 'img/petri.webp', big: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri' }] },
+    { cat: 'proj', kind: 'Project shard', name: 'X Arena', mono: 'XA', shard: true, text: 'Still being crafted. A multiplayer arena shooter on Roblox with server-validated hitboxes and lag compensation, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena' }] },
+    { cat: 'chest', kind: 'Locked chest', name: 'Summer 2027 internship', art: 'img/loot-chest.webp', fit: 1, key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
   ];
-  var ltGrid = document.getElementById('ltGrid'), ltDetail = document.getElementById('ltDetail');
-  function artEl(it, big) {
-    if (it.mono) return el('span', 'mono', it.mono);
-    var im = el('img', it.fit || ''); im.src = it.art; im.alt = ''; return im;
-  }
+  var LOOT_CATS = [['ach', 'Achievements'], ['proj', 'Projects'], ['chest', 'Chests']];
+  var ltSec = document.getElementById('ltSec'), ltCraft = document.getElementById('ltCraft');
   function pickLoot(i, quiet) {
     var it = LOOT[i];
-    ltGrid.querySelectorAll('.it').forEach(function (b, j) { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
-    ltDetail.textContent = '';
-    var a = el('div', 'ld-art'); a.appendChild(artEl(it, true)); ltDetail.appendChild(a);
-    ltDetail.appendChild(el('div', 'ld-kind', it.kind));
-    ltDetail.appendChild(el('div', 'ld-name', it.name));
-    ltDetail.appendChild(el('p', 'ld-text', it.text));
-    if (it.cta) {
-      var c = el('div', 'ld-cta');
-      it.cta.forEach(function (x) {
-        var b = el('a', 'btn' + (x.ghost ? ' ghost' : ''), x.label);
-        if (x.href) { b.href = x.href; if (x.href.indexOf('http') === 0) { b.target = '_blank'; b.rel = 'noopener'; } }
-        else { b.href = '#' + x.go; b.addEventListener('click', function (e) { e.preventDefault(); sfx('nav-click', .4); show(x.go); }); }
-        c.appendChild(b);
-      });
-      ltDetail.appendChild(c);
-    }
+    ltSec.querySelectorAll('.li').forEach(function (b) { var on = +b.dataset.i === i; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    ltCraft.textContent = '';
+    ltCraft.appendChild(el('div', 'ring'));
+    ltCraft.appendChild(el('div', 'nm', it.name));
+    ltCraft.appendChild(el('div', 'kd', it.kind));
+    var art = el('div', 'art');
+    if (it.mono) art.appendChild(el('span', 'mono', it.mono));
+    else { var im = el('img', it.big || ''); im.src = it.art; im.alt = ''; art.appendChild(im); }
+    if (it.key) { var k = el('img', 'key'); k.src = 'img/loot-key.webp'; k.alt = ''; art.appendChild(k); }
+    ltCraft.appendChild(art);
+    ltCraft.appendChild(el('p', 'tx', it.text));
+    var cta = el('div', 'cta');
+    (it.cta || [{ label: 'Owned', off: true }]).forEach(function (x) {
+      var b = el(x.off ? 'span' : 'a', 'lc-btn' + (x.off ? ' off' : ''), x.label);
+      if (x.href) { b.href = x.href; if (x.href.indexOf('http') === 0) { b.target = '_blank'; b.rel = 'noopener'; } }
+      else if (x.go) { b.href = '#' + x.go; b.addEventListener('click', function (e) { e.preventDefault(); sfx('nav-click', .4); show(x.go); }); }
+      cta.appendChild(b);
+    });
+    ltCraft.appendChild(cta);
     if (!quiet) sfx('click', .4);
   }
-  if (ltGrid) {
-    ltGrid.setAttribute('role', 'listbox'); ltGrid.setAttribute('aria-label', 'Loot items');
-    LOOT.forEach(function (it, i) {
-      var b = el('button', 'it ' + it.cls); b.type = 'button'; b.dataset.cat = it.cat; b.setAttribute('role', 'option');
-      var f = el('span', 'fr'); f.appendChild(artEl(it));
-      if (it.key) { var k = el('img', 'key'); k.src = 'img/loot-key.webp'; k.alt = ''; f.appendChild(k); }
-      b.appendChild(f); b.appendChild(el('span', 'lb', it.name));
-      b.addEventListener('click', function () { pickLoot(i); });
-      ltGrid.appendChild(b);
+  if (ltSec) {
+    LOOT_CATS.forEach(function (c) {
+      var g = el('div', 'lt-grp'); g.dataset.cat = c[0];
+      g.appendChild(el('div', 'lt-st', c[1])); g.appendChild(el('hr'));
+      var grid = el('div', 'lt-grid2');
+      LOOT.forEach(function (it, i) {
+        if (it.cat !== c[0]) return;
+        var b = el('button', 'li' + (it.shard ? ' shard' : '')); b.type = 'button'; b.dataset.i = i; b.title = it.name; b.setAttribute('aria-label', it.name);
+        var ic = el('span', 'ic' + (it.fit ? ' fit' : '') + (it.mono ? ' mono' : ''), it.mono || null);
+        if (it.art) ic.style.backgroundImage = 'url(' + it.art + ')';
+        b.appendChild(ic); b.appendChild(el('span', 'fr')); b.appendChild(el('span', 'ov'));
+        if (it.key) b.appendChild(el('span', 'qt', '1'));
+        b.addEventListener('click', function () { pickLoot(i); });
+        grid.appendChild(b);
+      });
+      g.appendChild(grid); ltSec.appendChild(g);
     });
     pickLoot(0, true);
-    document.querySelectorAll('.lt-cats button').forEach(function (t) {
+    document.querySelectorAll('.lt-tab').forEach(function (t) {
       t.addEventListener('click', function () {
         sfx('tab-click', .45);
-        document.querySelectorAll('.lt-cats button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
-        var first = -1;
-        ltGrid.querySelectorAll('.it').forEach(function (b, j) { var hide = t.dataset.cat !== 'all' && b.dataset.cat !== t.dataset.cat; b.hidden = hide; if (!hide && first < 0) first = j; });
-        if (first > -1) pickLoot(first, true);
+        document.querySelectorAll('.lt-tab').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+        var first = null;
+        ltSec.querySelectorAll('.lt-grp').forEach(function (g) { g.hidden = t.dataset.cat !== 'all' && g.dataset.cat !== t.dataset.cat; if (!g.hidden && !first) first = g.querySelector('.li'); });
+        if (first) pickLoot(+first.dataset.i, true);
       });
     });
   }
-  // Collection tabs
-  document.querySelectorAll('.co-tabs button').forEach(function (t) {
+  // Collection sub-nav
+  document.querySelectorAll('.lc-nav button').forEach(function (t) {
     t.addEventListener('click', function () {
       sfx('tab-click', .45);
-      document.querySelectorAll('.co-tabs button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      var skins = t.dataset.co === 'skins';
+      document.querySelectorAll('.lc-nav button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
       document.querySelectorAll('.co-pane').forEach(function (p) { p.hidden = p.dataset.co !== t.dataset.co; });
-      document.getElementById('coCount').textContent = t.dataset.co === 'skins' ? '2 of 3 owned' : '14 of 14 owned';
+      document.getElementById('coTot').textContent = skins ? '2' : '14';
+      document.getElementById('coLab').textContent = skins ? 'Skins owned' : 'Champions owned';
     });
   });
   show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
