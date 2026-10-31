@@ -218,6 +218,71 @@ a.fr:hover { background: rgba(240,230,210,.04); }
 .feat b { display: block; margin-top: 3px; font: 700 14px/1.2 var(--body); color: var(--gold-1); }
 .feat i { display: block; font-style: normal; font-size: 11px; color: var(--text); }
 
+/* loot (achievements as hextech inventory) and collection (tech stack as champions, projects as skins) */
+.page.wide.on { display: block; }
+.lt { display: grid; grid-template-columns: 150px minmax(0,1fr) 300px; gap: 18px; align-items: start; }
+.lt-cats { display: grid; gap: 2px; padding: 8px 0; background: rgba(1,10,19,.92); border: 1px solid var(--line); border-top-color: var(--gold-5); }
+.lt-cats button, .co-tabs button { all: unset; box-sizing: border-box; cursor: pointer; }
+.lt-cats button { display: flex; justify-content: space-between; padding: 8px 14px; font: 700 11px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--text); border-left: 2px solid transparent; }
+.lt-cats button span { color: var(--mute); letter-spacing: 0; }
+.lt-cats button:hover { color: var(--gold-1); }
+.lt-cats button.on { color: var(--gold-1); border-left-color: var(--gold-3); background: linear-gradient(90deg, rgba(200,155,60,.12), transparent); }
+.lt-cats button:focus-visible, .co-tabs button:focus-visible, .it:focus-visible, .sk:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+.lt-head, .co-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.lt-head h2, .co-head h2 { font: 700 22px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; color: var(--gold-1); }
+.lt-head small, .co-head small { font-size: 12px; color: var(--text); }
+.lt-grid { display: grid; grid-template-columns: repeat(4, 96px); gap: 14px 16px; padding: 16px; background: rgba(1,10,19,.92); border: 1px solid var(--line); min-height: 300px; align-content: start; }
+.it { all: unset; box-sizing: border-box; cursor: pointer; width: 96px; text-align: center; }
+.it[hidden] { display: none; }
+.it .fr { position: relative; display: grid; place-items: center; width: 96px; height: 96px; background: radial-gradient(circle at 50% 40%, #0f2a35, #010a13 72%); border: 1px solid var(--gold-5); overflow: hidden; }
+.it.perm .fr { border-color: var(--gold-4); }
+.it.shard .fr { border: 1px dashed var(--gold-4); }
+.it .fr img { max-width: 78px; max-height: 78px; }
+.it .fr img.cover { max-width: none; max-height: none; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.it .fr img.round { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold-4); }
+.it .fr .mono { font: 700 24px/1 var(--display); letter-spacing: .12em; color: var(--gold-2); }
+.it .fr .key { position: absolute; right: 2px; bottom: 2px; width: 34px; height: 34px; max-width: none; }
+.it .lb { display: block; margin-top: 6px; font: 600 11px/1.25 var(--body); color: var(--text); }
+.it:hover .fr { border-color: var(--gold-3); }
+.it.on .fr { border: 2px solid var(--gold-2); box-shadow: inset 0 0 18px rgba(200,170,110,.25); }
+.it.on .lb { color: var(--gold-1); }
+.lt-detail { padding: 18px 20px 20px; background: rgba(1,10,19,.94); border: 1px solid var(--gold-5); text-align: center; min-height: 420px; }
+.ld-art { display: grid; place-items: center; height: 150px; margin-bottom: 14px; }
+.ld-art img { max-width: 150px; max-height: 150px; }
+.ld-art img.cover { max-width: 100%; width: 100%; height: 150px; object-fit: cover; object-position: top left; border: 1px solid var(--gold-4); }
+.ld-art img.round { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold-3); }
+.ld-art .mono { display: grid; place-items: center; width: 120px; height: 120px; border: 1px dashed var(--gold-4); font: 700 36px/1 var(--display); letter-spacing: .12em; color: var(--gold-2); }
+.ld-kind { font: 700 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-3); }
+.ld-name { margin-top: 6px; font: 700 20px/1.15 var(--display); color: var(--gold-1); }
+.ld-text { margin-top: 10px; font-size: 13px; line-height: 1.55; color: var(--text); text-align: left; }
+.ld-cta { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.ld-cta .btn { min-width: 110px; }
+
+.co-tabs { display: flex; align-items: center; gap: 22px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--gold-5); max-width: 920px; }
+.co-tabs button { font: 700 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--text); padding: 4px 0; border-bottom: 2px solid transparent; }
+.co-tabs button:hover { color: var(--gold-1); }
+.co-tabs button.on { color: var(--gold-1); border-bottom-color: var(--gold-3); }
+.co-tabs .co-count { margin-left: auto; font-size: 12px; color: var(--text); }
+.co-pane[hidden] { display: none; }
+.chg { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, 116px); gap: 12px; }
+.ch { position: relative; height: 150px; display: flex; flex-direction: column; align-items: center; padding-top: 18px; background: radial-gradient(circle at 50% 30%, #12303b, #010a13 70%); border: 1px solid var(--gold-5); }
+.ch img, .ch .mono { width: 46px; height: 46px; }
+.ch .mono { display: grid; place-items: center; font: 700 22px/1 var(--display); letter-spacing: .06em; color: var(--gold-2); border: 1px solid var(--gold-4); border-radius: 50%; }
+.ch b { margin-top: 14px; font: 700 12px/1.2 var(--body); color: var(--gold-1); text-align: center; }
+.ch small { margin-top: 3px; padding: 0 6px; font-size: 10px; line-height: 1.3; color: var(--mute); text-align: center; }
+.ch::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--gold-4); }
+.skg { display: grid; grid-template-columns: repeat(3, 280px); gap: 18px; }
+.sk { all: unset; box-sizing: border-box; cursor: pointer; display: block; background: rgba(1,10,19,.94); border: 1px solid var(--gold-5); }
+.sk:hover { border-color: var(--gold-3); }
+.sk .shot { display: block; height: 176px; background: #0a1428 top left / cover; border-bottom: 1px solid var(--gold-5); }
+.sk .shot.empty { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #0d2a33, #010a13 70%); font: 700 30px/1 var(--display); letter-spacing: .2em; color: var(--gold-4); }
+.sk .meta { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+.sk .gem { width: 34px; height: 16px; object-fit: contain; flex: none; }
+.sk .gem.none { display: inline-block; border-top: 1px dashed var(--gold-4); height: 0; margin-top: 2px; }
+.sk b { display: block; font: 700 15px/1.2 var(--display); color: var(--gold-1); }
+.sk small { display: block; font-size: 11px; color: var(--text); }
+.sk.locked .shot { filter: grayscale(.6) brightness(.8); }
+
 /* project overview pages (top tabs) */
 .body[data-view="project"] .subtabs, .body[data-view="project"] .banner { display: none; }
 .body[data-view="project"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.97) 0%, rgba(1,10,19,.9) 48%, rgba(1,10,19,.72) 100%); }
@@ -275,31 +340,52 @@ a.sc:hover .h { color: var(--gold-1); }
 .sc.flag .art img { width: 76px; height: auto; }
 .sc.honor .art img { width: 96px; height: auto; max-height: none; }
 
-/* match history (live from api/league.js, snapshot fallback) */
-.mh-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 760px; margin-bottom: 4px; padding: 9px 14px; background: rgba(1,10,19,.94); border: 1px solid var(--line); border-top-color: var(--gold-5); }
-.mh-head .ptitle { margin-bottom: 5px; }
-.mh-sum { font-size: 12px; color: var(--text); white-space: nowrap; }
-.mh-sum b { color: var(--gold-1); font-weight: 600; }
-.mh-sum .w { color: var(--blue); } .mh-sum .l { color: var(--red); }
-.mh-live { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 var(--body); color: var(--mute); white-space: nowrap; }
-.mh-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--mute); }
-.mh-live.on { color: var(--text); } .mh-live.on i { background: var(--online); }
-.mh { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; max-width: 760px; }
-.g { display: grid; grid-template-columns: 3px 40px 112px 104px minmax(0,1fr) 64px 52px 84px; gap: 14px; align-items: center; height: 44px; padding-right: 14px; background: rgba(1,10,19,.94); border: 1px solid var(--line); }
-.g .bar { align-self: stretch; background: var(--blue-2); }
-.g.loss .bar { background: var(--red); }
-.g .ci { width: 36px; height: 36px; border: 1px solid var(--gold-5); background: #0a1428; overflow: hidden; }
-.g .ci img { display: block; width: 100%; height: 100%; transform: scale(1.1); }
-.g b { display: block; font: 600 13px/1.25 var(--body); color: var(--gold-1); white-space: nowrap; }
-.g small { display: block; font-size: 11px; line-height: 1.3; color: var(--mute); white-space: nowrap; }
-.g .r b { font: 700 12px/1.25 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
-.g.loss .r b { color: var(--red); }
-.g .k b { letter-spacing: .02em; }
-.g .s, .g .t { text-align: right; }
-.mh-foot { max-width: 760px; margin-top: 8px; text-shadow: 0 1px 4px #010a13; font-size: 11px; color: var(--mute); }
-.mh-foot a { color: var(--gold-2); text-decoration: none; }
-.mh-foot a:hover { color: var(--gold-1); }
-.mh-foot a:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+/* match history: the client's layout (rcp-fe-lol-match-history), live from api/league.js, snapshot fallback */
+.body[data-view="history"] .banner { display: none; }
+.body[data-view="history"] .splash::after { background: linear-gradient(90deg, rgba(1,10,19,.93) 0%, rgba(1,10,19,.86) 70%, rgba(1,10,19,.8) 100%); }
+.mhp-title { font: 700 14px/18px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; }
+.mhp-nav { display: flex; margin-top: 12px; }
+.mhp-nav span { position: relative; padding: 0 12px; font: 500 12px/30px var(--display); letter-spacing: .1em; text-transform: uppercase; color: #f0e6d2; }
+.mhp-nav span::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #c89b3c; }
+.mhl { list-style: none; margin: 10px 0 0; padding: 0; }
+.pho { position: relative; display: grid; grid-template-columns: 52px 1fr auto; gap: 4px 14px; align-items: center; padding: 10px 4px 12px 0; }
+.pho::after { content: ""; position: absolute; left: 5px; right: 0; bottom: 0; height: 5px; background: url(img/mh/player_object_border.png) repeat-x 0 100%; }
+.pho:last-child::after { display: none; }
+.pho .pc { position: relative; width: 52px; height: 52px; background: url(img/mh/champion_frame.png) no-repeat 0 100% / 100%; grid-row: 1 / 3; }
+.pho .pc span { position: absolute; left: 3px; top: 3px; right: 3px; bottom: 3px; border-radius: 50%; overflow: hidden; background: #010a13; }
+.pho .pc img { display: block; width: 100%; height: 100%; transform: scale(1.12); }
+.pho .rt { font: 700 14px/18px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #0acbe6; white-space: nowrap; }
+.pho.loss .rt { color: #ff2345; }
+.pho .md, .pho .ot { font: 400 12px/16px var(--body); letter-spacing: .025em; color: #a09b8c; white-space: nowrap; }
+.pho .md { margin-top: 2px; }
+.pho .st { grid-column: 2; font: 700 16px/20px var(--display); letter-spacing: .05em; color: #a09b8c; white-space: nowrap; }
+.pho .st i { font-style: normal; display: inline-block; }
+.pho .st .cs { margin-left: 24px; }
+.pho .st .cs small, .pho .st .kp small { font: 700 11px/1 var(--display); letter-spacing: .06em; margin-left: 3px; color: #5b5a56; }
+.pho .st .kp { margin-left: 22px; }
+.pho .ot { grid-column: 3; grid-row: 1 / 3; text-align: right; line-height: 1.75; }
+.pho .ot .dot { margin: 0 6px; font-size: 9px; vertical-align: 1px; }
+.pho .rp { display: none; }
+.mhr { margin-top: 26px; }
+.mhr-t { font: 700 12px/16px var(--display); letter-spacing: .075em; text-transform: uppercase; color: #f0e6d2; text-align: center; }
+.rpc { display: flex; justify-content: center; gap: 16px; margin-top: 14px; }
+.rpc div { position: relative; width: 66px; text-align: center; }
+.rpc .pt { display: block; width: 66px; height: 66px; background: #010a13 center / cover; }
+.rpc .cr { display: block; width: 58px; margin: -12px auto 0; position: relative; }
+.rpc b { display: block; margin-top: 8px; font: italic 700 14px/18px var(--display); letter-spacing: .06em; color: #c8aa6e; }
+.rpc-l { margin-top: 12px; text-align: center; font: 400 12px/16px var(--body); color: #a09b8c; }
+.mhr-hr { height: 1px; margin: 28px 0 26px; background: #1e2328; }
+.act { display: flex; justify-content: space-between; margin: 18px 4px 0; }
+.act div { width: 26px; display: flex; flex-direction: column; align-items: center; }
+.act .bar { position: relative; width: 8px; height: 90px; border: 1px solid #785a28; background: #1e2328; box-sizing: border-box; }
+.act .bar i { position: absolute; left: 1px; right: 1px; bottom: 1px; background: linear-gradient(180deg, #0ad6d0, #0596aa); }
+.act img { width: 26px; height: 26px; margin-top: 8px; }
+.mhr-c { margin-top: 20px; text-align: center; font: 400 11px/1.4 var(--body); color: #5b5a56; }
+.mhr-c a { color: #a09b8c; text-decoration: none; border-bottom: 1px solid #463714; }
+.mhr-c a:hover { color: #f0e6d2; }
+.mhr-c a:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
+.mhr-c .lv::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: #5b5a56; vertical-align: 1px; }
+.mhr-c .lv.on::before { background: var(--online); }
 
 /* ranked */
 .ranks { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -385,6 +471,23 @@ a.sc:hover .h { color: var(--gold-1); }
   .sc.trophy .art { top: 86px; } .sc.trophy .art img { width: 76px; }
   .sc.flag .art { top: 74px; } .sc.flag .art img { width: 76px; }
   .page.proj.on { display: grid; left: 0; padding: 40px 44px 0 48px; grid-template-columns: 440px 1fr; gap: 40px; align-items: start; }
+  .page.wide { left: 0; padding: 34px 44px 0 48px; }
+  .page.mhp { left: 0; padding: 0; }
+  .mhp-title { position: absolute; left: 35px; top: 64px; margin: 0; }
+  .mhp-nav { position: absolute; left: 34px; top: 90px; margin: 0; }
+  .mhl { position: absolute; left: 35px; top: 132px; width: 737px; height: 508px; margin: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #785a28 #010a13; }
+  .mhl::-webkit-scrollbar { width: 6px; }
+  .mhl::-webkit-scrollbar-track { background: #010a13; border-left: 1px solid #1e2328; }
+  .mhl::-webkit-scrollbar-thumb { background: #785a28; }
+  .pho { display: block; width: 710px; height: 88px; padding: 0; }
+  .pho .pc { position: absolute; left: 0; top: 13px; width: 61px; height: 61px; }
+  .pho .pc span { left: 3px; top: 3px; right: auto; bottom: auto; width: 55px; height: 55px; }
+  .pho .res { position: absolute; left: 81px; top: 12px; width: 157px; }
+  .pho .st { position: absolute; left: 264px; top: 34px; }
+  .pho .ot { position: absolute; left: 536px; top: 8px; width: 140px; text-align: left; }
+  .pho .rp { display: block; position: absolute; left: 683px; top: 16px; width: 30px; height: 30px; border: 2px solid #3c3c41; border-radius: 50%; box-sizing: border-box; }
+  .pho .rp::before { content: ""; position: absolute; left: 10px; top: 7px; border-left: 9px solid #3c3c41; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+  .mhr { position: absolute; left: 780px; top: 105px; width: 242px; margin: 0; }
   .proj .pj-shot { margin-top: 30px; }
   .legal { max-width: none; margin-top: 8px; font-size: 10px; line-height: 1.4; }
 }
@@ -402,14 +505,15 @@ a.sc:hover .h { color: var(--gold-1); }
   .banner { grid-row: 2; margin: 8px auto 0; }
   .page { grid-column: 1; grid-row: 3; padding: 18px 16px 22px; }
   .showcase { grid-template-columns: repeat(2, 1fr); margin-top: 28px; row-gap: 22px; }
-  .mh-head { flex-wrap: wrap; align-items: flex-start; }
-  .g { grid-template-columns: 3px 36px 1fr auto; height: auto; padding: 6px 12px 6px 0; row-gap: 2px; }
-  .g .who, .g .s { display: none; }
-  .g .k { grid-column: 3; grid-row: 2; }
-  .g .t { grid-column: 4; grid-row: 1 / 3; }
-  .g .ci { grid-row: 1 / 3; }
-  .g .bar { grid-row: 1 / 3; }
   .rk { width: 100%; }
+  .lt { grid-template-columns: 1fr; }
+  .lt-cats { display: flex; overflow-x: auto; padding: 0; }
+  .lt-cats button { border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .lt-cats button.on { border-bottom-color: var(--gold-3); background: none; }
+  .lt-grid { grid-template-columns: repeat(auto-fill, 96px); justify-content: center; min-height: 0; }
+  .lt-detail { min-height: 0; }
+  .chg { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .skg { grid-template-columns: 1fr; }
   .chat { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: min(70vh, 460px); grid-template-columns: 1fr; border: 1px solid var(--gold-5); border-bottom: 0; z-index: 20; }
   .cv-list { display: none; }
 }
@@ -433,8 +537,8 @@ a.sc:hover .h { color: var(--gold-1); }
     </nav>
     <div class="navic">
       <a class="nb" href="#overview" data-go="overview" aria-label="Profile: go to profile home" title="Profile"><img src="img/nav-profile.svg" alt=""></a>
-      <span class="nb" aria-hidden="true"><img src="img/nav-loot.svg" alt=""></span>
-      <span class="nb" aria-hidden="true"><img src="img/nav-collections.svg" alt=""></span>
+      <a class="nb" href="#loot" data-go="loot" aria-label="Loot" title="Loot"><img src="img/nav-loot.svg" alt=""></a>
+      <a class="nb" href="#collection" data-go="collection" aria-label="Collection" title="Collection"><img src="img/nav-collections.svg" alt=""></a>
     </div>
     <div class="wallet" aria-label="Stats">
       <span>3 <i>SHIPPED</i></span>
@@ -533,13 +637,19 @@ a.sc:hover .h { color: var(--gold-1); }
       </div>
     </section>
 
-    <section class="page" data-page="history" aria-label="Match history">
-      <div class="mh-head">
-        <div><div class="ptitle">Recent games</div><div class="mh-sum" id="mhSum"></div></div>
-        <div class="mh-live" id="mhLive"><i></i><span>Snapshot</span></div>
+    <section class="page mhp" data-page="history" aria-label="Match history">
+      <h2 class="mhp-title" id="mhTitle">Recent games (last 15 ranked)</h2>
+      <div class="mhp-nav" aria-hidden="true"><span>General</span></div>
+      <ol class="mhl" id="mhList" aria-labelledby="mhTitle"></ol>
+      <div class="mhr">
+        <div class="mhr-t">Recently played champions</div>
+        <div class="rpc" id="mhChamps"></div>
+        <div class="rpc-l">% of games played</div>
+        <div class="mhr-hr"></div>
+        <div class="mhr-t">Recent activity</div>
+        <div class="act" id="mhAct"></div>
+        <div class="mhr-c"><span class="lv" id="mhLive">Snapshot</span> from <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Turnpoint</a>, my match analyzer</div>
       </div>
-      <ol class="mh" id="mhList"></ol>
-      <div class="mh-foot">Ranked games on NA, pulled live from <a href="https://league-web-app.vercel.app" target="_blank" rel="noopener">Turnpoint</a>, my match analyzer.</div>
     </section>
 
     <section class="page" data-page="ranked">
@@ -595,6 +705,40 @@ a.sc:hover .h { color: var(--gold-1); }
       <div class="pj-shot"><img src="img/petri.webp" alt="Petri home page"></div>
     </section>
 
+    <section class="page wide" data-page="loot" aria-label="Loot">
+      <div class="lt">
+        <div class="lt-cats" role="tablist" aria-label="Loot categories">
+          <button class="on" data-cat="all" role="tab" aria-selected="true">All <span>8</span></button>
+          <button data-cat="ach" role="tab" aria-selected="false">Achievements <span>4</span></button>
+          <button data-cat="proj" role="tab" aria-selected="false">Projects <span>3</span></button>
+          <button data-cat="chest" role="tab" aria-selected="false">Chests <span>1</span></button>
+        </div>
+        <div>
+          <div class="lt-head"><h2>Loot</h2><small>Everything I've earned so far</small></div>
+          <div class="lt-grid" id="ltGrid"></div>
+        </div>
+        <aside class="lt-detail" id="ltDetail" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <section class="page wide" data-page="collection" aria-label="Collection">
+      <div class="co-tabs" role="tablist" aria-label="Collection">
+        <button class="on" data-co="champs" role="tab" aria-selected="true">Champions</button>
+        <button data-co="skins" role="tab" aria-selected="false">Skins</button>
+        <span class="co-count" id="coCount">14 of 14 owned</span>
+      </div>
+      <div class="co-pane" data-co="champs">
+        <ul class="chg" aria-label="Tech stack"><li class="ch"><img src="img/tech/typescript.svg" alt=""><b>TypeScript</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/nextdotjs.svg" alt=""><b>Next.js</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/react.svg" alt=""><b>React</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/python.svg" alt=""><b>Python</b></li><li class="ch"><img src="img/tech/supabase.svg" alt=""><b>Supabase</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/postgresql.svg" alt=""><b>Postgres</b><small>Turnpoint</small></li><li class="ch"><img src="img/tech/tailwindcss.svg" alt=""><b>Tailwind CSS</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/drizzle.svg" alt=""><b>Drizzle</b><small>Turnpoint</small></li><li class="ch"><img src="img/tech/vitest.svg" alt=""><b>Vitest</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/playwright.svg" alt=""><b>Playwright</b><small>Turnpoint · Petri</small></li><li class="ch"><img src="img/tech/githubactions.svg" alt=""><b>GitHub Actions</b><small>X Arena</small></li><li class="ch"><img src="img/tech/vercel.svg" alt=""><b>Vercel</b><small>Turnpoint · Petri</small></li><li class="ch"><span class="mono" aria-hidden="true">Lu</span><b>Luau</b><small>X Arena</small></li><li class="ch"><span class="mono" aria-hidden="true">Ro</span><b>Rojo</b><small>X Arena</small></li></ul>
+      </div>
+      <div class="co-pane" data-co="skins" hidden>
+        <div class="skg">
+          <button class="sk" data-go="turnpoint"><span class="shot" style="background-image:url(img/turnpoint.webp)"></span><span class="meta"><img class="gem" src="img/rarity-legendary.png" alt="Legendary"><span><b>Turnpoint</b><small>Legendary · Live</small></span></span></button>
+          <button class="sk" data-go="petri"><span class="shot" style="background-image:url(img/petri.webp)"></span><span class="meta"><img class="gem" src="img/rarity-epic.png" alt="Epic"><span><b>Petri</b><small>Epic · Live</small></span></span></button>
+          <button class="sk locked" data-go="xarena"><span class="shot empty">XA</span><span class="meta"><span class="gem none"></span><span><b>X Arena</b><small>Not yet released · in development</small></span></span></button>
+        </div>
+      </div>
+    </section>
+
     <section class="page proj" data-page="xarena" aria-label="X Arena">
       <div class="pj-text">
         <div class="pj-kicker">Project · In development · Sep 2026 to now</div>
@@ -635,8 +779,8 @@ a.sc:hover .h { color: var(--gold-1); }
     tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === k); });
     icons.forEach(function (b) { b.classList.toggle('on', b.dataset.go === k); });
     pages.forEach(function (p) { p.classList.toggle('on', p.dataset.page === k); });
-    var proj = ['turnpoint', 'petri', 'xarena'].indexOf(k) > -1;
-    document.querySelector('.body').dataset.view = proj ? 'project' : 'profile';
+    var proj = ['turnpoint', 'petri', 'xarena', 'loot', 'collection'].indexOf(k) > -1;
+    document.querySelector('.body').dataset.view = proj ? 'project' : k === 'history' ? 'history' : 'profile';
     document.querySelectorAll('.tabs a').forEach(function (a) { a.classList.toggle('on', a.dataset.go === k); });
     try { history.replaceState(null, '', '#' + k); } catch (e) {}
   }
@@ -724,65 +868,132 @@ a.sc:hover .h { color: var(--gold-1); }
   }
   var h = (location.hash || '').slice(1);
 
-  // Match history + mastery: live from /api/league, built-in snapshot (2026-10-31) when offline.
-  var SNAP = {"record":{"games":10,"wins":6,"losses":4,"winRatePercent":60,"kda":3.6,"csPerMin":7.2,"killParticipationPercent":59},"games":[{"playedAt":"2026-09-26T06:40:04.653Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":28,"kda":"7/2/12","csPerMin":8.4,"kp":50},{"playedAt":"2026-09-26T06:02:12.788Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":33,"kda":"12/6/13","csPerMin":7.4,"kp":64},{"playedAt":"2026-09-26T05:18:28.771Z","queue":"Ranked Solo","result":"loss","champion":"Wukong","role":"Jungle","minutes":37,"kda":"8/7/9","csPerMin":6.4,"kp":55},{"playedAt":"2026-09-23T17:59:27.265Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":27,"kda":"14/3/9","csPerMin":8.3,"kp":74},{"playedAt":"2026-09-22T06:28:31.611Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":22,"kda":"14/3/9","csPerMin":7.4,"kp":52},{"playedAt":"2026-09-22T05:54:05.335Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Mid","minutes":30,"kda":"11/6/10","csPerMin":7,"kp":51},{"playedAt":"2026-09-22T05:17:13.769Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","role":"Jungle","minutes":33,"kda":"8/8/6","csPerMin":7.1,"kp":50},{"playedAt":"2026-09-22T04:46:55.819Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","role":"Jungle","minutes":25,"kda":"8/3/12","csPerMin":7.9,"kp":69},{"playedAt":"2026-09-22T04:11:03.694Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","role":"Jungle","minutes":27,"kda":"7/8/7","csPerMin":6.4,"kp":50},{"playedAt":"2026-09-22T03:43:40.408Z","queue":"Ranked Solo","result":"loss","champion":"Katarina","role":"Mid","minutes":21,"kda":"5/6/6","csPerMin":6.2,"kp":79}]};
-  var LOCAL_ICON = { qiyana: 'img/champ-qiyana.webp', katarina: 'img/champ-katarina.webp', hecarim: 'img/champ-hecarim.webp', wukong: 'img/champ-wukong.webp' };
+  // Match history: live from /api/league (cached for a week at the edge), built-in snapshot (2026-10-31) when offline.
+  var SNAP = {"record":{"games":20,"wins":11,"losses":9,"winRatePercent":55,"kda":3.3,"csPerMin":5.5,"killParticipationPercent":51},"games":[{"playedAt":"2026-09-26T06:40:04.653Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":28,"kda":"7/2/12","csPerMin":8.4,"kp":50},{"playedAt":"2026-09-26T06:02:12.788Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":33,"kda":"12/6/13","csPerMin":7.4,"kp":64},{"playedAt":"2026-09-26T05:18:28.771Z","queue":"Ranked Solo","result":"loss","champion":"Wukong","champClass":"fighter","role":"Jungle","minutes":37,"kda":"8/7/9","csPerMin":6.4,"kp":55},{"playedAt":"2026-09-23T17:59:27.265Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":27,"kda":"14/3/9","csPerMin":8.3,"kp":74},{"playedAt":"2026-09-22T06:28:31.611Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":22,"kda":"14/3/9","csPerMin":7.4,"kp":52},{"playedAt":"2026-09-22T05:54:05.335Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Mid","minutes":30,"kda":"11/6/10","csPerMin":7,"kp":51},{"playedAt":"2026-09-22T05:17:13.769Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":33,"kda":"8/8/6","csPerMin":7.1,"kp":50},{"playedAt":"2026-09-22T04:46:55.819Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":25,"kda":"8/3/12","csPerMin":7.9,"kp":69},{"playedAt":"2026-09-22T04:11:03.694Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":27,"kda":"7/8/7","csPerMin":6.4,"kp":50},{"playedAt":"2026-09-22T03:43:40.408Z","queue":"Ranked Solo","result":"loss","champion":"Katarina","champClass":"assassin","role":"Mid","minutes":21,"kda":"5/6/6","csPerMin":6.2,"kp":79},{"playedAt":"2026-09-22T02:56:17.469Z","queue":"Ranked Solo","result":"loss","champion":"Hecarim","champClass":"fighter","role":"Jungle","minutes":38,"kda":"3/10/16","csPerMin":6.2,"kp":51},{"playedAt":"2026-09-22T02:11:51.597Z","queue":"Ranked Solo","result":"loss","champion":"Jarvan IV","champClass":"fighter","role":"Jungle","minutes":31,"kda":"5/9/16","csPerMin":6.3,"kp":53},{"playedAt":"2026-09-22T01:40:26.759Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":19,"kda":"12/1/6","csPerMin":8.9,"kp":78},{"playedAt":"2026-09-22T01:00:46.045Z","queue":"Ranked Solo","result":"loss","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":35,"kda":"15/5/8","csPerMin":7.5,"kp":68},{"playedAt":"2026-09-21T04:13:08.350Z","queue":"Ranked Solo","result":"win","champion":"Qiyana","champClass":"assassin","role":"Jungle","minutes":16,"kda":"4/1/2","csPerMin":8.5,"kp":21}]};
+  var LOCAL_ICON = { qiyana: 'img/champ-qiyana.webp', katarina: 'img/champ-katarina.webp', hecarim: 'img/champ-hecarim.webp', wukong: 'img/champ-wukong.webp', 'jarvan iv': 'img/champ-jarvaniv.webp' };
+  var CLASSES = ['fighter', 'tank', 'mage', 'assassin', 'support', 'marksman'];
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  function pair(cls, big, small) { var w = el('span', cls); w.appendChild(el('b', null, big)); w.appendChild(el('small', null, small)); return w; }
   function iconFor(name, remote) { return LOCAL_ICON[String(name).toLowerCase()] || remote || ''; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
   function renderGames(d, live) {
-    var list = document.getElementById('mhList'), sum = document.getElementById('mhSum'), badge = document.getElementById('mhLive');
-    if (!list || !d.games || !d.games.length) return;
+    var list = document.getElementById('mhList');
+    var games = (d.games || []).filter(function (g) { return /^Ranked/.test(g.queue); });
+    if (!list || !games.length) return;
+    document.getElementById('mhTitle').textContent = 'Recent games (last ' + games.length + ' ranked)';
     list.textContent = '';
-    d.games.forEach(function (g) {
-      var win = g.result === 'win', li = el('li', 'g ' + (win ? 'win' : 'loss'));
-      var p = String(g.kda).split('/').map(Number), ratio = (p[0] + p[2]) / Math.max(p[1], 1);
-      var ci = el('span', 'ci'), img = el('img'); img.alt = ''; img.src = iconFor(g.champion, g.icon); img.loading = 'lazy'; ci.appendChild(img);
-      var day = new Date(g.playedAt);
-      li.appendChild(el('span', 'bar'));
-      li.appendChild(ci);
-      li.appendChild(pair('r', win ? 'Victory' : 'Defeat', g.queue === 'Ranked Solo' ? 'Ranked Solo/Duo' : g.queue));
-      li.appendChild(pair('who', g.champion, g.role));
-      li.appendChild(pair('k', String(g.kda).replace(/\//g, ' / '), ratio.toFixed(2) + ' KDA'));
-      li.appendChild(pair('s', String(g.csPerMin), 'CS/min'));
-      li.appendChild(pair('s', g.kp + '%', 'Kill part.'));
-      li.appendChild(pair('t', g.minutes + 'm', isNaN(day) ? '' : day.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })));
-      li.setAttribute('aria-label', (win ? 'Victory' : 'Defeat') + ' as ' + g.champion + ', ' + g.kda);
+    games.forEach(function (g) {
+      var win = g.result === 'win', li = el('li', 'pho ' + (win ? 'win' : 'loss')), day = new Date(g.playedAt);
+      var ch = el('span', 'pc'), ring = el('span'), img = el('img'); img.alt = g.champion; img.src = iconFor(g.champion, g.icon); img.loading = 'lazy'; ring.appendChild(img); ch.appendChild(ring); li.appendChild(ch);
+      var res = el('div', 'res'); res.appendChild(el('div', 'rt', win ? 'Victory' : 'Defeat')); res.appendChild(el('div', 'md', g.queue === 'Ranked Solo' ? 'Ranked Solo/Duo' : g.queue === 'Ranked Flex' ? 'Ranked Flex' : g.queue)); li.appendChild(res);
+      var st = el('div', 'st'); st.appendChild(el('i', 'k', String(g.kda).replace(/\//g, ' / ')));
+      var cs = el('i', 'cs', String(g.csPerMin)); cs.appendChild(el('small', null, 'CS/M')); st.appendChild(cs);
+      var kp = el('i', 'kp', g.kp + '%'); kp.appendChild(el('small', null, 'KP')); st.appendChild(kp);
+      li.appendChild(st);
+      var ot = el('div', 'ot'); ot.appendChild(el('div', null, "Summoner's Rift" + (g.role ? ' · ' + g.role : '')));
+      var dt = el('div'); dt.appendChild(document.createTextNode(g.minutes + ' min')); dt.appendChild(el('span', 'dot', '•'));
+      dt.appendChild(document.createTextNode(isNaN(day) ? '' : pad(day.getMonth() + 1) + '/' + pad(day.getDate()) + '/' + day.getFullYear())); ot.appendChild(dt); li.appendChild(ot);
+      var rp = el('span', 'rp'); rp.setAttribute('aria-hidden', 'true'); li.appendChild(rp);
       list.appendChild(li);
     });
-    var r = d.record;
-    if (r) {
-      sum.innerHTML = '';
-      sum.appendChild(document.createTextNode('Last ' + r.games + ' · '));
-      sum.appendChild(el('b', 'w', r.wins + 'W')); sum.appendChild(document.createTextNode(' '));
-      sum.appendChild(el('b', 'l', r.losses + 'L'));
-      sum.appendChild(document.createTextNode(' · ' + r.winRatePercent + '% win rate · ' + r.kda + ' KDA · ' + r.csPerMin + ' CS/min'));
-    }
-    badge.classList.toggle('on', !!live);
-    badge.lastChild.textContent = live ? 'Live · updated ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'Snapshot · Oct 31, 2026';
-  }
-  function renderMastery(m) {
-    if (!m || !m.top || m.top.length < 3) return;
-    var big = document.querySelector('.sc.mid .big'), cards = document.querySelectorAll('.mpop .mc'), order = [m.top[1], m.top[0], m.top[2]];
-    if (big && m.score) big.textContent = m.score;
-    order.forEach(function (c, i) {
-      var card = cards[i]; if (!card) return;
-      card.querySelector('.pt').style.backgroundImage = 'url(' + iconFor(c.champion, c.icon) + ')';
-      card.querySelector('b').textContent = c.champion;
-      card.querySelector('small').textContent = 'Mastery ' + c.level;
+    // Recently played champions: top three by share of these games.
+    var counts = {}, order = [], cls = {};
+    games.forEach(function (g) { if (!counts[g.champion]) { counts[g.champion] = { n: 0, icon: g.icon }; order.push(g.champion); } counts[g.champion].n++; if (g.champClass) cls[g.champClass] = (cls[g.champClass] || 0) + 1; });
+    order.sort(function (a, b) { return counts[b].n - counts[a].n; });
+    var box = document.getElementById('mhChamps'); box.textContent = '';
+    order.slice(0, 3).forEach(function (name) {
+      var c = el('div'), pt = el('span', 'pt'), cr = el('img', 'cr');
+      pt.style.backgroundImage = 'url(' + iconFor(name, counts[name].icon) + ')'; pt.setAttribute('role', 'img'); pt.setAttribute('aria-label', name);
+      cr.src = 'img/mastery.webp'; cr.alt = '';
+      c.appendChild(pt); c.appendChild(cr); c.appendChild(el('b', null, Math.round(counts[name].n / games.length * 100) + '%'));
+      box.appendChild(c);
     });
-    var portrait = document.querySelector('.sc.mid .portrait');
-    if (portrait && m.top[0].champion.toLowerCase() !== 'qiyana') portrait.style.backgroundImage = 'url(' + iconFor(m.top[0].champion, m.top[0].icon) + ')';
+    // Recent activity: share of games by champion class, in the client's order.
+    var act = document.getElementById('mhAct'); act.textContent = '';
+    CLASSES.forEach(function (k) {
+      var c = el('div'), bar = el('span', 'bar'), fill = el('i'), ic = el('img'), share = (cls[k] || 0) / games.length;
+      fill.style.height = share ? Math.max(4, Math.round(share * 86)) + 'px' : '0';
+      bar.appendChild(fill); ic.src = 'img/mh/role-' + k + '.png'; ic.alt = k.charAt(0).toUpperCase() + k.slice(1) + ' ' + Math.round(share * 100) + '%'; ic.title = ic.alt;
+      c.appendChild(bar); c.appendChild(ic); act.appendChild(c);
+    });
+    var lv = document.getElementById('mhLive');
+    lv.classList.toggle('on', !!live);
+    lv.textContent = live ? 'Live' : 'Snapshot (Oct 31, 2026)';
   }
   renderGames(SNAP, false);
   function loadLeague() {
     fetch('/api/league', { headers: { Accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw r; return r.json(); })
-      .then(function (d) { if (d.games && d.games.length) renderGames(d, true); renderMastery(d.mastery); })
+      .then(function (d) { renderGames(d, true); })
       .catch(function () {});
   }
   loadLeague();
-  setInterval(function () { if (!document.hidden) loadLeague(); }, 5 * 60 * 1000);
+
+  // Loot: achievements as a hextech inventory. Facts only.
+  var LOOT = [
+    { cat: 'ach', cls: 'perm', kind: 'Ranked reward', name: 'Peak Grandmaster', art: 'img/rank-gm.webp', text: 'Peaked Grandmaster in Solo/Duo, the top 0.05% of North America. Mostly on Qiyana.', cta: [{ label: 'Match history', go: 'history' }] },
+    { cat: 'proj', cls: 'perm', kind: 'Project permanent', name: 'Turnpoint', art: 'img/turnpoint.webp', fit: 'cover', text: 'League match analyzer. Look up any player and see the moments that decided the game, with machine learning trained on real match data.', cta: [{ label: 'Launch', href: 'https://league-web-app.vercel.app' }, { label: 'Details', go: 'turnpoint', ghost: true }] },
+    { cat: 'proj', cls: 'perm', kind: 'Project permanent', name: 'Petri', art: 'img/petri.webp', fit: 'cover', text: 'A self-evolving web app built by AI agents. Visitors suggest what Blobby should learn next, and agents write the change and its tests.', cta: [{ label: 'Launch', href: 'https://petri-pi.vercel.app' }, { label: 'Details', go: 'petri', ghost: true }] },
+    { cat: 'proj', cls: 'shard', kind: 'Project shard', name: 'X Arena', mono: 'XA', text: 'Still being crafted. A multiplayer arena shooter on Roblox with server-validated hitboxes and lag compensation, in development since September 2026.', cta: [{ label: 'Details', go: 'xarena', ghost: true }] },
+    { cat: 'ach', cls: 'perm', kind: 'Champion mastery', name: 'Qiyana · Mastery 72', art: 'img/main-icon.webp', fit: 'round', text: 'My main. Mastery score 716 across all champions.' },
+    { cat: 'ach', cls: '', kind: 'Honor reward', name: 'Honor level 5', art: 'img/honor.webp', text: 'Honor level 5, the highest honor level in League.' },
+    { cat: 'ach', cls: '', kind: 'Event token', name: 'UofT Computer Science', art: 'img/banner-uoft.svg', text: 'Second-year Computer Science student at the University of Toronto, Class of 2029.' },
+    { cat: 'chest', cls: 'perm', kind: 'Locked chest', name: 'Summer 2027 internship', art: 'img/loot-chest.webp', key: true, text: 'Needs one key to open: an internship offer. I\'m looking for a Summer 2027 software engineering internship.', cta: [{ label: 'Send a key', href: 'mailto:jaspy.li@mail.utoronto.ca?subject=Summer%202027%20internship' }] }
+  ];
+  var ltGrid = document.getElementById('ltGrid'), ltDetail = document.getElementById('ltDetail');
+  function artEl(it, big) {
+    if (it.mono) return el('span', 'mono', it.mono);
+    var im = el('img', it.fit || ''); im.src = it.art; im.alt = ''; return im;
+  }
+  function pickLoot(i, quiet) {
+    var it = LOOT[i];
+    ltGrid.querySelectorAll('.it').forEach(function (b, j) { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+    ltDetail.textContent = '';
+    var a = el('div', 'ld-art'); a.appendChild(artEl(it, true)); ltDetail.appendChild(a);
+    ltDetail.appendChild(el('div', 'ld-kind', it.kind));
+    ltDetail.appendChild(el('div', 'ld-name', it.name));
+    ltDetail.appendChild(el('p', 'ld-text', it.text));
+    if (it.cta) {
+      var c = el('div', 'ld-cta');
+      it.cta.forEach(function (x) {
+        var b = el('a', 'btn' + (x.ghost ? ' ghost' : ''), x.label);
+        if (x.href) { b.href = x.href; if (x.href.indexOf('http') === 0) { b.target = '_blank'; b.rel = 'noopener'; } }
+        else { b.href = '#' + x.go; b.addEventListener('click', function (e) { e.preventDefault(); sfx('nav-click', .4); show(x.go); }); }
+        c.appendChild(b);
+      });
+      ltDetail.appendChild(c);
+    }
+    if (!quiet) sfx('click', .4);
+  }
+  if (ltGrid) {
+    ltGrid.setAttribute('role', 'listbox'); ltGrid.setAttribute('aria-label', 'Loot items');
+    LOOT.forEach(function (it, i) {
+      var b = el('button', 'it ' + it.cls); b.type = 'button'; b.dataset.cat = it.cat; b.setAttribute('role', 'option');
+      var f = el('span', 'fr'); f.appendChild(artEl(it));
+      if (it.key) { var k = el('img', 'key'); k.src = 'img/loot-key.webp'; k.alt = ''; f.appendChild(k); }
+      b.appendChild(f); b.appendChild(el('span', 'lb', it.name));
+      b.addEventListener('click', function () { pickLoot(i); });
+      ltGrid.appendChild(b);
+    });
+    pickLoot(0, true);
+    document.querySelectorAll('.lt-cats button').forEach(function (t) {
+      t.addEventListener('click', function () {
+        sfx('tab-click', .45);
+        document.querySelectorAll('.lt-cats button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+        var first = -1;
+        ltGrid.querySelectorAll('.it').forEach(function (b, j) { var hide = t.dataset.cat !== 'all' && b.dataset.cat !== t.dataset.cat; b.hidden = hide; if (!hide && first < 0) first = j; });
+        if (first > -1) pickLoot(first, true);
+      });
+    });
+  }
+  // Collection tabs
+  document.querySelectorAll('.co-tabs button').forEach(function (t) {
+    t.addEventListener('click', function () {
+      sfx('tab-click', .45);
+      document.querySelectorAll('.co-tabs button').forEach(function (o) { o.classList.toggle('on', o === t); o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      document.querySelectorAll('.co-pane').forEach(function (p) { p.hidden = p.dataset.co !== t.dataset.co; });
+      document.getElementById('coCount').textContent = t.dataset.co === 'skins' ? '2 of 3 owned' : '14 of 14 owned';
+    });
+  });
   show(document.querySelector('[data-page="' + h + '"]') ? h : 'overview');
 })();
 </script>
